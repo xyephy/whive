@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2018 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mining RPCs
@@ -12,6 +12,7 @@ import copy
 from binascii import b2a_hex
 from decimal import Decimal
 
+<<<<<<< HEAD
 from test_framework.blocktools import create_coinbase
 from test_framework.messages import CBlock
 from test_framework.test_framework import BitcoinTestFramework
@@ -19,6 +20,29 @@ from test_framework.util import assert_equal, assert_raises_rpc_error
 
 def b2x(b):
     return b2a_hex(b).decode('ascii')
+=======
+from test_framework.blocktools import (
+    create_coinbase,
+    TIME_GENESIS_BLOCK,
+)
+from test_framework.messages import (
+    CBlock,
+    CBlockHeader,
+    BLOCK_HEADER_SIZE
+)
+from test_framework.mininode import (
+    P2PDataStore,
+)
+from test_framework.test_framework import BitcoinTestFramework
+from test_framework.util import (
+    assert_equal,
+    assert_raises_rpc_error,
+    bytes_to_hex_str as b2x,
+    connect_nodes_bi,
+)
+from test_framework.script import CScriptNum
+>>>>>>> upstream/0.18
+
 
 def assert_template(node, block, expect, rehash=True):
     if rehash:
@@ -29,20 +53,33 @@ def assert_template(node, block, expect, rehash=True):
 class MiningTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.setup_clean_chain = False
+        self.setup_clean_chain = True
+
+    def mine_chain(self):
+        self.log.info('Create some old blocks')
+        for t in range(TIME_GENESIS_BLOCK, TIME_GENESIS_BLOCK + 200 * 600, 600):
+            self.nodes[0].setmocktime(t)
+            self.nodes[0].generate(1)
+        mining_info = self.nodes[0].getmininginfo()
+        assert_equal(mining_info['blocks'], 200)
+        assert_equal(mining_info['currentblocktx'], 0)
+        assert_equal(mining_info['currentblockweight'], 4000)
+        self.restart_node(0)
+        connect_nodes_bi(self.nodes, 0, 1)
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
 
     def run_test(self):
+        self.mine_chain()
         node = self.nodes[0]
 
         self.log.info('getmininginfo')
         mining_info = node.getmininginfo()
         assert_equal(mining_info['blocks'], 200)
         assert_equal(mining_info['chain'], 'regtest')
-        assert_equal(mining_info['currentblocktx'], 0)
-        assert_equal(mining_info['currentblockweight'], 0)
+        assert 'currentblocktx' not in mining_info
+        assert 'currentblockweight' not in mining_info
         assert_equal(mining_info['difficulty'], Decimal('4.656542373906925E-10'))
         assert_equal(mining_info['networkhashps'], Decimal('0.003333333333333334'))
         assert_equal(mining_info['pooledtx'], 0)
@@ -106,11 +143,16 @@ class MiningTest(BitcoinTestFramework):
 
         self.log.info("getblocktemplate: Test bad tx count")
         # The tx count is immediately after the block header
-        TX_COUNT_OFFSET = 80
         bad_block_sn = bytearray(block.serialize())
+<<<<<<< HEAD
         assert_equal(bad_block_sn[TX_COUNT_OFFSET], 1)
         bad_block_sn[TX_COUNT_OFFSET] += 1
         assert_raises_rpc_error(-22, "Block decode failed", node.getblocktemplate, {'data': b2x(bad_block_sn), 'mode': 'proposal'})
+=======
+        assert_equal(bad_block_sn[BLOCK_HEADER_SIZE], 1)
+        bad_block_sn[BLOCK_HEADER_SIZE] += 1
+        assert_raises_rpc_error(-22, "Block decode failed", node.getblocktemplate, {'data': b2x(bad_block_sn), 'mode': 'proposal', 'rules': ['segwit']})
+>>>>>>> upstream/0.18
 
         self.log.info("getblocktemplate: Test bad bits")
         bad_block = copy.deepcopy(block)
@@ -133,6 +175,76 @@ class MiningTest(BitcoinTestFramework):
         bad_block = copy.deepcopy(block)
         bad_block.hashPrevBlock = 123
         assert_template(node, bad_block, 'inconclusive-not-best-prevblk')
+<<<<<<< HEAD
+=======
+        assert_submitblock(bad_block, 'prev-blk-not-found', 'prev-blk-not-found')
+
+        self.log.info('submitheader tests')
+        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='xx' * BLOCK_HEADER_SIZE))
+        assert_raises_rpc_error(-22, 'Block header decode failed', lambda: node.submitheader(hexdata='ff' * (BLOCK_HEADER_SIZE-2)))
+        assert_raises_rpc_error(-25, 'Must submit previous header', lambda: node.submitheader(hexdata=b2x(super(CBlock, bad_block).serialize())))
+
+        block.nTime += 1
+        block.solve()
+
+        def chain_tip(b_hash, *, status='headers-only', branchlen=1):
+            return {'hash': b_hash, 'height': 202, 'branchlen': branchlen, 'status': status}
+
+        assert chain_tip(block.hash) not in node.getchaintips()
+        node.submitheader(hexdata=b2x(block.serialize()))
+        assert chain_tip(block.hash) in node.getchaintips()
+        node.submitheader(hexdata=b2x(CBlockHeader(block).serialize()))  # Noop
+        assert chain_tip(block.hash) in node.getchaintips()
+
+        bad_block_root = copy.deepcopy(block)
+        bad_block_root.hashMerkleRoot += 2
+        bad_block_root.solve()
+        assert chain_tip(bad_block_root.hash) not in node.getchaintips()
+        node.submitheader(hexdata=b2x(CBlockHeader(bad_block_root).serialize()))
+        assert chain_tip(bad_block_root.hash) in node.getchaintips()
+        # Should still reject invalid blocks, even if we have the header:
+        assert_equal(node.submitblock(hexdata=b2x(bad_block_root.serialize())), 'bad-txnmrklroot')
+        assert_equal(node.submitblock(hexdata=b2x(bad_block_root.serialize())), 'bad-txnmrklroot')
+        assert chain_tip(bad_block_root.hash) in node.getchaintips()
+        # We know the header for this invalid block, so should just return early without error:
+        node.submitheader(hexdata=b2x(CBlockHeader(bad_block_root).serialize()))
+        assert chain_tip(bad_block_root.hash) in node.getchaintips()
+
+        bad_block_lock = copy.deepcopy(block)
+        bad_block_lock.vtx[0].nLockTime = 2**32 - 1
+        bad_block_lock.vtx[0].rehash()
+        bad_block_lock.hashMerkleRoot = bad_block_lock.calc_merkle_root()
+        bad_block_lock.solve()
+        assert_equal(node.submitblock(hexdata=b2x(bad_block_lock.serialize())), 'bad-txns-nonfinal')
+        assert_equal(node.submitblock(hexdata=b2x(bad_block_lock.serialize())), 'duplicate-invalid')
+        # Build a "good" block on top of the submitted bad block
+        bad_block2 = copy.deepcopy(block)
+        bad_block2.hashPrevBlock = bad_block_lock.sha256
+        bad_block2.solve()
+        assert_raises_rpc_error(-25, 'bad-prevblk', lambda: node.submitheader(hexdata=b2x(CBlockHeader(bad_block2).serialize())))
+
+        # Should reject invalid header right away
+        bad_block_time = copy.deepcopy(block)
+        bad_block_time.nTime = 1
+        bad_block_time.solve()
+        assert_raises_rpc_error(-25, 'time-too-old', lambda: node.submitheader(hexdata=b2x(CBlockHeader(bad_block_time).serialize())))
+
+        # Should ask for the block from a p2p node, if they announce the header as well:
+        node.add_p2p_connection(P2PDataStore())
+        node.p2p.wait_for_getheaders(timeout=5)  # Drop the first getheaders
+        node.p2p.send_blocks_and_test(blocks=[block], node=node)
+        # Must be active now:
+        assert chain_tip(block.hash, status='active', branchlen=0) in node.getchaintips()
+
+        # Building a few blocks should give the same results
+        node.generatetoaddress(10, node.get_deterministic_priv_key().address)
+        assert_raises_rpc_error(-25, 'time-too-old', lambda: node.submitheader(hexdata=b2x(CBlockHeader(bad_block_time).serialize())))
+        assert_raises_rpc_error(-25, 'bad-prevblk', lambda: node.submitheader(hexdata=b2x(CBlockHeader(bad_block2).serialize())))
+        node.submitheader(hexdata=b2x(CBlockHeader(block).serialize()))
+        node.submitheader(hexdata=b2x(CBlockHeader(bad_block_root).serialize()))
+        assert_equal(node.submitblock(hexdata=b2x(block.serialize())), 'duplicate')  # valid
+
+>>>>>>> upstream/0.18
 
 if __name__ == '__main__':
     MiningTest().main()

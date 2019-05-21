@@ -16,6 +16,7 @@
 #endif
 
 #include <compat.h>
+#include <compat/assumptions.h>
 #include <fs.h>
 #include <logging.h>
 #include <sync.h>
@@ -49,7 +50,6 @@ public:
 extern CTranslationInterface translationInterface;
 
 extern const char * const BITCOIN_CONF_FILENAME;
-extern const char * const BITCOIN_PID_FILENAME;
 
 /**
  * Translation function: Call Translate signal on UI interface, which returns a boost::optional result.
@@ -91,10 +91,6 @@ const fs::path &GetBlocksDir(bool fNetSpecific = true);
 const fs::path &GetDataDir(bool fNetSpecific = true);
 void ClearDatadirCache();
 fs::path GetConfigFile(const std::string& confPath);
-#ifndef WIN32
-fs::path GetPidFile();
-void CreatePidFile(const fs::path &path, pid_t pid);
-#endif
 #ifdef WIN32
 fs::path GetSpecialFolderPath(int nFolder, bool fCreate = true);
 #endif
@@ -291,6 +287,9 @@ extern ArgsManager gArgs;
  * @return true if help has been requested via a command-line arg
  */
 bool HelpRequested(const ArgsManager& args);
+
+/** Add help options to the args manager */
+void SetupHelpOptions(ArgsManager& args);
 
 /**
  * Format a string to be used as group of options in help messages

@@ -236,6 +236,9 @@ public:
     // Return whether HD enabled.
     virtual bool hdEnabled() = 0;
 
+    // Return whether the wallet is blank.
+    virtual bool canGetAddresses() = 0;
+
     // check if a certain wallet flag is set.
     virtual bool IsWalletFlagSet(uint64_t flag) = 0;
 
@@ -244,6 +247,9 @@ public:
 
     // Get default change type.
     virtual OutputType getDefaultChangeType() = 0;
+
+    // Remove wallet.
+    virtual void remove() = 0;
 
     //! Register handler for unload message.
     using UnloadFn = std::function<void()>;

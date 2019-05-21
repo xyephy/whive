@@ -48,8 +48,15 @@ struct Descriptor {
     virtual bool Expand(int pos, const SigningProvider& provider, std::vector<CScript>& output_scripts, FlatSigningProvider& out) const = 0;
 };
 
-/** Parse a descriptor string. Included private keys are put in out. Returns nullptr if parsing fails. */
-std::unique_ptr<Descriptor> Parse(const std::string& descriptor, FlatSigningProvider& out);
+/** Parse a descriptor string. Included private keys are put in out.
+ *
+ * If the descriptor has a checksum, it must be valid. If require_checksum
+ * is set, the checksum is mandatory - otherwise it is optional.
+ *
+ * If a parse error occurs, or the checksum is missing/invalid, or anything
+ * else is wrong, nullptr is returned.
+ */
+std::unique_ptr<Descriptor> Parse(const std::string& descriptor, FlatSigningProvider& out, bool require_checksum = false);
 
 #endif // BITCOIN_SCRIPT_DESCRIPTOR_H
 

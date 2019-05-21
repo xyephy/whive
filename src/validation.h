@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
 // Copyright (c) 2018-2019 The Whive Core developers
+=======
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+>>>>>>> upstream/0.18
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,8 +19,8 @@
 #include <amount.h>
 #include <coins.h>
 #include <fs.h>
-#include <protocol.h> // For CMessageHeader::MessageStartChars
 #include <policy/feerate.h>
+#include <protocol.h> // For CMessageHeader::MessageStartChars
 #include <script/script_error.h>
 #include <sync.h>
 #include <versionbits.h>
@@ -148,9 +153,13 @@ extern CBlockPolicyEstimator feeEstimator;
 extern CTxMemPool mempool;
 extern std::atomic_bool g_is_mempool_loaded;
 typedef std::unordered_map<uint256, CBlockIndex*, BlockHasher> BlockMap;
+<<<<<<< HEAD
 extern BlockMap& mapBlockIndex;
 extern uint64_t nLastBlockTx;
 extern uint64_t nLastBlockWeight;
+=======
+extern BlockMap& mapBlockIndex GUARDED_BY(cs_main);
+>>>>>>> upstream/0.18
 extern const std::string strMessageMagic;
 extern CWaitableCriticalSection g_best_block_mutex;
 extern CConditionVariable g_best_block_cv;
@@ -447,7 +456,7 @@ CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& loc
 bool PreciousBlock(CValidationState& state, const CChainParams& params, CBlockIndex *pindex) LOCKS_EXCLUDED(cs_main);
 
 /** Mark a block as invalid. */
-bool InvalidateBlock(CValidationState& state, const CChainParams& chainparams, CBlockIndex* pindex) EXCLUSIVE_LOCKS_REQUIRED(cs_main);
+bool InvalidateBlock(CValidationState& state, const CChainParams& chainparams, CBlockIndex* pindex);
 
 /** Remove invalidity status from a block and its descendants. */
 void ResetBlockFailureFlags(CBlockIndex* pindex) EXCLUSIVE_LOCKS_REQUIRED(cs_main);

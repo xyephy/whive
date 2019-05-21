@@ -44,6 +44,15 @@
 #include <boost/thread/thread.hpp>
 #include <univalue.h>
 
+<<<<<<< HEAD
+=======
+class CWallet;
+fs::path GetWalletDir();
+std::vector<fs::path> ListWalletDir();
+std::vector<std::shared_ptr<CWallet>> GetWallets();
+std::shared_ptr<CWallet> LoadWallet(interfaces::Chain& chain, const std::string& name, std::string& error, std::string& warning);
+
+>>>>>>> upstream/0.18
 namespace interfaces {
 namespace {
 
@@ -230,6 +239,10 @@ class NodeImpl : public Node
 #else
         throw std::logic_error("Node::getWallets() called in non-wallet build.");
 #endif
+    }
+    std::unique_ptr<Wallet> loadWallet(const std::string& name, std::string& error, std::string& warning) override
+    {
+        return MakeWallet(LoadWallet(*m_interfaces.chain, name, error, warning));
     }
     std::unique_ptr<Handler> handleInitMessage(InitMessageFn fn) override
     {

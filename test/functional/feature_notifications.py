@@ -64,6 +64,7 @@ class NotificationsTest(BitcoinTestFramework):
         with open(self.tx_filename, 'r', encoding="ascii") as f:
             assert_equal(sorted(txids_rpc), sorted(l.strip() for l in f.read().splitlines()))
 
+<<<<<<< HEAD
         # Mine another 41 up-version blocks. -alertnotify should trigger on the 51st.
         self.log.info("test -alertnotify")
         self.nodes[1].generate(41)
@@ -84,6 +85,9 @@ class NotificationsTest(BitcoinTestFramework):
 
         self.log.info("-alertnotify should not continue notifying for more unknown version blocks")
         assert_equal(alert_text, alert_text2)
+=======
+        # TODO: add test for `-alertnotify` large fork notifications
+>>>>>>> upstream/0.18
 
 if __name__ == '__main__':
     NotificationsTest().main()

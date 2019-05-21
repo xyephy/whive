@@ -210,11 +210,20 @@ UniValue help(const JSONRPCRequest& jsonRequest)
 {
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
+<<<<<<< HEAD
             "help ( \"command\" )\n"
             "\nList all commands, or get help for a specified command.\n"
             "\nArguments:\n"
             "1. \"command\"     (string, optional) The command to get help on\n"
             "\nResult:\n"
+=======
+            RPCHelpMan{"help",
+                "\nList all commands, or get help for a specified command.\n",
+                {
+                    {"command", RPCArg::Type::STR, /* default */ "all commands", "The command to get help on"},
+                },
+                RPCResult{
+>>>>>>> upstream/0.18
             "\"text\"     (string) The help text\n"
         );
 
@@ -250,6 +259,37 @@ static UniValue uptime(const JSONRPCRequest& jsonRequest)
                         "\nExamples:\n"
                 + HelpExampleCli("uptime", "")
                 + HelpExampleRpc("uptime", "")
+<<<<<<< HEAD
+=======
+                },
+            }.ToString());
+
+    return GetTime() - GetStartupTime();
+}
+
+static UniValue getrpcinfo(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 0) {
+        throw std::runtime_error(
+            RPCHelpMan{"getrpcinfo",
+                "\nReturns details of the RPC server.\n",
+                {},
+                RPCResult{
+            "{\n"
+            " \"active_commands\" (array) All active commands\n"
+            "  [\n"
+            "   {               (object) Information about an active command\n"
+            "    \"method\"       (string)  The name of the RPC command \n"
+            "    \"duration\"     (numeric)  The running time in microseconds\n"
+            "   },...\n"
+            "  ]\n"
+            "}\n"
+                },
+                RPCExamples{
+                    HelpExampleCli("getrpcinfo", "")
+                + HelpExampleRpc("getrpcinfo", "")},
+            }.ToString()
+>>>>>>> upstream/0.18
         );
 
     return GetTime() - GetStartupTime();

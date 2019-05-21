@@ -323,8 +323,13 @@ bool BerkeleyBatch::VerifyEnvironment(const fs::path& file_path, std::string& er
     BerkeleyEnvironment* env = GetWalletEnv(file_path, walletFile);
     fs::path walletDir = env->Directory();
 
+<<<<<<< HEAD
     LogPrintf("Using BerkeleyDB version %s\n", DbEnv::version(0, 0, 0));
     LogPrintf("Using wallet %s\n", walletFile);
+=======
+    LogPrintf("Using BerkeleyDB version %s\n", DbEnv::version(nullptr, nullptr, nullptr));
+    LogPrintf("Using wallet %s\n", file_path.string());
+>>>>>>> upstream/0.18
 
     // Wallet file must be a plain filename without a directory
     if (walletFile != fs::basename(walletFile) + fs::extension(walletFile))

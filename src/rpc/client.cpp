@@ -77,6 +77,10 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "sendmany", 4, "subtractfeefrom" },
     { "sendmany", 5 , "replaceable" },
     { "sendmany", 6 , "conf_target" },
+<<<<<<< HEAD
+=======
+    { "deriveaddresses", 1, "range" },
+>>>>>>> upstream/0.18
     { "scantxoutset", 1, "scanobjects" },
     { "addmultisigaddress", 0, "nrequired" },
     { "addmultisigaddress", 1, "keys" },
@@ -121,6 +125,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "createpsbt", 2, "locktime" },
     { "createpsbt", 3, "replaceable" },
     { "combinepsbt", 0, "txs"},
+    { "joinpsbts", 0, "txs"},
     { "finalizepsbt", 1, "extract"},
     { "converttopsbt", 1, "permitsigdata"},
     { "converttopsbt", 2, "iswitness"},
@@ -171,6 +176,12 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "rescanblockchain", 0, "start_height"},
     { "rescanblockchain", 1, "stop_height"},
     { "createwallet", 1, "disable_private_keys"},
+<<<<<<< HEAD
+=======
+    { "createwallet", 2, "blank"},
+    { "getnodeaddresses", 0, "count"},
+    { "stop", 0, "wait" },
+>>>>>>> upstream/0.18
 };
 
 class CRPCConvertTable

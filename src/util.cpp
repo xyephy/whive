@@ -82,8 +82,12 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
+<<<<<<< HEAD:src/util.cpp
 const char * const BITCOIN_CONF_FILENAME = "whive.conf";
 const char * const BITCOIN_PID_FILENAME = "whived.pid";
+=======
+const char * const BITCOIN_CONF_FILENAME = "bitcoin.conf";
+>>>>>>> upstream/0.18:src/util/system.cpp
 
 ArgsManager gArgs;
 
@@ -665,6 +669,12 @@ bool HelpRequested(const ArgsManager& args)
     return args.IsArgSet("-?") || args.IsArgSet("-h") || args.IsArgSet("-help");
 }
 
+void SetupHelpOptions(ArgsManager& args)
+{
+    args.AddArg("-?", "Print this help message and exit", false, OptionsCategory::OPTIONS);
+    args.AddHiddenArgs({"-h", "-help"});
+}
+
 static const int screenWidth = 79;
 static const int optIndent = 2;
 static const int msgIndent = 7;
@@ -973,23 +983,6 @@ std::string ArgsManager::GetChainName() const
         return CBaseChainParams::TESTNET;
     return CBaseChainParams::MAIN;
 }
-
-#ifndef WIN32
-fs::path GetPidFile()
-{
-    return AbsPathForConfigVal(fs::path(gArgs.GetArg("-pid", BITCOIN_PID_FILENAME)));
-}
-
-void CreatePidFile(const fs::path &path, pid_t pid)
-{
-    FILE* file = fsbridge::fopen(path, "w");
-    if (file)
-    {
-        fprintf(file, "%d\n", pid);
-        fclose(file);
-    }
-}
-#endif
 
 bool RenameOver(fs::path src, fs::path dest)
 {

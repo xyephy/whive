@@ -75,6 +75,7 @@ static inline int64_t GetPerformanceCounter()
 
 
 #if defined(__x86_64__) || defined(__amd64__) || defined(__i386__)
+<<<<<<< HEAD
 static std::atomic<bool> hwrand_initialized{false};
 static bool rdrand_supported = false;
 static constexpr uint32_t CPUID_F1_ECX_RDRAND = 0x40000000;
@@ -82,15 +83,131 @@ static void RDRandInit()
 {
     uint32_t eax, ebx, ecx, edx;
     if (__get_cpuid(1, &eax, &ebx, &ecx, &edx) && (ecx & CPUID_F1_ECX_RDRAND)) {
+=======
+static bool g_rdrand_supported = false;
+static bool g_rdseed_supported = false;
+static constexpr uint32_t CPUID_F1_ECX_RDRAND = 0x40000000;
+static constexpr uint32_t CPUID_F7_EBX_RDSEED = 0x00040000;
+#ifdef bit_RDRND
+static_assert(CPUID_F1_ECX_RDRAND == bit_RDRND, "Unexpected value for bit_RDRND");
+#endif
+#ifdef bit_RDSEED
+static_assert(CPUID_F7_EBX_RDSEED == bit_RDSEED, "Unexpected value for bit_RDSEED");
+#endif
+static void inline GetCPUID(uint32_t leaf, uint32_t subleaf, uint32_t& a, uint32_t& b, uint32_t& c, uint32_t& d)
+{
+    // We can't use __get_cpuid as it doesn't support subleafs.
+#ifdef __GNUC__
+    __cpuid_count(leaf, subleaf, a, b, c, d);
+#else
+    __asm__ ("cpuid" : "=a"(a), "=b"(b), "=c"(c), "=d"(d) : "0"(leaf), "2"(subleaf));
+#endif
+}
+
+static void InitHardwareRand()
+{
+    uint32_t eax, ebx, ecx, edx;
+    GetCPUID(1, 0, eax, ebx, ecx, edx);
+    if (ecx & CPUID_F1_ECX_RDRAND) {
+        g_rdrand_supported = true;
+    }
+    GetCPUID(7, 0, eax, ebx, ecx, edx);
+    if (ebx & CPUID_F7_EBX_RDSEED) {
+        g_rdseed_supported = true;
+    }
+}
+
+static void ReportHardwareRand()
+{
+    // This must be done in a separate function, as HWRandInit() may be indirectly called
+    // from global constructors, before logging is initialized.
+    if (g_rdseed_supported) {
+        LogPrintf("Using RdSeed as additional entropy source\n");
+    }
+    if (g_rdrand_supported) {
+>>>>>>> upstream/0.18
         LogPrintf("Using RdRand as an additional entropy source\n");
         rdrand_supported = true;
     }
     hwrand_initialized.store(true);
 }
+<<<<<<< HEAD
+=======
+
+/** Read 64 bits of entropy using rdrand.
+ *
+ * Must only be called when RdRand is supported.
+ */
+static uint64_t GetRdRand() noexcept
+{
+    // RdRand may very rarely fail. Invoke it up to 10 times in a loop to reduce this risk.
+#ifdef __i386__
+    uint8_t ok;
+    uint32_t r1, r2;
+    for (int i = 0; i < 10; ++i) {
+        __asm__ volatile (".byte 0x0f, 0xc7, 0xf0; setc %1" : "=a"(r1), "=q"(ok) :: "cc"); // rdrand %eax
+        if (ok) break;
+    }
+    for (int i = 0; i < 10; ++i) {
+        __asm__ volatile (".byte 0x0f, 0xc7, 0xf0; setc %1" : "=a"(r2), "=q"(ok) :: "cc"); // rdrand %eax
+        if (ok) break;
+    }
+    return (((uint64_t)r2) << 32) | r1;
+#elif defined(__x86_64__) || defined(__amd64__)
+    uint8_t ok;
+    uint64_t r1;
+    for (int i = 0; i < 10; ++i) {
+        __asm__ volatile (".byte 0x48, 0x0f, 0xc7, 0xf0; setc %1" : "=a"(r1), "=q"(ok) :: "cc"); // rdrand %rax
+        if (ok) break;
+    }
+    return r1;
+#else
+#error "RdRand is only supported on x86 and x86_64"
+#endif
+}
+
+/** Read 64 bits of entropy using rdseed.
+ *
+ * Must only be called when RdSeed is supported.
+ */
+static uint64_t GetRdSeed() noexcept
+{
+    // RdSeed may fail when the HW RNG is overloaded. Loop indefinitely until enough entropy is gathered,
+    // but pause after every failure.
+#ifdef __i386__
+    uint8_t ok;
+    uint32_t r1, r2;
+    do {
+        __asm__ volatile (".byte 0x0f, 0xc7, 0xf8; setc %1" : "=a"(r1), "=q"(ok) :: "cc"); // rdseed %eax
+        if (ok) break;
+        __asm__ volatile ("pause");
+    } while(true);
+    do {
+        __asm__ volatile (".byte 0x0f, 0xc7, 0xf8; setc %1" : "=a"(r2), "=q"(ok) :: "cc"); // rdseed %eax
+        if (ok) break;
+        __asm__ volatile ("pause");
+    } while(true);
+    return (((uint64_t)r2) << 32) | r1;
+#elif defined(__x86_64__) || defined(__amd64__)
+    uint8_t ok;
+    uint64_t r1;
+    do {
+        __asm__ volatile (".byte 0x48, 0x0f, 0xc7, 0xf8; setc %1" : "=a"(r1), "=q"(ok) :: "cc"); // rdseed %rax
+        if (ok) break;
+        __asm__ volatile ("pause");
+    } while(true);
+    return r1;
+#else
+#error "RdSeed is only supported on x86 and x86_64"
+#endif
+}
+
+>>>>>>> upstream/0.18
 #else
 static void RDRandInit() {}
 #endif
 
+<<<<<<< HEAD
 static bool GetHWRand(unsigned char* ent32) {
 #if defined(__x86_64__) || defined(__amd64__) || defined(__i386__)
     assert(hwrand_initialized.load(std::memory_order_relaxed));
@@ -121,11 +238,42 @@ static bool GetHWRand(unsigned char* ent32) {
         WriteLE64(ent32 + 8, r2);
         WriteLE64(ent32 + 16, r3);
         WriteLE64(ent32 + 24, r4);
+=======
+/** Add 64 bits of entropy gathered from hardware to hasher. Do nothing if not supported. */
+static void SeedHardwareFast(CSHA512& hasher) noexcept {
+#if defined(__x86_64__) || defined(__amd64__) || defined(__i386__)
+    if (g_rdrand_supported) {
+        uint64_t out = GetRdRand();
+        hasher.Write((const unsigned char*)&out, sizeof(out));
+        return;
+    }
+>>>>>>> upstream/0.18
 #endif
-        return true;
+}
+
+/** Add 256 bits of entropy gathered from hardware to hasher. Do nothing if not supported. */
+static void SeedHardwareSlow(CSHA512& hasher) noexcept {
+#if defined(__x86_64__) || defined(__amd64__) || defined(__i386__)
+    // When we want 256 bits of entropy, prefer RdSeed over RdRand, as it's
+    // guaranteed to produce independent randomness on every call.
+    if (g_rdseed_supported) {
+        for (int i = 0; i < 4; ++i) {
+            uint64_t out = GetRdSeed();
+            hasher.Write((const unsigned char*)&out, sizeof(out));
+        }
+        return;
+    }
+    // When falling back to RdRand, XOR the result of 1024 results.
+    // This guarantees a reseeding occurs between each.
+    if (g_rdrand_supported) {
+        for (int i = 0; i < 4; ++i) {
+            uint64_t out = 0;
+            for (int j = 0; j < 1024; ++j) out ^= GetRdRand();
+            hasher.Write((const unsigned char*)&out, sizeof(out));
+        }
+        return;
     }
 #endif
-    return false;
 }
 
 void RandAddSeed()
@@ -282,9 +430,41 @@ static void AddDataToRng(void* data, size_t len);
 
 void RandAddSeedSleep()
 {
+<<<<<<< HEAD
     int64_t nPerfCounter1 = GetPerformanceCounter();
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
     int64_t nPerfCounter2 = GetPerformanceCounter();
+=======
+    int64_t perfcounter = GetPerformanceCounter();
+    hasher.Write((const unsigned char*)&perfcounter, sizeof(perfcounter));
+}
+
+static void SeedFast(CSHA512& hasher) noexcept
+{
+    unsigned char buffer[32];
+
+    // Stack pointer to indirectly commit to thread/callstack
+    const unsigned char* ptr = buffer;
+    hasher.Write((const unsigned char*)&ptr, sizeof(ptr));
+
+    // Hardware randomness is very fast when available; use it always.
+    SeedHardwareFast(hasher);
+
+    // High-precision timestamp
+    SeedTimestamp(hasher);
+}
+
+static void SeedSlow(CSHA512& hasher) noexcept
+{
+    unsigned char buffer[32];
+
+    // Everything that the 'fast' seeder includes
+    SeedFast(hasher);
+
+    // OS randomness
+    GetOSRand(buffer);
+    hasher.Write(buffer, sizeof(buffer));
+>>>>>>> upstream/0.18
 
     // Combine with and update state
     AddDataToRng(&nPerfCounter1, sizeof(nPerfCounter1));
@@ -317,9 +497,31 @@ static void AddDataToRng(void* data, size_t len) {
 
 void GetStrongRandBytes(unsigned char* out, int num)
 {
+<<<<<<< HEAD
     assert(num <= 32);
     CSHA512 hasher;
     unsigned char buf[64];
+=======
+#ifdef WIN32
+    RAND_screen();
+#endif
+
+    // Gather 256 bits of hardware randomness, if available
+    SeedHardwareSlow(hasher);
+
+    // Everything that the 'slow' seeder includes.
+    SeedSlow(hasher);
+
+    // Windows performance monitor data.
+    RandAddSeedPerfmon(hasher);
+}
+
+enum class RNGLevel {
+    FAST, //!< Automatically called by GetRandBytes
+    SLOW, //!< Automatically called by GetStrongRandBytes
+    SLEEP, //!< Called by RandAddSeedSleep()
+};
+>>>>>>> upstream/0.18
 
     // First source: OpenSSL's RNG
     RandAddSeedPerfmon();

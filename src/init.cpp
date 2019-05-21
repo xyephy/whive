@@ -51,6 +51,8 @@
 #include <hashdb.h>
 
 #ifndef WIN32
+#include <attributes.h>
+#include <cerrno>
 #include <signal.h>
 #endif
 
@@ -112,6 +114,32 @@ const WalletInitInterface& g_wallet_init_interface = DummyWalletInit();
 #endif
 
 static const char* FEE_ESTIMATES_FILENAME="fee_estimates.dat";
+
+/**
+ * The PID file facilities.
+ */
+static const char* BITCOIN_PID_FILENAME = "bitcoind.pid";
+
+static fs::path GetPidFile()
+{
+    return AbsPathForConfigVal(fs::path(gArgs.GetArg("-pid", BITCOIN_PID_FILENAME)));
+}
+
+NODISCARD static bool CreatePidFile()
+{
+    FILE* file = fsbridge::fopen(GetPidFile(), "w");
+    if (file) {
+#ifdef WIN32
+        fprintf(file, "%d\n", GetCurrentProcessId());
+#else
+        fprintf(file, "%d\n", getpid());
+#endif
+        fclose(file);
+        return true;
+    } else {
+        return InitError(strprintf(_("Unable to create the PID file '%s': %s"), GetPidFile().string(), std::strerror(errno)));
+    }
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -277,13 +305,18 @@ void Shutdown()
     }
 #endif
 
-#ifndef WIN32
     try {
-        fs::remove(GetPidFile());
+        if (!fs::remove(GetPidFile())) {
+            LogPrintf("%s: Unable to remove PID file: File does not exist\n", __func__);
+        }
     } catch (const fs::filesystem_error& e) {
-        LogPrintf("%s: Unable to remove pidfile: %s\n", __func__, e.what());
+        LogPrintf("%s: Unable to remove PID file: %s\n", __func__, fsbridge::get_filesystem_error_message(e));
     }
+<<<<<<< HEAD
 #endif
+=======
+    interfaces.chain_clients.clear();
+>>>>>>> upstream/0.18
     UnregisterAllValidationInterfaces();
     GetMainSignals().UnregisterBackgroundSignalScheduler();
     GetMainSignals().UnregisterWithMempoolSignals(mempool);
@@ -343,20 +376,25 @@ static void OnRPCStopped()
 
 void SetupServerArgs()
 {
+    SetupHelpOptions(gArgs);
+    gArgs.AddArg("-help-debug", "Print help message with debugging options and exit", false, OptionsCategory::DEBUG_TEST); // server-only for now
+
     const auto defaultBaseParams = CreateBaseChainParams(CBaseChainParams::MAIN);
     const auto testnetBaseParams = CreateBaseChainParams(CBaseChainParams::TESTNET);
     const auto defaultChainParams = CreateChainParams(CBaseChainParams::MAIN);
     const auto testnetChainParams = CreateChainParams(CBaseChainParams::TESTNET);
 
     // Hidden Options
+<<<<<<< HEAD
     std::vector<std::string> hidden_args = {"-rpcssl", "-benchmark", "-h", "-help", "-socks", "-tor", "-debugnet", "-whitelistalwaysrelay",
         "-prematurewitness", "-walletprematurewitness", "-promiscuousmempoolflags", "-blockminsize", "-dbcrashratio", "-forcecompactdb", "-usehd",
+=======
+    std::vector<std::string> hidden_args = {
+        "-dbcrashratio", "-forcecompactdb",
+>>>>>>> upstream/0.18
         // GUI args. These will be overwritten by SetupUIArgs for the GUI
         "-allowselfsignedrootcertificates", "-choosedatadir", "-lang=<lang>", "-min", "-resetguisettings", "-rootcertificates=<file>", "-splash", "-uiplatform"};
 
-    // Set all of the args and their help
-    // When adding new options to the categories, please keep and ensure alphabetical ordering.
-    gArgs.AddArg("-?", "Print this help message and exit", false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-version", "Print version and exit", false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-alertnotify=<cmd>", "Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)", false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-assumevalid=<hex>", strprintf("If this block is in the chain assume that it and its ancestors are valid and potentially skip their script verification (0 to verify all, default: %s, testnet: %s)", defaultChainParams->GetConsensus().defaultAssumeValid.GetHex(), testnetChainParams->GetConsensus().defaultAssumeValid.GetHex()), false, OptionsCategory::OPTIONS);
@@ -367,7 +405,11 @@ void SetupServerArgs()
     gArgs.AddArg("-conf=<file>", strprintf("Specify configuration file. Relative paths will be prefixed by datadir location. (default: %s)", BITCOIN_CONF_FILENAME), false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-datadir=<dir>", "Specify data directory", false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-dbbatchsize", strprintf("Maximum database write batch size in bytes (default: %u)", nDefaultDbBatchSize), true, OptionsCategory::OPTIONS);
+<<<<<<< HEAD
     gArgs.AddArg("-dbcache=<n>", strprintf("Set database cache size in megabytes (%d to %d, default: %d)", nMinDbCache, nMaxDbCache, nDefaultDbCache), false, OptionsCategory::OPTIONS);
+=======
+    gArgs.AddArg("-dbcache=<n>", strprintf("Maximum database cache size <n> MiB (%d to %d, default: %d). In addition, unused mempool memory is shared for this cache (see -maxmempool).", nMinDbCache, nMaxDbCache, nDefaultDbCache), false, OptionsCategory::OPTIONS);
+>>>>>>> upstream/0.18
     gArgs.AddArg("-debuglogfile=<file>", strprintf("Specify location of debug log file. Relative paths will be prefixed by a net-specific datadir location. (-nodebuglogfile to disable; default: %s)", DEFAULT_DEBUGLOGFILE), false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-feefilter", strprintf("Tell other nodes to filter invs to us by our mempool min fee (default: %u)", DEFAULT_FEEFILTER), true, OptionsCategory::OPTIONS);
     gArgs.AddArg("-includeconf=<file>", "Specify additional configuration file, relative to the -datadir path (only useable from configuration file, not command line)", false, OptionsCategory::OPTIONS);
@@ -379,11 +421,7 @@ void SetupServerArgs()
     gArgs.AddArg("-par=<n>", strprintf("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)",
         -GetNumCores(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS), false, OptionsCategory::OPTIONS);
     gArgs.AddArg("-persistmempool", strprintf("Whether to save the mempool on shutdown and load on restart (default: %u)", DEFAULT_PERSIST_MEMPOOL), false, OptionsCategory::OPTIONS);
-#ifndef WIN32
     gArgs.AddArg("-pid=<file>", strprintf("Specify pid file. Relative paths will be prefixed by a net-specific datadir location. (default: %s)", BITCOIN_PID_FILENAME), false, OptionsCategory::OPTIONS);
-#else
-    hidden_args.emplace_back("-pid");
-#endif
     gArgs.AddArg("-prune=<n>", strprintf("Reduce storage requirements by enabling pruning (deleting) of old blocks. This allows the pruneblockchain RPC to be called to delete specific blocks, and enables automatic pruning of old blocks if a target size in MiB is provided. This mode is incompatible with -txindex and -rescan. "
             "Warning: Reverting this setting requires re-downloading the entire blockchain. "
             "(default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, >=%u = automatically prune block files to stay under the specified target size in MiB)", MIN_DISK_SPACE_FOR_BLOCK_FILES / 1024 / 1024), false, OptionsCategory::OPTIONS);
@@ -470,7 +508,10 @@ void SetupServerArgs()
     gArgs.AddArg("-debug=<category>", "Output debugging information (default: -nodebug, supplying <category> is optional). "
         "If <category> is not supplied or if <category> = 1, output all debugging information. <category> can be: " + ListLogCategories() + ".", false, OptionsCategory::DEBUG_TEST);
     gArgs.AddArg("-debugexclude=<category>", strprintf("Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories."), false, OptionsCategory::DEBUG_TEST);
+<<<<<<< HEAD
     gArgs.AddArg("-help-debug", "Show all debugging options (usage: --help -help-debug)", false, OptionsCategory::DEBUG_TEST);
+=======
+>>>>>>> upstream/0.18
     gArgs.AddArg("-logips", strprintf("Include IP addresses in debug output (default: %u)", DEFAULT_LOGIPS), false, OptionsCategory::DEBUG_TEST);
     gArgs.AddArg("-logtimestamps", strprintf("Prepend debug output with timestamp (default: %u)", DEFAULT_LOGTIMESTAMPS), false, OptionsCategory::DEBUG_TEST);
     gArgs.AddArg("-logtimemicros", strprintf("Add microsecond precision to debug timestamps (default: %u)", DEFAULT_LOGTIMEMICROS), true, OptionsCategory::DEBUG_TEST);
@@ -1107,6 +1148,22 @@ bool AppInitParameterInteraction()
         dustRelayFee = CFeeRate(n);
     }
 
+    // This is required by both the wallet and node
+    if (gArgs.IsArgSet("-maxtxfee"))
+    {
+        CAmount nMaxFee = 0;
+        if (!ParseMoney(gArgs.GetArg("-maxtxfee", ""), nMaxFee))
+            return InitError(AmountErrMsg("maxtxfee", gArgs.GetArg("-maxtxfee", "")));
+        if (nMaxFee > HIGH_MAX_TX_FEE)
+            InitWarning(_("-maxtxfee is set very high! Fees this large could be paid on a single transaction."));
+        maxTxFee = nMaxFee;
+        if (CFeeRate(maxTxFee, 1000) < ::minRelayTxFee)
+        {
+            return InitError(strprintf(_("Invalid amount for -maxtxfee=<amount>: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)"),
+                                       gArgs.GetArg("-maxtxfee", ""), ::minRelayTxFee.ToString()));
+        }
+    }
+
     fRequireStandard = !gArgs.GetBoolArg("-acceptnonstdtxn", !chainparams.RequireStandard());
     if (chainparams.RequireStandard() && !fRequireStandard)
         return InitError(strprintf("acceptnonstdtxn is not currently supported for %s chain", chainparams.NetworkIDString()));
@@ -1227,11 +1284,20 @@ bool AppInitMain()
 {
     const CChainParams& chainparams = Params();
     // ********************************************************* Step 4a: application initialization
+<<<<<<< HEAD
 #ifndef WIN32
     CreatePidFile(GetPidFile(), getpid());
 #endif
     if (g_logger->m_print_to_file) {
         if (gArgs.GetBoolArg("-shrinkdebugfile", g_logger->DefaultShrinkDebugFile())) {
+=======
+    if (!CreatePidFile()) {
+        // Detailed error printed inside CreatePidFile().
+        return false;
+    }
+    if (LogInstance().m_print_to_file) {
+        if (gArgs.GetBoolArg("-shrinkdebugfile", LogInstance().DefaultShrinkDebugFile())) {
+>>>>>>> upstream/0.18
             // Do this first since it both loads a bunch of debug.log into memory,
             // and because this needs to happen before any other debug.log printing
             g_logger->ShrinkDebugFile();
@@ -1444,11 +1510,11 @@ bool AppInitMain()
 
         uiInterface.InitMessage(_("Loading block index..."));
 
-        LOCK(cs_main);
-
         do {
             const int64_t load_block_index_start_time = GetTimeMillis();
+            bool is_coinsview_empty;
             try {
+                LOCK(cs_main);
                 UnloadBlockIndex();
                 pcoinsTip.reset();
                 pcoinsdbview.reset();
@@ -1522,7 +1588,7 @@ bool AppInitMain()
                 // The on-disk coinsdb is now in a good state, create the cache
                 pcoinsTip.reset(new CCoinsViewCache(pcoinscatcher.get()));
 
-                bool is_coinsview_empty = fReset || fReindexChainState || pcoinsTip->GetBestBlock().IsNull();
+                is_coinsview_empty = fReset || fReindexChainState || pcoinsTip->GetBestBlock().IsNull();
                 if (!is_coinsview_empty) {
                     // LoadChainTip sets chainActive based on pcoinsTip's best block
                     if (!LoadChainTip(chainparams)) {
@@ -1531,18 +1597,25 @@ bool AppInitMain()
                     }
                     assert(chainActive.Tip() != nullptr);
                 }
+            } catch (const std::exception& e) {
+                LogPrintf("%s\n", e.what());
+                strLoadError = _("Error opening block database");
+                break;
+            }
 
-                if (!fReset) {
-                    // Note that RewindBlockIndex MUST run even if we're about to -reindex-chainstate.
-                    // It both disconnects blocks based on chainActive, and drops block data in
-                    // mapBlockIndex based on lack of available witness data.
-                    uiInterface.InitMessage(_("Rewinding blocks..."));
-                    if (!RewindBlockIndex(chainparams)) {
-                        strLoadError = _("Unable to rewind the database to a pre-fork state. You will need to redownload the blockchain");
-                        break;
-                    }
+            if (!fReset) {
+                // Note that RewindBlockIndex MUST run even if we're about to -reindex-chainstate.
+                // It both disconnects blocks based on chainActive, and drops block data in
+                // mapBlockIndex based on lack of available witness data.
+                uiInterface.InitMessage(_("Rewinding blocks..."));
+                if (!RewindBlockIndex(chainparams)) {
+                    strLoadError = _("Unable to rewind the database to a pre-fork state. You will need to redownload the blockchain");
+                    break;
                 }
+            }
 
+            try {
+                LOCK(cs_main);
                 if (!is_coinsview_empty) {
                     uiInterface.InitMessage(_("Verifying blocks..."));
                     if (fHavePruned && gArgs.GetArg("-checkblocks", DEFAULT_CHECKBLOCKS) > MIN_BLOCKS_TO_KEEP) {
