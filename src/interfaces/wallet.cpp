@@ -23,6 +23,11 @@
 #include <validation.h>
 #include <wallet/feebumper.h>
 #include <wallet/fees.h>
+<<<<<<< HEAD
+=======
+#include <wallet/rpcwallet.h>
+#include <wallet/load.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <wallet/wallet.h>
 
 namespace interfaces {
@@ -35,8 +40,6 @@ public:
 
     const CTransaction& get() override { return *m_tx; }
 
-    int64_t getVirtualSize() override { return GetVirtualTransactionSize(*m_tx); }
-
     bool commit(WalletValueMap value_map,
         WalletOrderForm order_form,
         std::string from_account,
@@ -44,7 +47,11 @@ public:
     {
         LOCK2(cs_main, m_wallet.cs_wallet);
         CValidationState state;
+<<<<<<< HEAD
         if (!m_wallet.CommitTransaction(m_tx, std::move(value_map), std::move(order_form), std::move(from_account), m_key, g_connman.get(), state)) {
+=======
+        if (!m_wallet.CommitTransaction(m_tx, std::move(value_map), std::move(order_form), m_key, state)) {
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
             reject_reason = state.GetRejectReason();
             return false;
         }
@@ -88,6 +95,7 @@ WalletTx MakeWalletTx(CWallet& wallet, const CWalletTx& wtx)
 WalletTxStatus MakeWalletTxStatus(const CWalletTx& wtx)
 {
     WalletTxStatus result;
+<<<<<<< HEAD
     auto mi = ::mapBlockIndex.find(wtx.hashBlock);
     CBlockIndex* block = mi != ::mapBlockIndex.end() ? mi->second : nullptr;
     result.block_height = (block ? block->nHeight : std::numeric_limits<int>::max());
@@ -97,6 +105,15 @@ WalletTxStatus MakeWalletTxStatus(const CWalletTx& wtx)
     result.lock_time = wtx.tx->nLockTime;
     result.is_final = CheckFinalTx(*wtx.tx);
     result.is_trusted = wtx.IsTrusted();
+=======
+    result.block_height = locked_chain.getBlockHeight(wtx.hashBlock).get_value_or(std::numeric_limits<int>::max());
+    result.blocks_to_maturity = wtx.GetBlocksToMaturity(locked_chain);
+    result.depth_in_main_chain = wtx.GetDepthInMainChain(locked_chain);
+    result.time_received = wtx.nTimeReceived;
+    result.lock_time = wtx.tx->nLockTime;
+    result.is_final = locked_chain.checkFinalTx(*wtx.tx);
+    result.is_trusted = wtx.IsTrusted(locked_chain);
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     result.is_abandoned = wtx.isAbandoned();
     result.is_coinbase = wtx.IsCoinBase();
     result.is_in_main_chain = wtx.IsInMainChain();
@@ -291,8 +308,13 @@ public:
         CAmount& new_fee,
         CMutableTransaction& mtx) override
     {
-        return feebumper::CreateTransaction(m_wallet.get(), txid, coin_control, total_fee, errors, old_fee, new_fee, mtx) ==
-               feebumper::Result::OK;
+        if (total_fee > 0) {
+            return feebumper::CreateTotalBumpTransaction(m_wallet.get(), txid, coin_control, total_fee, errors, old_fee, new_fee, mtx) ==
+                feebumper::Result::OK;
+        } else {
+            return feebumper::CreateRateBumpTransaction(m_wallet.get(), txid, coin_control, errors, old_fee, new_fee, mtx) ==
+                feebumper::Result::OK;
+        }
     }
     bool signBumpTransaction(CMutableTransaction& mtx) override { return feebumper::SignTransaction(m_wallet.get(), mtx); }
     bool commitBumpTransaction(const uint256& txid,
@@ -414,15 +436,16 @@ public:
     }
     WalletBalances getBalances() override
     {
+        const auto bal = m_wallet->GetBalance();
         WalletBalances result;
-        result.balance = m_wallet->GetBalance();
-        result.unconfirmed_balance = m_wallet->GetUnconfirmedBalance();
-        result.immature_balance = m_wallet->GetImmatureBalance();
+        result.balance = bal.m_mine_trusted;
+        result.unconfirmed_balance = bal.m_mine_untrusted_pending;
+        result.immature_balance = bal.m_mine_immature;
         result.have_watch_only = m_wallet->HaveWatchOnly();
         if (result.have_watch_only) {
-            result.watch_only_balance = m_wallet->GetBalance(ISMINE_WATCH_ONLY);
-            result.unconfirmed_watch_only_balance = m_wallet->GetUnconfirmedWatchOnlyBalance();
-            result.immature_watch_only_balance = m_wallet->GetImmatureWatchOnlyBalance();
+            result.watch_only_balance = bal.m_watchonly_trusted;
+            result.unconfirmed_watch_only_balance = bal.m_watchonly_untrusted_pending;
+            result.immature_watch_only_balance = bal.m_watchonly_immature;
         }
         return result;
     }
@@ -442,7 +465,7 @@ public:
         num_blocks = ::chainActive.Height();
         return true;
     }
-    CAmount getBalance() override { return m_wallet->GetBalance(); }
+    CAmount getBalance() override { return m_wallet->GetBalance().m_mine_trusted; }
     CAmount getAvailableBalance(const CCoinControl& coin_control) override
     {
         return m_wallet->GetAvailableBalance(&coin_control);
@@ -553,7 +576,7 @@ public:
     {
         FeeCalculation fee_calc;
         CAmount result;
-        result = GetMinimumFee(*m_wallet, tx_bytes, coin_control, ::mempool, ::feeEstimator, &fee_calc);
+        result = GetMinimumFee(*m_wallet, tx_bytes, coin_control, &fee_calc);
         if (returned_target) *returned_target = fee_calc.returnedTarget;
         if (reason) *reason = fee_calc.reason;
         return result;
@@ -564,6 +587,7 @@ public:
     bool IsWalletFlagSet(uint64_t flag) override { return m_wallet->IsWalletFlagSet(flag); }
     OutputType getDefaultAddressType() override { return m_wallet->m_default_address_type; }
     OutputType getDefaultChangeType() override { return m_wallet->m_default_change_type; }
+    CAmount getDefaultMaxTxFee() override { return m_wallet->m_default_max_tx_fee; }
     void remove() override
     {
         RemoveWallet(m_wallet);
@@ -606,6 +630,29 @@ public:
     std::shared_ptr<CWallet> m_wallet;
 };
 
+<<<<<<< HEAD
+=======
+class WalletClientImpl : public ChainClient
+{
+public:
+    WalletClientImpl(Chain& chain, std::vector<std::string> wallet_filenames)
+        : m_chain(chain), m_wallet_filenames(std::move(wallet_filenames))
+    {
+    }
+    void registerRpcs() override { return RegisterWalletRPCCommands(m_chain, m_rpc_handlers); }
+    bool verify() override { return VerifyWallets(m_chain, m_wallet_filenames); }
+    bool load() override { return LoadWallets(m_chain, m_wallet_filenames); }
+    void start(CScheduler& scheduler) override { return StartWallets(scheduler); }
+    void flush() override { return FlushWallets(); }
+    void stop() override { return StopWallets(); }
+    ~WalletClientImpl() override { UnloadWallets(); }
+
+    Chain& m_chain;
+    std::vector<std::string> m_wallet_filenames;
+    std::vector<std::unique_ptr<Handler>> m_rpc_handlers;
+};
+
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 } // namespace
 
 std::unique_ptr<Wallet> MakeWallet(const std::shared_ptr<CWallet>& wallet) { return wallet ? MakeUnique<WalletImpl>(wallet) : nullptr; }

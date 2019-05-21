@@ -698,7 +698,10 @@ bool PublicOnlySigningProvider::GetPubKey(const CKeyID &address, CPubKey& pubkey
 bool FlatSigningProvider::GetCScript(const CScriptID& scriptid, CScript& script) const { return LookupHelper(scripts, scriptid, script); }
 bool FlatSigningProvider::GetPubKey(const CKeyID& keyid, CPubKey& pubkey) const { return LookupHelper(pubkeys, keyid, pubkey); }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 bool FlatSigningProvider::GetKeyOrigin(const CKeyID& keyid, KeyOriginInfo& info) const
 {
     std::pair<CPubKey, KeyOriginInfo> out;
@@ -706,7 +709,10 @@ bool FlatSigningProvider::GetKeyOrigin(const CKeyID& keyid, KeyOriginInfo& info)
     if (ret) info = std::move(out.second);
     return ret;
 }
+<<<<<<< HEAD
 >>>>>>> upstream/0.18
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 bool FlatSigningProvider::GetKey(const CKeyID& keyid, CKey& key) const { return LookupHelper(keys, keyid, key); }
 
 FlatSigningProvider Merge(const FlatSigningProvider& a, const FlatSigningProvider& b)

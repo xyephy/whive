@@ -133,7 +133,7 @@ For example, to describe a function use:
  */
 bool function(int arg1, const char *arg2)
 ```
-A complete list of `@xxx` commands can be found at http://www.stack.nl/~dimitri/doxygen/manual/commands.html.
+A complete list of `@xxx` commands can be found at http://www.doxygen.nl/manual/commands.html.
 As Doxygen recognizes the comments by the delimiters (`/**` and `*/` in this case), you don't
 *need* to provide any commands for a comment to be valid; just a description text is fine.
 
@@ -174,8 +174,13 @@ Not OK (used plenty in the current source, but not picked up):
 //
 ```
 
+<<<<<<< HEAD
 A full list of comment syntaxes picked up by doxygen can be found at http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html,
 but if possible use one of the above styles.
+=======
+A full list of comment syntaxes picked up by Doxygen can be found at http://www.doxygen.nl/manual/docblocks.html,
+but the above styles are favored.
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
 Documentation can be generated with `make docs` and cleaned up with `make clean-docs`.
 
@@ -422,6 +427,14 @@ Wallet
 General C++
 -------------
 
+For general C++ guidelines, you may refer to the [C++ Core
+Guidelines](https://isocpp.github.io/CppCoreGuidelines/).
+
+Common misconceptions are clarified in those sections:
+
+- Passing (non-)fundamental types in the [C++ Core
+  Guideline](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-conventional)
+
 - Assertions should not have side-effects
 
   - *Rationale*: Even though the source code is set to refuse to compile
@@ -559,8 +572,8 @@ class AddressBookPage
     Mode m_mode;
 }
 
-AddressBookPage::AddressBookPage(Mode _mode) :
-      m_mode(_mode)
+AddressBookPage::AddressBookPage(Mode _mode)
+    : m_mode(_mode)
 ...
 ```
 
@@ -842,8 +855,7 @@ A few guidelines for introducing and reviewing new RPC interfaces:
     from there.
 
 - A RPC method must either be a wallet method or a non-wallet method. Do not
-  introduce new methods such as `signrawtransaction` that differ in behavior
-  based on presence of a wallet.
+  introduce new methods that differ in behavior based on presence of a wallet.
 
   - *Rationale*: as well as complicating the implementation and interfering
     with the introduction of multi-wallet, wallet and non-wallet code should be

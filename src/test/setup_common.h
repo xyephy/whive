@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2018 The Bitcoin Core developers
+// Copyright (c) 2015-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TEST_TEST_BITCOIN_H
-#define BITCOIN_TEST_TEST_BITCOIN_H
+#ifndef BITCOIN_TEST_SETUP_COMMON_H
+#define BITCOIN_TEST_SETUP_COMMON_H
 
 #include <chainparamsbase.h>
 #include <fs.h>
@@ -55,6 +55,7 @@ private:
 /** Testing setup that configures a complete environment.
  * Included are data directory, coins database, script check threads setup.
  */
+<<<<<<< HEAD:src/test/test_bitcoin.h
 class CConnman;
 class CNode;
 struct CConnmanTest {
@@ -64,6 +65,9 @@ struct CConnmanTest {
 
 class PeerLogicValidation;
 struct TestingSetup: public BasicTestingSetup {
+=======
+struct TestingSetup : public BasicTestingSetup {
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/test/setup_common.h
     boost::thread_group threadGroup;
     CConnman* connman;
     CScheduler scheduler;

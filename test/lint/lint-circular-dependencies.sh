@@ -9,11 +9,15 @@
 export LC_ALL=C
 
 EXPECTED_CIRCULAR_DEPENDENCIES=(
+<<<<<<< HEAD
     "chainparamsbase -> util -> chainparamsbase"
     "checkpoints -> validation -> checkpoints"
+=======
+    "chainparamsbase -> util/system -> chainparamsbase"
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     "index/txindex -> validation -> index/txindex"
     "policy/fees -> txmempool -> policy/fees"
-    "policy/policy -> validation -> policy/policy"
+    "policy/policy -> policy/settings -> policy/policy"
     "qt/addresstablemodel -> qt/walletmodel -> qt/addresstablemodel"
     "qt/bantablemodel -> qt/clientmodel -> qt/bantablemodel"
     "qt/bitcoingui -> qt/utilitydialog -> qt/bitcoingui"
@@ -32,14 +36,13 @@ EXPECTED_CIRCULAR_DEPENDENCIES=(
     "wallet/fees -> wallet/wallet -> wallet/fees"
     "wallet/rpcwallet -> wallet/wallet -> wallet/rpcwallet"
     "wallet/wallet -> wallet/walletdb -> wallet/wallet"
-    "policy/fees -> policy/policy -> validation -> policy/fees"
+    "policy/fees -> txmempool -> validation -> policy/fees"
     "policy/rbf -> txmempool -> validation -> policy/rbf"
     "qt/addressbookpage -> qt/bitcoingui -> qt/walletview -> qt/addressbookpage"
     "qt/guiutil -> qt/walletmodel -> qt/optionsmodel -> qt/guiutil"
     "txmempool -> validation -> validationinterface -> txmempool"
     "qt/addressbookpage -> qt/bitcoingui -> qt/walletview -> qt/receivecoinsdialog -> qt/addressbookpage"
     "qt/addressbookpage -> qt/bitcoingui -> qt/walletview -> qt/signverifymessagedialog -> qt/addressbookpage"
-    "qt/guiutil -> qt/walletmodel -> qt/optionsmodel -> qt/intro -> qt/guiutil"
     "qt/addressbookpage -> qt/bitcoingui -> qt/walletview -> qt/sendcoinsdialog -> qt/sendcoinsentry -> qt/addressbookpage"
 )
 

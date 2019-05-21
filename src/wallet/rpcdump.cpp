@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,6 +26,7 @@
 
 #include <fstream>
 #include <stdint.h>
+#include <tuple>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -165,8 +166,12 @@ UniValue importprivkey(const JSONRPCRequest& request)
         if (!request.params[2].isNull())
             fRescan = request.params[2].get_bool();
 
-        if (fRescan && fPruneMode)
-            throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled in pruned mode");
+        if (fRescan && pwallet->chain().havePruned()) {
+            // Exit early and print an error.
+            // If a block is pruned after this check, we will import the key(s),
+            // but fail the rescan with a generic error.
+            throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled when blocks are pruned");
+        }
 
         if (fRescan && !reserver.reserve()) {
             throw JSONRPCError(RPC_WALLET_ERROR, "Wallet is currently rescanning. Abort existing rescan or wait.");
@@ -251,7 +256,7 @@ static void ImportScript(CWallet* const pwallet, const CScript& script, const st
         if (!pwallet->HaveCScript(id) && !pwallet->AddCScript(script)) {
             throw JSONRPCError(RPC_WALLET_ERROR, "Error adding p2sh redeemScript to wallet");
         }
-        ImportAddress(pwallet, id, strLabel);
+        ImportAddress(pwallet, ScriptHash(id), strLabel);
     } else {
         CTxDestination destination;
         if (ExtractDestination(script, destination)) {
@@ -322,8 +327,12 @@ UniValue importaddress(const JSONRPCRequest& request)
     if (!request.params[2].isNull())
         fRescan = request.params[2].get_bool();
 
-    if (fRescan && fPruneMode)
-        throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled in pruned mode");
+    if (fRescan && pwallet->chain().havePruned()) {
+        // Exit early and print an error.
+        // If a block is pruned after this check, we will import the key(s),
+        // but fail the rescan with a generic error.
+        throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled when blocks are pruned");
+    }
 
     WalletRescanReserver reserver(pwallet);
     if (fRescan && !reserver.reserve()) {
@@ -537,8 +546,12 @@ UniValue importpubkey(const JSONRPCRequest& request)
     if (!request.params[2].isNull())
         fRescan = request.params[2].get_bool();
 
-    if (fRescan && fPruneMode)
-        throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled in pruned mode");
+    if (fRescan && pwallet->chain().havePruned()) {
+        // Exit early and print an error.
+        // If a block is pruned after this check, we will import the key(s),
+        // but fail the rescan with a generic error.
+        throw JSONRPCError(RPC_WALLET_ERROR, "Rescan is disabled when blocks are pruned");
+    }
 
     WalletRescanReserver reserver(pwallet);
     if (fRescan && !reserver.reserve()) {
@@ -608,8 +621,12 @@ UniValue importwallet(const JSONRPCRequest& request)
             + HelpExampleRpc("importwallet", "\"test\"")
         );
 
-    if (fPruneMode)
-        throw JSONRPCError(RPC_WALLET_ERROR, "Importing wallets is disabled in pruned mode");
+    if (pwallet->chain().havePruned()) {
+        // Exit early and print an error.
+        // If a block is pruned after this check, we will import the key(s),
+        // but fail the rescan with a generic error.
+        throw JSONRPCError(RPC_WALLET_ERROR, "Importing wallets is disabled when blocks are pruned");
+    }
 
     WalletRescanReserver reserver(pwallet);
     if (!reserver.reserve()) {
@@ -635,9 +652,17 @@ UniValue importwallet(const JSONRPCRequest& request)
 
         // Use uiInterface.ShowProgress instead of pwallet.ShowProgress because pwallet.ShowProgress has a cancel button tied to AbortRescan which
         // we don't want for this progress bar showing the import progress. uiInterface.ShowProgress does not have a cancel button.
+<<<<<<< HEAD
         uiInterface.ShowProgress(strprintf("%s " + _("Importing..."), pwallet->GetDisplayName()), 0, false); // show progress dialog in GUI
         while (file.good()) {
             uiInterface.ShowProgress("", std::max(1, std::min(99, (int)(((double)file.tellg() / (double)nFilesize) * 100))), false);
+=======
+        pwallet->chain().showProgress(strprintf("%s " + _("Importing..."), pwallet->GetDisplayName()), 0, false); // show progress dialog in GUI
+        std::vector<std::tuple<CKey, int64_t, bool, std::string>> keys;
+        std::vector<std::pair<CScript, int64_t>> scripts;
+        while (file.good()) {
+            pwallet->chain().showProgress("", std::max(1, std::min(50, (int)(((double)file.tellg() / (double)nFilesize) * 100))), false);
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
             std::string line;
             std::getline(file, line);
             if (line.empty() || line[0] == '#')
@@ -701,10 +726,66 @@ UniValue importwallet(const JSONRPCRequest& request)
             }
         }
         file.close();
+<<<<<<< HEAD
         uiInterface.ShowProgress("", 100, false); // hide progress dialog in GUI
+=======
+        // We now know whether we are importing private keys, so we can error if private keys are disabled
+        if (keys.size() > 0 && pwallet->IsWalletFlagSet(WALLET_FLAG_DISABLE_PRIVATE_KEYS)) {
+            pwallet->chain().showProgress("", 100, false); // hide progress dialog in GUI
+            throw JSONRPCError(RPC_WALLET_ERROR, "Importing wallets is disabled when private keys are disabled");
+        }
+        double total = (double)(keys.size() + scripts.size());
+        double progress = 0;
+        for (const auto& key_tuple : keys) {
+            pwallet->chain().showProgress("", std::max(50, std::min(75, (int)((progress / total) * 100) + 50)), false);
+            const CKey& key = std::get<0>(key_tuple);
+            int64_t time = std::get<1>(key_tuple);
+            bool has_label = std::get<2>(key_tuple);
+            std::string label = std::get<3>(key_tuple);
+
+            CPubKey pubkey = key.GetPubKey();
+            assert(key.VerifyPubKey(pubkey));
+            CKeyID keyid = pubkey.GetID();
+            if (pwallet->HaveKey(keyid)) {
+                pwallet->WalletLogPrintf("Skipping import of %s (key already present)\n", EncodeDestination(PKHash(keyid)));
+                continue;
+            }
+            pwallet->WalletLogPrintf("Importing %s...\n", EncodeDestination(PKHash(keyid)));
+            if (!pwallet->AddKeyPubKey(key, pubkey)) {
+                fGood = false;
+                continue;
+            }
+            pwallet->mapKeyMetadata[keyid].nCreateTime = time;
+            if (has_label)
+                pwallet->SetAddressBook(PKHash(keyid), label, "receive");
+            nTimeBegin = std::min(nTimeBegin, time);
+            progress++;
+        }
+        for (const auto& script_pair : scripts) {
+            pwallet->chain().showProgress("", std::max(50, std::min(75, (int)((progress / total) * 100) + 50)), false);
+            const CScript& script = script_pair.first;
+            int64_t time = script_pair.second;
+            CScriptID id(script);
+            if (pwallet->HaveCScript(id)) {
+                pwallet->WalletLogPrintf("Skipping import of %s (script already present)\n", HexStr(script));
+                continue;
+            }
+            if(!pwallet->AddCScript(script)) {
+                pwallet->WalletLogPrintf("Error importing script %s\n", HexStr(script));
+                fGood = false;
+                continue;
+            }
+            if (time > 0) {
+                pwallet->m_script_metadata[id].nCreateTime = time;
+                nTimeBegin = std::min(nTimeBegin, time);
+            }
+            progress++;
+        }
+        pwallet->chain().showProgress("", 100, false); // hide progress dialog in GUI
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
         pwallet->UpdateTimeFirstKey(nTimeBegin);
     }
-    uiInterface.ShowProgress("", 100, false); // hide progress dialog in GUI
+    pwallet->chain().showProgress("", 100, false); // hide progress dialog in GUI
     RescanWallet(*pwallet, reserver, nTimeBegin, false /* update */);
     pwallet->MarkDirty();
 
@@ -827,19 +908,16 @@ UniValue dumpwallet(const JSONRPCRequest& request)
     if (!file.is_open())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Cannot open wallet dump file");
 
-    std::map<CTxDestination, int64_t> mapKeyBirth;
+    std::map<CKeyID, int64_t> mapKeyBirth;
     const std::map<CKeyID, int64_t>& mapKeyPool = pwallet->GetAllReserveKeys();
     pwallet->GetKeyBirthTimes(mapKeyBirth);
 
     std::set<CScriptID> scripts = pwallet->GetCScripts();
-    // TODO: include scripts in GetKeyBirthTimes() output instead of separate
 
     // sort time/key pairs
     std::vector<std::pair<int64_t, CKeyID> > vKeyBirth;
     for (const auto& entry : mapKeyBirth) {
-        if (const CKeyID* keyID = boost::get<CKeyID>(&entry.first)) { // set and test
-            vKeyBirth.push_back(std::make_pair(entry.second, *keyID));
-        }
+        vKeyBirth.push_back(std::make_pair(entry.second, entry.first));
     }
     mapKeyBirth.clear();
     std::sort(vKeyBirth.begin(), vKeyBirth.end());
@@ -889,7 +967,7 @@ UniValue dumpwallet(const JSONRPCRequest& request)
     for (const CScriptID &scriptid : scripts) {
         CScript script;
         std::string create_time = "0";
-        std::string address = EncodeDestination(scriptid);
+        std::string address = EncodeDestination(ScriptHash(scriptid));
         // get birth times for scripts with metadata
         auto it = pwallet->m_script_metadata.find(scriptid);
         if (it != pwallet->m_script_metadata.end()) {
@@ -1074,12 +1152,7 @@ static UniValue ProcessImportDescriptor(ImportData& import_data, std::map<CKeyID
         if (!data.exists("range")) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Descriptor is ranged, please specify the range");
         }
-        auto range = ParseRange(data["range"]);
-        range_start = range.first;
-        range_end = range.second;
-        if (range_start < 0 || (range_end >> 31) != 0 || range_end - range_start >= 1000000) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid descriptor range specified");
-        }
+        std::tie(range_start, range_end) = ParseDescriptorRange(data["range"]);
     }
 >>>>>>> upstream/0.18
 

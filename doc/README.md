@@ -58,8 +58,11 @@ The Bitcoin repo's [root README](/README.md) contains relevant information on th
 - [Source Code Documentation (External Link)](https://dev.visucore.com/bitcoin/doxygen/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
+<<<<<<< HEAD
 >>>>>>> upstream/0.18
 - [Travis CI](travis-ci.md)
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 - [JSON-RPC Interface](JSON-RPC-interface.md)
 - [Unauthenticated REST Interface](REST-interface.md)
 - [Dnsseed Policy](dnsseed-policy.md)

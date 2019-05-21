@@ -71,6 +71,11 @@ If you want to build the windows installer with `make deploy` you need [NSIS](ht
 
     sudo apt install nsis
 
+Acquire the source in the usual way:
+
+    git clone https://github.com/bitcoin/bitcoin.git
+    cd bitcoin
+
 ## Building for 64-bit Windows
 
 The first step is to install the mingw-w64 cross-compilation tool chain:
@@ -87,11 +92,15 @@ Note that for WSL the Whive Core source path MUST be somewhere in the default mo
 example /usr/src/whive, AND not under /mnt/d/. If this is not the case the dependency autoconf scripts will fail.
 This means you cannot use a directory that is located directly on the host Windows file system to perform the build.
 
+<<<<<<< HEAD
 Acquire the source in the usual way:
 
     git clone https://github.com/whive/whive.git
 
 Once the source code is ready the build steps are below:
+=======
+Build using:
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
     PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g') # strip out problematic Windows %PATH% imported var
     cd depends
@@ -101,6 +110,7 @@ Once the source code is ready the build steps are below:
     CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
     make
 
+<<<<<<< HEAD
 ## Building for 32-bit Windows
 
 To build executables for Windows 32-bit, install the following dependencies:
@@ -129,6 +139,8 @@ Then build using:
     CONFIG_SITE=$PWD/depends/i686-w64-mingw32/share/config.site ./configure --prefix=/
     make
 
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 ## Depends system
 
 For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.

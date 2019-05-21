@@ -248,6 +248,9 @@ public:
     // Get default change type.
     virtual OutputType getDefaultChangeType() = 0;
 
+    //! Get max tx fee.
+    virtual CAmount getDefaultMaxTxFee() = 0;
+
     // Remove wallet.
     virtual void remove() = 0;
 
@@ -288,9 +291,6 @@ public:
 
     //! Get transaction data.
     virtual const CTransaction& get() = 0;
-
-    //! Get virtual transaction size.
-    virtual int64_t getVirtualSize() = 0;
 
     //! Send pending transaction and commit to wallet.
     virtual bool commit(WalletValueMap value_map,

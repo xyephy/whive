@@ -4,7 +4,6 @@
 
 #include <core_io.h>
 
-#include <psbt.h>
 #include <primitives/block.h>
 #include <primitives/transaction.h>
 #include <script/script.h>
@@ -163,6 +162,7 @@ bool DecodeHexBlk(CBlock& block, const std::string& strHexBlk)
     return true;
 }
 
+<<<<<<< HEAD
 bool DecodeBase64PSBT(PartiallySignedTransaction& psbt, const std::string& base64_tx, std::string& error)
 {
     bool invalid;
@@ -191,6 +191,9 @@ bool DecodeRawPSBT(PartiallySignedTransaction& psbt, const std::string& tx_data,
 }
 
 uint256 ParseHashStr(const std::string& strHex, const std::string& strName)
+=======
+bool ParseHashStr(const std::string& strHex, uint256& result)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 {
     if (!IsHex(strHex)) // Note: IsHex("") is false
         throw std::runtime_error(strName + " must be hexadecimal string (not '" + strHex + "')");

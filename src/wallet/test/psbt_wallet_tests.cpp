@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,7 +16,7 @@
 #include <univalue.h>
 
 #include <boost/test/unit_test.hpp>
-#include <test/test_bitcoin.h>
+#include <test/setup_common.h>
 #include <wallet/test/wallet_test_fixture.h>
 
 extern bool ParseHDKeypath(std::string keypath_str, std::vector<uint32_t>& keypath);

@@ -76,9 +76,13 @@ struct FlatSigningProvider final : public SigningProvider
     std::map<CScriptID, CScript> scripts;
     std::map<CKeyID, CPubKey> pubkeys;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     std::map<CKeyID, std::pair<CPubKey, KeyOriginInfo>> origins;
 >>>>>>> upstream/0.18
+=======
+    std::map<CKeyID, std::pair<CPubKey, KeyOriginInfo>> origins;
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     std::map<CKeyID, CKey> keys;
 
     bool GetCScript(const CScriptID& scriptid, CScript& script) const override;

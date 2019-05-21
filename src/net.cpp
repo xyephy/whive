@@ -81,7 +81,7 @@ static const uint64_t RANDOMIZER_ID_LOCALHOSTNONCE = 0xd93e69e2bbfa5735ULL; // S
 //
 bool fDiscover = true;
 bool fListen = true;
-bool fRelayTxes = true;
+bool g_relay_txes = !DEFAULT_BLOCKSONLY;
 CCriticalSection cs_mapLocalHost;
 std::map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfLimited[NET_MAX] = {};
@@ -2729,6 +2729,7 @@ CNode::CNode(NodeId idIn, ServiceFlags nLocalServicesIn, int nMyStartingHeightIn
     nRecvBytes = 0;
     nTimeOffset = 0;
     addrName = addrNameIn == "" ? addr.ToStringIPPort() : addrNameIn;
+<<<<<<< HEAD
     nVersion = 0;
     strSubVer = "";
     fWhitelisted = false;
@@ -2742,6 +2743,8 @@ CNode::CNode(NodeId idIn, ServiceFlags nLocalServicesIn, int nMyStartingHeightIn
     nRefCount = 0;
     nSendSize = 0;
     nSendOffset = 0;
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     hashContinue = uint256();
     nStartingHeight = -1;
     filterInventoryKnown.reset();

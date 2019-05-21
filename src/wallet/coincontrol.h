@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
 // Copyright (c) 2018-2019 The Whive Core developers
+=======
+// Copyright (c) 2011-2019 The Bitcoin Core developers
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -38,6 +42,8 @@ public:
     bool m_avoid_partial_spends;
     //! Fee estimation mode to control arguments to estimateSmartFee
     FeeEstimateMode m_fee_mode;
+    //! Minimum chain depth value for coin availability
+    int m_min_depth{0};
 
     CCoinControl()
     {

@@ -28,6 +28,11 @@
 
 #include <interfaces/handler.h>
 #include <interfaces/node.h>
+<<<<<<< HEAD
+=======
+#include <noui.h>
+#include <util/threadnames.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <rpc/server.h>
 #include <ui_interface.h>
 #include <uint256.h>
@@ -255,6 +260,7 @@ void BitcoinCore::initialize()
     try
     {
         qDebug() << __func__ << ": Running initialization in thread";
+        util::ThreadRename("qt-init");
         bool rv = m_node.appInitMain();
         Q_EMIT initializeResult(rv);
     } catch (const std::exception& e) {
@@ -552,6 +558,7 @@ static void SetupUIArgs()
 int main(int argc, char *argv[])
 {
     SetupEnvironment();
+    util::ThreadRename("main");
 
     std::unique_ptr<interfaces::Node> node = interfaces::MakeNode();
 

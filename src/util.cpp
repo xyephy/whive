@@ -64,10 +64,6 @@
 #include <shlobj.h>
 #endif
 
-#ifdef HAVE_SYS_PRCTL_H
-#include <sys/prctl.h>
-#endif
-
 #ifdef HAVE_MALLOPT_ARENA_MAX
 #include <malloc.h>
 #endif
@@ -196,6 +192,14 @@ bool DirIsWritable(const fs::path& directory)
     remove(tmpFile);
 
     return true;
+}
+
+bool CheckDiskSpace(const fs::path& dir, uint64_t additional_bytes)
+{
+    constexpr uint64_t min_disk_space = 52428800; // 50 MiB
+
+    uint64_t free_bytes_available = fs::space(dir).available;
+    return free_bytes_available >= min_disk_space + additional_bytes;
 }
 
 /**
@@ -409,6 +413,25 @@ void ArgsManager::WarnForSectionOnlyArgs()
         // otherwise, issue a warning
         LogPrintf("Warning: Config setting for %s only applied on %s network when in [%s] section.\n", arg, m_network, m_network);
     }
+<<<<<<< HEAD:src/util.cpp
+=======
+    return unsuitables;
+}
+
+const std::list<SectionInfo> ArgsManager::GetUnrecognizedSections() const
+{
+    // Section names to be recognized in the config file.
+    static const std::set<std::string> available_sections{
+        CBaseChainParams::REGTEST,
+        CBaseChainParams::TESTNET,
+        CBaseChainParams::MAIN
+    };
+
+    LOCK(cs_args);
+    std::list<SectionInfo> unrecognized = m_config_sections;
+    unrecognized.remove_if([](const SectionInfo& appeared){ return available_sections.find(appeared.m_name) != available_sections.end(); });
+    return unrecognized;
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.cpp
 }
 
 void ArgsManager::SelectConfigNetwork(const std::string& network)
@@ -831,7 +854,11 @@ static std::string TrimString(const std::string& str, const std::string& pattern
     return str.substr(front, end - front + 1);
 }
 
+<<<<<<< HEAD:src/util.cpp
 static bool GetConfigOptions(std::istream& stream, std::string& error, std::vector<std::pair<std::string, std::string>> &options)
+=======
+static bool GetConfigOptions(std::istream& stream, const std::string& filepath, std::string& error, std::vector<std::pair<std::string, std::string>>& options, std::list<SectionInfo>& sections)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.cpp
 {
     std::string str, prefix;
     std::string::size_type pos;
@@ -844,7 +871,13 @@ static bool GetConfigOptions(std::istream& stream, std::string& error, std::vect
         str = TrimString(str, pattern);
         if (!str.empty()) {
             if (*str.begin() == '[' && *str.rbegin() == ']') {
+<<<<<<< HEAD:src/util.cpp
                 prefix = str.substr(1, str.size() - 2) + '.';
+=======
+                const std::string section = str.substr(1, str.size() - 2);
+                sections.emplace_back(SectionInfo{section, filepath, linenr});
+                prefix = section + '.';
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.cpp
             } else if (*str.begin() == '-') {
                 error = strprintf("parse error on line %i: %s, options in configuration file must be specified without leading -", linenr, str);
                 return false;
@@ -852,6 +885,12 @@ static bool GetConfigOptions(std::istream& stream, std::string& error, std::vect
                 std::string name = prefix + TrimString(str.substr(0, pos), pattern);
                 std::string value = TrimString(str.substr(pos + 1), pattern);
                 options.emplace_back(name, value);
+<<<<<<< HEAD:src/util.cpp
+=======
+                if ((pos = name.rfind('.')) != std::string::npos && prefix.length() <= pos) {
+                    sections.emplace_back(SectionInfo{name.substr(0, pos), filepath, linenr});
+                }
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.cpp
             } else {
                 error = strprintf("parse error on line %i: %s", linenr, str);
                 if (str.size() >= 2 && str.substr(0, 2) == "no") {
@@ -865,11 +904,15 @@ static bool GetConfigOptions(std::istream& stream, std::string& error, std::vect
     return true;
 }
 
-bool ArgsManager::ReadConfigStream(std::istream& stream, std::string& error, bool ignore_invalid_keys)
+bool ArgsManager::ReadConfigStream(std::istream& stream, const std::string& filepath, std::string& error, bool ignore_invalid_keys)
 {
     LOCK(cs_args);
     std::vector<std::pair<std::string, std::string>> options;
+<<<<<<< HEAD:src/util.cpp
     if (!GetConfigOptions(stream, error, options)) {
+=======
+    if (!GetConfigOptions(stream, filepath, error, options, m_config_sections)) {
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.cpp
         return false;
     }
     for (const std::pair<std::string, std::string>& option : options) {
@@ -900,6 +943,7 @@ bool ArgsManager::ReadConfigFiles(std::string& error, bool ignore_invalid_keys)
     {
         LOCK(cs_args);
         m_config_args.clear();
+        m_config_sections.clear();
     }
 
     const std::string confPath = GetArg("-conf", BITCOIN_CONF_FILENAME);
@@ -907,7 +951,7 @@ bool ArgsManager::ReadConfigFiles(std::string& error, bool ignore_invalid_keys)
 
     // ok to not have a config file
     if (stream.good()) {
-        if (!ReadConfigStream(stream, error, ignore_invalid_keys)) {
+        if (!ReadConfigStream(stream, confPath, error, ignore_invalid_keys)) {
             return false;
         }
         // if there is an -includeconf in the override args, but it is empty, that means the user
@@ -933,7 +977,7 @@ bool ArgsManager::ReadConfigFiles(std::string& error, bool ignore_invalid_keys)
             for (const std::string& to_include : includeconf) {
                 fs::ifstream include_config(GetConfigFile(to_include));
                 if (include_config.good()) {
-                    if (!ReadConfigStream(include_config, error, ignore_invalid_keys)) {
+                    if (!ReadConfigStream(include_config, to_include, error, ignore_invalid_keys)) {
                         return false;
                     }
                     LogPrintf("Included configuration file %s\n", to_include.c_str());
@@ -1105,11 +1149,12 @@ void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length) {
         fcntl(fileno(file), F_PREALLOCATE, &fst);
     }
     ftruncate(fileno(file), fst.fst_length);
-#elif defined(__linux__)
+#else
+    #if defined(__linux__)
     // Version using posix_fallocate
     off_t nEndPos = (off_t)offset + length;
-    posix_fallocate(fileno(file), 0, nEndPos);
-#else
+    if (0 == posix_fallocate(fileno(file), 0, nEndPos)) return;
+    #endif
     // Fallback version
     // TODO: just write one byte per block
     static const char buf[65536] = {};
@@ -1147,22 +1192,6 @@ void runCommand(const std::string& strCommand)
     int nErr = ::system(strCommand.c_str());
     if (nErr)
         LogPrintf("runCommand error: system(%s) returned %d\n", strCommand, nErr);
-}
-
-void RenameThread(const char* name)
-{
-#if defined(PR_SET_NAME)
-    // Only the first 15 characters are used (16 - NUL terminator)
-    ::prctl(PR_SET_NAME, name, 0, 0, 0);
-#elif (defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__))
-    pthread_set_name_np(pthread_self(), name);
-
-#elif defined(MAC_OSX)
-    pthread_setname_np(name);
-#else
-    // Prevent warnings for unused parameters...
-    (void)name;
-#endif
 }
 
 void SetupEnvironment()

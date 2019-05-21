@@ -8,7 +8,11 @@ define(_CLIENT_VERSION_BUILD, 0)
 =======
 define(_CLIENT_VERSION_MAJOR, 0)
 define(_CLIENT_VERSION_MINOR, 18)
+<<<<<<< HEAD
 define(_CLIENT_VERSION_REVISION, 0)
+=======
+define(_CLIENT_VERSION_REVISION, 99)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_RC, 0)
 >>>>>>> upstream/0.18
@@ -91,8 +95,8 @@ AC_PATH_TOOL(RANLIB, ranlib)
 AC_PATH_TOOL(STRIP, strip)
 AC_PATH_TOOL(GCOV, gcov)
 AC_PATH_PROG(LCOV, lcov)
-dnl Python 3.4 is specified in .python-version and should be used if available, see doc/dependencies.md
-AC_PATH_PROGS([PYTHON], [python3.4 python3.5 python3.6 python3.7 python3 python])
+dnl Python 3.5 is specified in .python-version and should be used if available, see doc/dependencies.md
+AC_PATH_PROGS([PYTHON], [python3.5 python3.6 python3.7 python3.8 python3 python])
 AC_PATH_PROG(GENHTML, genhtml)
 AC_PATH_PROG([GIT], [git])
 AC_PATH_PROG(CCACHE,ccache)
@@ -191,8 +195,8 @@ AC_ARG_ENABLE([glibc-back-compat],
   [use_glibc_compat=no])
 
 AC_ARG_ENABLE([asm],
-  [AS_HELP_STRING([--enable-asm],
-  [Enable assembly routines (default is yes)])],
+  [AS_HELP_STRING([--disable-asm],
+  [disable assembly routines (enabled by default)])],
   [use_asm=$enableval],
   [use_asm=yes])
 
@@ -322,6 +326,13 @@ if test "x$CXXFLAGS_overridden" = "xno"; then
   AX_CHECK_COMPILE_FLAG([-Wimplicit-fallthrough],[NOWARN_CXXFLAGS="$NOWARN_CXXFLAGS -Wno-implicit-fallthrough"],,[[$CXXFLAG_WERROR]])
 fi
 
+enable_hwcrc32=no
+enable_sse41=no
+enable_avx2=no
+enable_shani=no
+
+if test "x$use_asm" = "xyes"; then
+
 # Check for optional instruction set support. Enabling these does _not_ imply that all code will
 # be compiled with them, rather that specific objects/libs may use them after checking for runtime
 # compatibility.
@@ -398,6 +409,8 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
  [ AC_MSG_RESULT(no)]
 )
 CXXFLAGS="$TEMP_CXXFLAGS"
+
+fi
 
 CPPFLAGS="$CPPFLAGS -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS"
 
@@ -701,6 +714,10 @@ if test x$TARGET_OS != xwindows; then
   AX_CHECK_COMPILE_FLAG([-fPIC],[PIC_FLAGS="-fPIC"])
 fi
 
+# All versions of gcc that we commonly use for building are subject to bug
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=90348. To work around that, set
+# -fstack-reuse=none for all gcc builds. (Only gcc understands this flag)
+AX_CHECK_COMPILE_FLAG([-fstack-reuse=none],[HARDENED_CXXFLAGS="$HARDENED_CXXFLAGS -fstack-reuse=none"])
 if test x$use_hardening != xno; then
   use_hardening=yes
   AX_CHECK_COMPILE_FLAG([-Wstack-protector],[HARDENED_CXXFLAGS="$HARDENED_CXXFLAGS -Wstack-protector"])
@@ -799,8 +816,23 @@ AC_LINK_IFELSE([AC_LANG_SOURCE([
   }
   ])],
   [
-    AC_DEFINE(HAVE_THREAD_LOCAL,1,[Define if thread_local is supported.])
-    AC_MSG_RESULT(yes)
+   case $host in
+     *mingw*)
+        # mingw32's implementation of thread_local has also been shown to behave
+        # erroneously under concurrent usage; see:
+        # https://gist.github.com/jamesob/fe9a872051a88b2025b1aa37bfa98605
+        AC_MSG_RESULT(no)
+        ;;
+      *darwin*)
+        # TODO enable thread_local on later versions of Darwin where it is
+        # supported (per https://stackoverflow.com/a/29929949)
+        AC_MSG_RESULT(no)
+        ;;
+      *)
+        AC_DEFINE(HAVE_THREAD_LOCAL,1,[Define if thread_local is supported.])
+        AC_MSG_RESULT(yes)
+        ;;
+    esac
   ],
   [
     AC_MSG_RESULT(no)

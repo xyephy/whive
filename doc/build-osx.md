@@ -83,8 +83,11 @@ Whive Core is now available at `./src/whived`
 Before running, you may create an empty configuration file:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     touch "/Users/${USER}/Library/Application Support/Whive/Whive.conf"
 =======
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     mkdir -p "/Users/${USER}/Library/Application Support/Bitcoin"
 
     touch "/Users/${USER}/Library/Application Support/Bitcoin/bitcoin.conf"

@@ -6,7 +6,10 @@ option. In the GUI it is possible to execute RPC methods in the Debug Console
 Dialog.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 ## Versioning
 
 The RPC interface might change from one major version of Bitcoin Core to the

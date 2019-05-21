@@ -17,6 +17,7 @@
 #include <rpc/server.h>
 #include <rpc/util.h>
 #include <timedata.h>
+<<<<<<< HEAD
 #include <util.h>
 #include <utilstrencodings.h>
 #ifdef ENABLE_WALLET
@@ -24,9 +25,15 @@
 #include <wallet/wallet.h>
 #include <wallet/walletdb.h>
 #endif
+=======
+#include <util/system.h>
+#include <util/strencodings.h>
+#include <util/validation.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <warnings.h>
 
 #include <stdint.h>
+#include <tuple>
 #ifdef HAVE_MALLOC_INFO
 #include <malloc.h>
 #endif
@@ -257,22 +264,11 @@ UniValue deriveaddresses(const JSONRPCRequest& request)
     int64_t range_end = 0;
 
     if (request.params.size() >= 2 && !request.params[1].isNull()) {
-        auto range = ParseRange(request.params[1]);
-        if (range.first < 0) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Range should be greater or equal than 0");
-        }
-        if ((range.second >> 31) != 0) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "End of range is too high");
-        }
-        if (range.second >= range.first + 1000000) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Range is too large");
-        }
-        range_begin = range.first;
-        range_end = range.second;
+        std::tie(range_begin, range_end) = ParseDescriptorRange(request.params[1]);
     }
 
-    FlatSigningProvider provider;
-    auto desc = Parse(desc_str, provider, /* require_checksum = */ true);
+    FlatSigningProvider key_provider;
+    auto desc = Parse(desc_str, key_provider, /* require_checksum = */ true);
     if (!desc) {
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, strprintf("Invalid descriptor"));
     }
@@ -288,8 +284,9 @@ UniValue deriveaddresses(const JSONRPCRequest& request)
     UniValue addresses(UniValue::VARR);
 
     for (int i = range_begin; i <= range_end; ++i) {
+        FlatSigningProvider provider;
         std::vector<CScript> scripts;
-        if (!desc->Expand(i, provider, scripts, provider)) {
+        if (!desc->Expand(i, key_provider, scripts, provider)) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, strprintf("Cannot derive script without private keys"));
         }
 
@@ -357,8 +354,8 @@ static UniValue verifymessage(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_TYPE_ERROR, "Invalid address");
     }
 
-    const CKeyID *keyID = boost::get<CKeyID>(&destination);
-    if (!keyID) {
+    const PKHash *pkhash = boost::get<PKHash>(&destination);
+    if (!pkhash) {
         throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to key");
     }
 
@@ -376,7 +373,7 @@ static UniValue verifymessage(const JSONRPCRequest& request)
     if (!pubkey.RecoverCompact(ss.GetHash(), vchSig))
         return false;
 
-    return (pubkey.GetID() == *keyID);
+    return (pubkey.GetID() == *pkhash);
 }
 
 static UniValue signmessagewithprivkey(const JSONRPCRequest& request)

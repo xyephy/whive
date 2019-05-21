@@ -464,11 +464,17 @@ public:
 
     std::string ToString() const override
     {
+<<<<<<< HEAD
         std::string ret = strprintf("multi(%i", m_threshold);
         for (const auto& p : m_providers) {
             ret += "," + p->ToString();
         }
         return std::move(ret) + ")";
+=======
+        CKeyID id = keys[0].GetID();
+        out.pubkeys.emplace(id, keys[0]);
+        return Singleton(GetScriptForDestination(PKHash(id)));
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     }
 
     bool ToPrivateString(const SigningProvider& arg, std::string& out) const override
@@ -485,12 +491,25 @@ public:
 
     bool Expand(int pos, const SigningProvider& arg, std::vector<CScript>& output_scripts, FlatSigningProvider& out) const override
     {
+<<<<<<< HEAD
         std::vector<CPubKey> pubkeys;
         pubkeys.reserve(m_providers.size());
         for (const auto& p : m_providers) {
             CPubKey key;
             if (!p->GetPubKey(pos, arg, key)) return false;
             pubkeys.push_back(key);
+=======
+        std::vector<CScript> ret;
+        CKeyID id = keys[0].GetID();
+        out.pubkeys.emplace(id, keys[0]);
+        ret.emplace_back(GetScriptForRawPubKey(keys[0])); // P2PK
+        ret.emplace_back(GetScriptForDestination(PKHash(id))); // P2PKH
+        if (keys[0].IsCompressed()) {
+            CScript p2wpkh = GetScriptForDestination(WitnessV0KeyHash(id));
+            out.scripts.emplace(CScriptID(p2wpkh), p2wpkh);
+            ret.emplace_back(p2wpkh);
+            ret.emplace_back(GetScriptForDestination(ScriptHash(p2wpkh))); // P2SH-P2WPKH
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
         }
         for (const CPubKey& key : pubkeys) {
             out.pubkeys.emplace(key.GetID(), std::move(key));
@@ -507,6 +526,14 @@ class ConvertorDescriptor : public Descriptor
     const std::string m_fn_name;
     std::unique_ptr<Descriptor> m_descriptor;
 
+<<<<<<< HEAD
+=======
+/** A parsed sh(...) descriptor. */
+class SHDescriptor final : public DescriptorImpl
+{
+protected:
+    std::vector<CScript> MakeScripts(const std::vector<CPubKey>&, const CScript* script, FlatSigningProvider&) const override { return Singleton(GetScriptForDestination(ScriptHash(*script))); }
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 public:
     ConvertorDescriptor(std::unique_ptr<Descriptor> descriptor, const std::function<CScript(const CScript&)>& fn, const std::string& name) : m_convert_fn(fn), m_fn_name(name), m_descriptor(std::move(descriptor)) {}
 

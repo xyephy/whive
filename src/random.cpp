@@ -276,7 +276,39 @@ static void SeedHardwareSlow(CSHA512& hasher) noexcept {
 #endif
 }
 
+<<<<<<< HEAD
 void RandAddSeed()
+=======
+/** Use repeated SHA512 to strengthen the randomness in seed32, and feed into hasher. */
+static void Strengthen(const unsigned char (&seed)[32], int microseconds, CSHA512& hasher) noexcept
+{
+    CSHA512 inner_hasher;
+    inner_hasher.Write(seed, sizeof(seed));
+
+    // Hash loop
+    unsigned char buffer[64];
+    int64_t stop = GetTimeMicros() + microseconds;
+    do {
+        for (int i = 0; i < 1000; ++i) {
+            inner_hasher.Finalize(buffer);
+            inner_hasher.Reset();
+            inner_hasher.Write(buffer, sizeof(buffer));
+        }
+        // Benchmark operation and feed it into outer hasher.
+        int64_t perf = GetPerformanceCounter();
+        hasher.Write((const unsigned char*)&perf, sizeof(perf));
+    } while (GetTimeMicros() < stop);
+
+    // Produce output from inner state and feed it to outer hasher.
+    inner_hasher.Finalize(buffer);
+    hasher.Write(buffer, sizeof(buffer));
+    // Try to clean up.
+    inner_hasher.Reset();
+    memory_cleanse(buffer, sizeof(buffer));
+}
+
+static void RandAddSeedPerfmon(CSHA512& hasher)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 {
     // Seed with CPU performance counter
     int64_t nCounter = GetPerformanceCounter();
@@ -474,11 +506,35 @@ static void SeedSlow(CSHA512& hasher) noexcept
     memory_cleanse(&nPerfCounter2, sizeof(nPerfCounter2));
 }
 
+<<<<<<< HEAD
+=======
+/** Extract entropy from rng, strengthen it, and feed it into hasher. */
+static void SeedStrengthen(CSHA512& hasher, RNGState& rng) noexcept
+{
+    static std::atomic<int64_t> last_strengthen{0};
+    int64_t last_time = last_strengthen.load();
+    int64_t current_time = GetTimeMicros();
+    if (current_time > last_time + 60000000) { // Only run once a minute
+        // Generate 32 bytes of entropy from the RNG, and a copy of the entropy already in hasher.
+        unsigned char strengthen_seed[32];
+        rng.MixExtract(strengthen_seed, sizeof(strengthen_seed), CSHA512(hasher), false);
+        // Strengthen it for 10ms (100ms on first run), and feed it into hasher.
+        Strengthen(strengthen_seed, last_time == 0 ? 100000 : 10000, hasher);
+        last_strengthen = current_time;
+    }
+}
+
+static void SeedSleep(CSHA512& hasher, RNGState& rng)
+{
+    // Everything that the 'fast' seeder includes
+    SeedFast(hasher);
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
 static std::mutex cs_rng_state;
 static unsigned char rng_state[32] = {0};
 static uint64_t rng_counter = 0;
 
+<<<<<<< HEAD
 static void AddDataToRng(void* data, size_t len) {
     CSHA512 hasher;
     hasher.Write((const unsigned char*)&len, sizeof(len));
@@ -496,6 +552,22 @@ static void AddDataToRng(void* data, size_t len) {
 }
 
 void GetStrongRandBytes(unsigned char* out, int num)
+=======
+    // Sleep for 1ms
+    MilliSleep(1);
+
+    // High-precision timestamp after sleeping (as we commit to both the time before and after, this measures the delay)
+    SeedTimestamp(hasher);
+
+    // Windows performance monitor data (once every 10 minutes)
+    RandAddSeedPerfmon(hasher);
+
+    // Strengthen every minute
+    SeedStrengthen(hasher, rng);
+}
+
+static void SeedStartup(CSHA512& hasher, RNGState& rng) noexcept
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 {
 <<<<<<< HEAD
     assert(num <= 32);
@@ -514,6 +586,9 @@ void GetStrongRandBytes(unsigned char* out, int num)
 
     // Windows performance monitor data.
     RandAddSeedPerfmon(hasher);
+
+    // Strengthen
+    SeedStrengthen(hasher, rng);
 }
 
 enum class RNGLevel {
@@ -532,6 +607,7 @@ enum class RNGLevel {
     GetOSRand(buf);
     hasher.Write(buf, 32);
 
+<<<<<<< HEAD
     // Third source: HW RNG, if available.
     if (GetHWRand(buf)) {
         hasher.Write(buf, 32);
@@ -545,6 +621,27 @@ enum class RNGLevel {
         ++rng_counter;
         hasher.Finalize(buf);
         memcpy(rng_state, buf + 32, 32);
+=======
+    CSHA512 hasher;
+    switch (level) {
+    case RNGLevel::FAST:
+        SeedFast(hasher);
+        break;
+    case RNGLevel::SLOW:
+        SeedSlow(hasher);
+        break;
+    case RNGLevel::SLEEP:
+        SeedSleep(hasher, rng);
+        break;
+    }
+
+    // Combine with and update state
+    if (!rng.MixExtract(out, num, std::move(hasher), false)) {
+        // On the first invocation, also seed with SeedStartup().
+        CSHA512 startup_hasher;
+        SeedStartup(startup_hasher, rng);
+        rng.MixExtract(out, num, std::move(startup_hasher), true);
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     }
 
     // Produce output
@@ -601,7 +698,7 @@ std::vector<unsigned char> FastRandomContext::randbytes(size_t len)
 {
     std::vector<unsigned char> ret(len);
     if (len > 0) {
-        rng.Output(&ret[0], len);
+        rng.Keystream(&ret[0], len);
     }
     return ret;
 }

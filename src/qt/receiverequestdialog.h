@@ -8,14 +8,12 @@
 #include <qt/walletmodel.h>
 
 #include <QDialog>
-#include <QImage>
-#include <QLabel>
-#include <QPainter>
 
 namespace Ui {
     class ReceiveRequestDialog;
 }
 
+<<<<<<< HEAD
 QT_BEGIN_NAMESPACE
 class QMenu;
 QT_END_NAMESPACE
@@ -43,6 +41,8 @@ private:
     QMenu *contextMenu;
 };
 
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 class ReceiveRequestDialog : public QDialog
 {
     Q_OBJECT

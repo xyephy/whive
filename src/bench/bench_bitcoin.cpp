@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2018 The Bitcoin Core developers
+// Copyright (c) 2015-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,10 +6,15 @@
 
 #include <crypto/sha256.h>
 #include <key.h>
+<<<<<<< HEAD
 #include <random.h>
 #include <util.h>
 #include <utilstrencodings.h>
 #include <validation.h>
+=======
+#include <util/strencodings.h>
+#include <util/system.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
 #include <memory>
 
@@ -35,14 +40,6 @@ static void SetupBenchArgs()
     gArgs.AddArg("-plot-height=<x>", strprintf("Plot height in pixel (default: %u)", DEFAULT_PLOT_HEIGHT), false, OptionsCategory::OPTIONS);
 }
 
-static fs::path SetDataDir()
-{
-    fs::path ret = fs::temp_directory_path() / "bench_bitcoin" / fs::unique_path();
-    fs::create_directories(ret);
-    gArgs.ForceSetArg("-datadir", ret.string());
-    return ret;
-}
-
 int main(int argc, char** argv)
 {
     SetupBenchArgs();
@@ -58,6 +55,7 @@ int main(int argc, char** argv)
         return EXIT_SUCCESS;
     }
 
+<<<<<<< HEAD
     // Set the datadir after parsing the bench options
     const fs::path bench_datadir{SetDataDir()};
 
@@ -66,6 +64,8 @@ int main(int argc, char** argv)
     ECC_Start();
     SetupEnvironment();
 
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     int64_t evaluations = gArgs.GetArg("-evals", DEFAULT_BENCH_EVALUATIONS);
     std::string regex_filter = gArgs.GetArg("-filter", DEFAULT_BENCH_FILTER);
     std::string scaling_str = gArgs.GetArg("-scaling", DEFAULT_BENCH_SCALING);
@@ -87,10 +87,6 @@ int main(int argc, char** argv)
     }
 
     benchmark::BenchRunner::RunAll(*printer, evaluations, scaling_factor, regex_filter, is_list_only);
-
-    fs::remove_all(bench_datadir);
-
-    ECC_Stop();
 
     return EXIT_SUCCESS;
 }

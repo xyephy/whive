@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2018 The Bitcoin Core developers
+// Copyright (c) 2011-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,8 +11,13 @@
 #include <random.h>
 #include <script/standard.h>
 #include <script/sign.h>
+<<<<<<< HEAD
 #include <test/test_bitcoin.h>
 #include <utiltime.h>
+=======
+#include <test/setup_common.h>
+#include <util/time.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <core_io.h>
 #include <keystore.h>
 #include <policy/policy.h>
@@ -66,18 +71,27 @@ BOOST_FIXTURE_TEST_CASE(tx_mempool_block_doublespend, TestChain100Setup)
 
     // Test 1: block with both of those transactions should be rejected.
     block = CreateAndProcessBlock(spends, scriptPubKey);
-    BOOST_CHECK(chainActive.Tip()->GetBlockHash() != block.GetHash());
+    {
+        LOCK(cs_main);
+        BOOST_CHECK(::ChainActive().Tip()->GetBlockHash() != block.GetHash());
+    }
 
     // Test 2: ... and should be rejected if spend1 is in the memory pool
     BOOST_CHECK(ToMemPool(spends[0]));
     block = CreateAndProcessBlock(spends, scriptPubKey);
-    BOOST_CHECK(chainActive.Tip()->GetBlockHash() != block.GetHash());
+    {
+        LOCK(cs_main);
+        BOOST_CHECK(::ChainActive().Tip()->GetBlockHash() != block.GetHash());
+    }
     mempool.clear();
 
     // Test 3: ... and should be rejected if spend2 is in the memory pool
     BOOST_CHECK(ToMemPool(spends[1]));
     block = CreateAndProcessBlock(spends, scriptPubKey);
-    BOOST_CHECK(chainActive.Tip()->GetBlockHash() != block.GetHash());
+    {
+        LOCK(cs_main);
+        BOOST_CHECK(::ChainActive().Tip()->GetBlockHash() != block.GetHash());
+    }
     mempool.clear();
 
     // Final sanity test: first spend in mempool, second in block, that's OK:
@@ -85,7 +99,10 @@ BOOST_FIXTURE_TEST_CASE(tx_mempool_block_doublespend, TestChain100Setup)
     oneSpend.push_back(spends[0]);
     BOOST_CHECK(ToMemPool(spends[1]));
     block = CreateAndProcessBlock(oneSpend, scriptPubKey);
-    BOOST_CHECK(chainActive.Tip()->GetBlockHash() == block.GetHash());
+    {
+        LOCK(cs_main);
+        BOOST_CHECK(::ChainActive().Tip()->GetBlockHash() == block.GetHash());
+    }
     // spends[1] should have been removed from the mempool when the
     // block with spends[0] is accepted:
     BOOST_CHECK_EQUAL(mempool.size(), 0U);
@@ -151,8 +168,8 @@ BOOST_FIXTURE_TEST_CASE(checkinputs_test, TestChain100Setup)
     }
 
     CScript p2pk_scriptPubKey = CScript() << ToByteVector(coinbaseKey.GetPubKey()) << OP_CHECKSIG;
-    CScript p2sh_scriptPubKey = GetScriptForDestination(CScriptID(p2pk_scriptPubKey));
-    CScript p2pkh_scriptPubKey = GetScriptForDestination(coinbaseKey.GetPubKey().GetID());
+    CScript p2sh_scriptPubKey = GetScriptForDestination(ScriptHash(p2pk_scriptPubKey));
+    CScript p2pkh_scriptPubKey = GetScriptForDestination(PKHash(coinbaseKey.GetPubKey()));
     CScript p2wpkh_scriptPubKey = GetScriptForWitness(p2pkh_scriptPubKey);
 
     CBasicKeyStore keystore;
@@ -220,7 +237,7 @@ BOOST_FIXTURE_TEST_CASE(checkinputs_test, TestChain100Setup)
 
     block = CreateAndProcessBlock({spend_tx}, p2pk_scriptPubKey);
     LOCK(cs_main);
-    BOOST_CHECK(chainActive.Tip()->GetBlockHash() == block.GetHash());
+    BOOST_CHECK(::ChainActive().Tip()->GetBlockHash() == block.GetHash());
     BOOST_CHECK(pcoinsTip->GetBestBlock() == block.GetHash());
 
     // Test P2SH: construct a transaction that is valid without P2SH, and

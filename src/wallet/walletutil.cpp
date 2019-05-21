@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
 // Copyright (c) 2018-2019 The Whive Core developers
+=======
+// Copyright (c) 2017-2019 The Bitcoin Core developers
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <wallet/walletutil.h>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <logging.h>
 #include <util/system.h>
 
@@ -38,6 +45,8 @@ fs::path GetWalletDir()
 
 static bool IsBerkeleyBtree(const fs::path& path)
 {
+    if (!fs::exists(path)) return false;
+
     // A Berkeley DB Btree file has at least 4K.
     // This check also prevents opening lock files.
     boost::system::error_code ec;

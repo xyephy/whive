@@ -12,6 +12,7 @@
 #include <net_processing.h>
 #include <netbase.h>
 #include <policy/policy.h>
+#include <policy/settings.h>
 #include <rpc/protocol.h>
 #include <sync.h>
 #include <timedata.h>
@@ -502,7 +503,7 @@ static UniValue getnetworkinfo(const JSONRPCRequest& request)
     obj.pushKV("protocolversion",PROTOCOL_VERSION);
     if(g_connman)
         obj.pushKV("localservices", strprintf("%016x", g_connman->GetLocalServices()));
-    obj.pushKV("localrelay",     fRelayTxes);
+    obj.pushKV("localrelay", g_relay_txes);
     obj.pushKV("timeoffset",    GetTimeOffset());
     if (g_connman) {
         obj.pushKV("networkactive", g_connman->GetNetworkActive());

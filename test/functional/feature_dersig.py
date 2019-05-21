@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Bitcoin Core developers
+# Copyright (c) 2015-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test BIP66 (DER SIG).
@@ -12,7 +12,14 @@ from test_framework.messages import msg_block
 from test_framework.mininode import mininode_lock, P2PInterface
 from test_framework.script import CScript
 from test_framework.test_framework import BitcoinTestFramework
+<<<<<<< HEAD
 from test_framework.util import assert_equal, bytes_to_hex_str, wait_until
+=======
+from test_framework.util import (
+    assert_equal,
+    wait_until,
+)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
 DERSIG_HEIGHT = 1251
 
@@ -104,7 +111,7 @@ class BIP66Test(BitcoinTestFramework):
         # rejected from the mempool for exactly that reason.
         assert_equal(
             [{'txid': spendtx.hash, 'allowed': False, 'reject-reason': '64: non-mandatory-script-verify-flag (Non-canonical DER signature)'}],
-            self.nodes[0].testmempoolaccept(rawtxs=[bytes_to_hex_str(spendtx.serialize())], allowhighfees=True)
+            self.nodes[0].testmempoolaccept(rawtxs=[spendtx.serialize().hex()], maxfeerate=0)
         )
 
         # Now we verify that a block with this transaction is also invalid.

@@ -20,6 +20,7 @@
 #include <fs.h>
 #include <logging.h>
 #include <sync.h>
+#include <util/threadnames.h>
 #include <tinyformat.h>
 #include <utiltime.h>
 #include <utilmemory.h>
@@ -79,6 +80,7 @@ void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length);
 bool RenameOver(fs::path src, fs::path dest);
 bool LockDirectory(const fs::path& directory, const std::string lockfile_name, bool probe_only=false);
 bool DirIsWritable(const fs::path& directory);
+bool CheckDiskSpace(const fs::path& dir, uint64_t additional_bytes = 0);
 
 /** Release all directory locks. This is used for unit testing only, at runtime
  * the global destructor will take care of the locks.
@@ -133,6 +135,13 @@ enum class OptionsCategory {
     HIDDEN // Always the last option to avoid printing these in the help
 };
 
+struct SectionInfo
+{
+    std::string m_name;
+    std::string m_file;
+    int m_line;
+};
+
 class ArgsManager
 {
 protected:
@@ -148,6 +157,7 @@ protected:
     };
 
     mutable CCriticalSection cs_args;
+<<<<<<< HEAD:src/util.h
     std::map<std::string, std::vector<std::string>> m_override_args;
     std::map<std::string, std::vector<std::string>> m_config_args;
     std::string m_network;
@@ -155,6 +165,16 @@ protected:
     std::map<OptionsCategory, std::map<std::string, Arg>> m_available_args;
 
     bool ReadConfigStream(std::istream& stream, std::string& error, bool ignore_invalid_keys = false);
+=======
+    std::map<std::string, std::vector<std::string>> m_override_args GUARDED_BY(cs_args);
+    std::map<std::string, std::vector<std::string>> m_config_args GUARDED_BY(cs_args);
+    std::string m_network GUARDED_BY(cs_args);
+    std::set<std::string> m_network_only_args GUARDED_BY(cs_args);
+    std::map<OptionsCategory, std::map<std::string, Arg>> m_available_args GUARDED_BY(cs_args);
+    std::list<SectionInfo> m_config_sections GUARDED_BY(cs_args);
+
+    NODISCARD bool ReadConfigStream(std::istream& stream, const std::string& filepath, std::string& error, bool ignore_invalid_keys = false);
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.h
 
 public:
     ArgsManager();
@@ -173,7 +193,16 @@ public:
      * on the command line or in a network-specific section in the
      * config file.
      */
+<<<<<<< HEAD:src/util.h
     void WarnForSectionOnlyArgs();
+=======
+    const std::set<std::string> GetUnsuitableSectionOnlyArgs() const;
+
+    /**
+     * Log warnings for unrecognized section names in the config file.
+     */
+    const std::list<SectionInfo> GetUnrecognizedSections() const;
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9:src/util/system.h
 
     /**
      * Return a vector of strings of the given argument
@@ -314,15 +343,12 @@ std::string HelpMessageOpt(const std::string& option, const std::string& message
  */
 int GetNumCores();
 
-void RenameThread(const char* name);
-
 /**
  * .. and a wrapper that just calls func once
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("bitcoin-%s", name);
-    RenameThread(s.c_str());
+    util::ThreadRename(name);
     try
     {
         LogPrintf("%s thread start\n", name);

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2018 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run regression test suite.
@@ -50,8 +50,17 @@ if os.name == 'posix':
 TEST_EXIT_PASSED = 0
 TEST_EXIT_SKIPPED = 77
 
+<<<<<<< HEAD
 # 20 minutes represented in seconds
 TRAVIS_TIMEOUT_DURATION = 20 * 60
+=======
+EXTENDED_SCRIPTS = [
+    # These tests are not run by the travis build process.
+    # Longest test should go first, to favor running tests in parallel
+    'feature_pruning.py',
+    'feature_dbcrash.py',
+]
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
 BASE_SCRIPTS = [
     # Scripts that are run by the travis build process.
@@ -113,10 +122,23 @@ BASE_SCRIPTS = [
     'rpc_net.py',
     'wallet_keypool.py',
     'p2p_mempool.py',
+    'p2p_blocksonly.py',
     'mining_prioritisetransaction.py',
     'p2p_invalid_locator.py',
     'p2p_invalid_block.py',
     'p2p_invalid_tx.py',
+<<<<<<< HEAD
+=======
+    'feature_assumevalid.py',
+    'example_test.py',
+    'wallet_txn_doublespend.py',
+    'wallet_txn_clone.py --mineblock',
+    'feature_notifications.py',
+    'rpc_getblockfilter.py',
+    'rpc_invalidateblock.py',
+    'feature_rbf.py',
+    'mempool_packages.py',
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
     'rpc_createmultisig.py',
     'feature_versionbits_warning.py',
     'rpc_preciousblock.py',
@@ -158,6 +180,7 @@ BASE_SCRIPTS = [
     # Put them in a random line within the section that fits their approximate run-time
 ]
 
+<<<<<<< HEAD
 EXTENDED_SCRIPTS = [
     # These tests are not run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
@@ -184,6 +207,8 @@ EXTENDED_SCRIPTS = [
     'feature_rbf.py',
 ]
 
+=======
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 # Place EXTENDED_SCRIPTS first since it has the 3 longest running tests
 ALL_SCRIPTS = EXTENDED_SCRIPTS + BASE_SCRIPTS
 
@@ -371,16 +396,18 @@ def run_tests(test_list, src_dir, build_dir, tmpdir, jobs=1, enable_coverage=Fal
     print_results(test_results, max_len_name, (int(time.time() - start_time)))
 
     if coverage:
-        coverage.report_rpc_coverage()
+        coverage_passed = coverage.report_rpc_coverage()
 
         logging.debug("Cleaning up coverage data")
         coverage.cleanup()
+    else:
+        coverage_passed = True
 
     # Clear up the temp directory if all subdirectories are gone
     if not os.listdir(tmpdir):
         os.rmdir(tmpdir)
 
-    all_passed = all(map(lambda test_result: test_result.was_successful, test_results))
+    all_passed = all(map(lambda test_result: test_result.was_successful, test_results)) and coverage_passed
 
     # This will be a no-op unless failfast is True in which case there may be dangling
     # processes which need to be killed.
@@ -448,6 +475,15 @@ class TestHandler:
                               log_stderr))
         if not self.jobs:
             raise IndexError('pop from empty list')
+<<<<<<< HEAD
+=======
+
+        # Print remaining running jobs when all jobs have been started.
+        if not self.test_list:
+            print("Remaining jobs: [{}]".format(", ".join(j[0] for j in self.jobs)))
+
+        dot_count = 0
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
         while True:
             # Return first proc that finishes
             time.sleep(.5)
@@ -571,8 +607,10 @@ class RPCCoverage():
         if uncovered:
             print("Uncovered RPC commands:")
             print("".join(("  - %s\n" % command) for command in sorted(uncovered)))
+            return False
         else:
             print("All RPC commands covered.")
+            return True
 
     def cleanup(self):
         return shutil.rmtree(self.dir)

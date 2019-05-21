@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2017-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 #include <script/script.h>
 #include <script/script_error.h>
 #include <script/standard.h>
-#include <test/test_bitcoin.h>
+#include <test/setup_common.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -190,23 +190,23 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestination)
     s.clear();
     s << ToByteVector(pubkey) << OP_CHECKSIG;
     BOOST_CHECK(ExtractDestination(s, address));
-    BOOST_CHECK(boost::get<CKeyID>(&address) &&
-                *boost::get<CKeyID>(&address) == pubkey.GetID());
+    BOOST_CHECK(boost::get<PKHash>(&address) &&
+                *boost::get<PKHash>(&address) == PKHash(pubkey));
 
     // TX_PUBKEYHASH
     s.clear();
     s << OP_DUP << OP_HASH160 << ToByteVector(pubkey.GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
     BOOST_CHECK(ExtractDestination(s, address));
-    BOOST_CHECK(boost::get<CKeyID>(&address) &&
-                *boost::get<CKeyID>(&address) == pubkey.GetID());
+    BOOST_CHECK(boost::get<PKHash>(&address) &&
+                *boost::get<PKHash>(&address) == PKHash(pubkey));
 
     // TX_SCRIPTHASH
     CScript redeemScript(s); // initialize with leftover P2PKH script
     s.clear();
     s << OP_HASH160 << ToByteVector(CScriptID(redeemScript)) << OP_EQUAL;
     BOOST_CHECK(ExtractDestination(s, address));
-    BOOST_CHECK(boost::get<CScriptID>(&address) &&
-                *boost::get<CScriptID>(&address) == CScriptID(redeemScript));
+    BOOST_CHECK(boost::get<ScriptHash>(&address) &&
+                *boost::get<ScriptHash>(&address) == ScriptHash(redeemScript));
 
     // TX_MULTISIG
     s.clear();
@@ -266,8 +266,8 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestinations)
     BOOST_CHECK_EQUAL(whichType, TX_PUBKEY);
     BOOST_CHECK_EQUAL(addresses.size(), 1U);
     BOOST_CHECK_EQUAL(nRequired, 1);
-    BOOST_CHECK(boost::get<CKeyID>(&addresses[0]) &&
-                *boost::get<CKeyID>(&addresses[0]) == pubkeys[0].GetID());
+    BOOST_CHECK(boost::get<PKHash>(&addresses[0]) &&
+                *boost::get<PKHash>(&addresses[0]) == PKHash(pubkeys[0]));
 
     // TX_PUBKEYHASH
     s.clear();
@@ -276,8 +276,8 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestinations)
     BOOST_CHECK_EQUAL(whichType, TX_PUBKEYHASH);
     BOOST_CHECK_EQUAL(addresses.size(), 1U);
     BOOST_CHECK_EQUAL(nRequired, 1);
-    BOOST_CHECK(boost::get<CKeyID>(&addresses[0]) &&
-                *boost::get<CKeyID>(&addresses[0]) == pubkeys[0].GetID());
+    BOOST_CHECK(boost::get<PKHash>(&addresses[0]) &&
+                *boost::get<PKHash>(&addresses[0]) == PKHash(pubkeys[0]));
 
     // TX_SCRIPTHASH
     CScript redeemScript(s); // initialize with leftover P2PKH script
@@ -287,8 +287,8 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestinations)
     BOOST_CHECK_EQUAL(whichType, TX_SCRIPTHASH);
     BOOST_CHECK_EQUAL(addresses.size(), 1U);
     BOOST_CHECK_EQUAL(nRequired, 1);
-    BOOST_CHECK(boost::get<CScriptID>(&addresses[0]) &&
-                *boost::get<CScriptID>(&addresses[0]) == CScriptID(redeemScript));
+    BOOST_CHECK(boost::get<ScriptHash>(&addresses[0]) &&
+                *boost::get<ScriptHash>(&addresses[0]) == ScriptHash(redeemScript));
 
     // TX_MULTISIG
     s.clear();
@@ -300,10 +300,10 @@ BOOST_AUTO_TEST_CASE(script_standard_ExtractDestinations)
     BOOST_CHECK_EQUAL(whichType, TX_MULTISIG);
     BOOST_CHECK_EQUAL(addresses.size(), 2U);
     BOOST_CHECK_EQUAL(nRequired, 2);
-    BOOST_CHECK(boost::get<CKeyID>(&addresses[0]) &&
-                *boost::get<CKeyID>(&addresses[0]) == pubkeys[0].GetID());
-    BOOST_CHECK(boost::get<CKeyID>(&addresses[1]) &&
-                *boost::get<CKeyID>(&addresses[1]) == pubkeys[1].GetID());
+    BOOST_CHECK(boost::get<PKHash>(&addresses[0]) &&
+                *boost::get<PKHash>(&addresses[0]) == PKHash(pubkeys[0]));
+    BOOST_CHECK(boost::get<PKHash>(&addresses[1]) &&
+                *boost::get<PKHash>(&addresses[1]) == PKHash(pubkeys[1]));
 
     // TX_NULL_DATA
     s.clear();
@@ -322,17 +322,17 @@ BOOST_AUTO_TEST_CASE(script_standard_GetScriptFor_)
 
     CScript expected, result;
 
-    // CKeyID
+    // PKHash
     expected.clear();
     expected << OP_DUP << OP_HASH160 << ToByteVector(pubkeys[0].GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
-    result = GetScriptForDestination(pubkeys[0].GetID());
+    result = GetScriptForDestination(PKHash(pubkeys[0]));
     BOOST_CHECK(result == expected);
 
     // CScriptID
     CScript redeemScript(result);
     expected.clear();
     expected << OP_HASH160 << ToByteVector(CScriptID(redeemScript)) << OP_EQUAL;
-    result = GetScriptForDestination(CScriptID(redeemScript));
+    result = GetScriptForDestination(ScriptHash(redeemScript));
     BOOST_CHECK(result == expected);
 
     // CNoDestination
@@ -432,7 +432,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     // P2PKH compressed
     {
         CBasicKeyStore keystore;
-        scriptPubKey = GetScriptForDestination(pubkeys[0].GetID());
+        scriptPubKey = GetScriptForDestination(PKHash(pubkeys[0]));
 
         // Keystore does not have key
         result = IsMine(keystore, scriptPubKey);
@@ -447,7 +447,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     // P2PKH uncompressed
     {
         CBasicKeyStore keystore;
-        scriptPubKey = GetScriptForDestination(uncompressedPubkey.GetID());
+        scriptPubKey = GetScriptForDestination(PKHash(uncompressedPubkey));
 
         // Keystore does not have key
         result = IsMine(keystore, scriptPubKey);
@@ -463,8 +463,8 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     {
         CBasicKeyStore keystore;
 
-        CScript redeemScript = GetScriptForDestination(pubkeys[0].GetID());
-        scriptPubKey = GetScriptForDestination(CScriptID(redeemScript));
+        CScript redeemScript = GetScriptForDestination(PKHash(pubkeys[0]));
+        scriptPubKey = GetScriptForDestination(ScriptHash(redeemScript));
 
         // Keystore does not have redeemScript or key
         result = IsMine(keystore, scriptPubKey);
@@ -485,9 +485,9 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     {
         CBasicKeyStore keystore;
 
-        CScript redeemscript_inner = GetScriptForDestination(pubkeys[0].GetID());
-        CScript redeemscript = GetScriptForDestination(CScriptID(redeemscript_inner));
-        scriptPubKey = GetScriptForDestination(CScriptID(redeemscript));
+        CScript redeemscript_inner = GetScriptForDestination(PKHash(pubkeys[0]));
+        CScript redeemscript = GetScriptForDestination(ScriptHash(redeemscript_inner));
+        scriptPubKey = GetScriptForDestination(ScriptHash(redeemscript));
 
         keystore.AddCScript(redeemscript);
         keystore.AddCScript(redeemscript_inner);
@@ -501,8 +501,8 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     {
         CBasicKeyStore keystore;
 
-        CScript redeemscript = GetScriptForDestination(pubkeys[0].GetID());
-        CScript witnessscript = GetScriptForDestination(CScriptID(redeemscript));
+        CScript redeemscript = GetScriptForDestination(PKHash(pubkeys[0]));
+        CScript witnessscript = GetScriptForDestination(ScriptHash(redeemscript));
         scriptPubKey = GetScriptForDestination(WitnessV0ScriptHash(witnessscript));
 
         keystore.AddCScript(witnessscript);
@@ -517,7 +517,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     {
         CBasicKeyStore keystore;
 
-        CScript witnessscript = GetScriptForDestination(WitnessV0KeyHash(pubkeys[0].GetID()));
+        CScript witnessscript = GetScriptForDestination(WitnessV0KeyHash(PKHash(pubkeys[0])));
         scriptPubKey = GetScriptForDestination(WitnessV0ScriptHash(witnessscript));
 
         keystore.AddCScript(witnessscript);
@@ -531,7 +531,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
     {
         CBasicKeyStore keystore;
 
-        CScript witnessscript_inner = GetScriptForDestination(pubkeys[0].GetID());
+        CScript witnessscript_inner = GetScriptForDestination(PKHash(pubkeys[0]));
         CScript witnessscript = GetScriptForDestination(WitnessV0ScriptHash(witnessscript_inner));
         scriptPubKey = GetScriptForDestination(WitnessV0ScriptHash(witnessscript));
 
@@ -548,7 +548,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
         CBasicKeyStore keystore;
         keystore.AddKey(keys[0]);
 
-        scriptPubKey = GetScriptForDestination(WitnessV0KeyHash(pubkeys[0].GetID()));
+        scriptPubKey = GetScriptForDestination(WitnessV0KeyHash(PKHash(pubkeys[0])));
 
         // Keystore implicitly has key and P2SH redeemScript
         keystore.AddCScript(scriptPubKey);
@@ -561,7 +561,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
         CBasicKeyStore keystore;
         keystore.AddKey(uncompressedKey);
 
-        scriptPubKey = GetScriptForDestination(WitnessV0KeyHash(uncompressedPubkey.GetID()));
+        scriptPubKey = GetScriptForDestination(WitnessV0KeyHash(PKHash(uncompressedPubkey)));
 
         // Keystore has key, but no P2SH redeemScript
         result = IsMine(keystore, scriptPubKey);
@@ -609,7 +609,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
         keystore.AddKey(keys[1]);
 
         CScript redeemScript = GetScriptForMultisig(2, {uncompressedPubkey, pubkeys[1]});
-        scriptPubKey = GetScriptForDestination(CScriptID(redeemScript));
+        scriptPubKey = GetScriptForDestination(ScriptHash(redeemScript));
 
         // Keystore has no redeemScript
         result = IsMine(keystore, scriptPubKey);
@@ -675,7 +675,7 @@ BOOST_AUTO_TEST_CASE(script_standard_IsMine)
 
         CScript witnessScript = GetScriptForMultisig(2, {pubkeys[0], pubkeys[1]});
         CScript redeemScript = GetScriptForDestination(WitnessV0ScriptHash(witnessScript));
-        scriptPubKey = GetScriptForDestination(CScriptID(redeemScript));
+        scriptPubKey = GetScriptForDestination(ScriptHash(redeemScript));
 
         // Keystore has no witnessScript, P2SH redeemScript, or keys
         result = IsMine(keystore, scriptPubKey);

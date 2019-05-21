@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2018 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Base class for RPC testing."""
@@ -10,6 +10,7 @@ import logging
 import argparse
 import os
 import pdb
+import random
 import shutil
 import sys
 import tempfile
@@ -130,6 +131,13 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
                             help="Attach a python debugger if test fails")
         parser.add_argument("--usecli", dest="usecli", default=False, action="store_true",
                             help="use bitcoin-cli instead of RPC for all commands")
+<<<<<<< HEAD
+=======
+        parser.add_argument("--perf", dest="perf", default=False, action="store_true",
+                            help="profile running nodes with perf for the duration of the test")
+        parser.add_argument("--randomseed", type=int,
+                            help="set a random seed for deterministically reproducing a previous test run")
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
         self.add_options(parser)
         self.options = parser.parse_args()
 
@@ -157,6 +165,22 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         else:
             self.options.tmpdir = tempfile.mkdtemp(prefix="test")
         self._start_logging()
+
+        # Seed the PRNG. Note that test runs are reproducible if and only if
+        # a single thread accesses the PRNG. For more information, see
+        # https://docs.python.org/3/library/random.html#notes-on-reproducibility.
+        # The network thread shouldn't access random. If we need to change the
+        # network thread to access randomness, it should instantiate its own
+        # random.Random object.
+        seed = self.options.randomseed
+
+        if seed is None:
+            seed = random.randrange(sys.maxsize)
+        else:
+            self.log.debug("User supplied random seed {}".format(seed))
+
+        random.seed(seed)
+        self.log.debug("PRNG seed is: {}".format(seed))
 
         self.log.debug('Setting up network thread')
         self.network_thread = NetworkThread()
@@ -393,7 +417,8 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         """
         disconnect_nodes(self.nodes[1], 2)
         disconnect_nodes(self.nodes[2], 1)
-        self.sync_all([self.nodes[:2], self.nodes[2:]])
+        self.sync_all(self.nodes[:2])
+        self.sync_all(self.nodes[2:])
 
     def join_network(self):
         """
@@ -402,13 +427,15 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         connect_nodes_bi(self.nodes, 1, 2)
         self.sync_all()
 
-    def sync_all(self, node_groups=None):
-        if not node_groups:
-            node_groups = [self.nodes]
+    def sync_blocks(self, nodes=None, **kwargs):
+        sync_blocks(nodes or self.nodes, **kwargs)
 
-        for group in node_groups:
-            sync_blocks(group)
-            sync_mempools(group)
+    def sync_mempools(self, nodes=None, **kwargs):
+        sync_mempools(nodes or self.nodes, **kwargs)
+
+    def sync_all(self, nodes=None, **kwargs):
+        self.sync_blocks(nodes, **kwargs)
+        self.sync_mempools(nodes, **kwargs)
 
     def enable_mocktime(self):
         """Enable mocktime for the script.
@@ -532,7 +559,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             # see the tip age check in IsInitialBlockDownload().
             for i in range(8):
                 self.nodes[0].generatetoaddress(25 if i != 7 else 24, self.nodes[i % 4].get_deterministic_priv_key().address)
-            sync_blocks(self.nodes)
+            self.sync_blocks()
 
             for n in self.nodes:
                 assert_equal(n.getblockchaininfo()["blocks"], 199)
@@ -593,21 +620,19 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
 
     def is_cli_compiled(self):
         """Checks whether bitcoin-cli was compiled."""
+<<<<<<< HEAD
         config = configparser.ConfigParser()
         config.read_file(open(self.options.configfile))
 
         return config["components"].getboolean("ENABLE_UTILS")
+=======
+        return self.config["components"].getboolean("ENABLE_CLI")
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
     def is_wallet_compiled(self):
         """Checks whether the wallet module was compiled."""
-        config = configparser.ConfigParser()
-        config.read_file(open(self.options.configfile))
-
-        return config["components"].getboolean("ENABLE_WALLET")
+        return self.config["components"].getboolean("ENABLE_WALLET")
 
     def is_zmq_compiled(self):
         """Checks whether the zmq module was compiled."""
-        config = configparser.ConfigParser()
-        config.read_file(open(self.options.configfile))
-
-        return config["components"].getboolean("ENABLE_ZMQ")
+        return self.config["components"].getboolean("ENABLE_ZMQ")

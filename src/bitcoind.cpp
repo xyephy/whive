@@ -19,7 +19,12 @@
 #include <util.h>
 #include <httpserver.h>
 #include <httprpc.h>
+<<<<<<< HEAD
 #include <utilstrencodings.h>
+=======
+#include <util/threadnames.h>
+#include <util/strencodings.h>
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 #include <walletinitinterface.h>
 
 #include <stdio.h>
@@ -58,6 +63,8 @@ static void WaitForShutdown()
 static bool AppInit(int argc, char* argv[])
 {
     bool fRet = false;
+
+    util::ThreadRename("init");
 
     //
     // Parameters

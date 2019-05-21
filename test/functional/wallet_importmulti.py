@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2018 The Bitcoin Core developers
+# Copyright (c) 2014-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the importmulti RPC."""
@@ -14,7 +14,6 @@ from test_framework.util import (
     assert_equal,
     assert_greater_than,
     assert_raises_rpc_error,
-    bytes_to_hex_str,
 )
 from test_framework.wallet_util import (
     get_key,
@@ -114,6 +113,23 @@ class ImportMultiTest(BitcoinTestFramework):
         assert_equal(address_assert['ismine'], False)
         assert_equal('timestamp' in address_assert, False)
 
+<<<<<<< HEAD
+=======
+        # Nonstandard scriptPubKey + !internal
+        self.log.info("Should not import a nonstandard scriptPubKey without internal flag")
+        nonstandardScriptPubKey = key.p2pkh_script + CScript([OP_NOP]).hex()
+        key = get_key(self.nodes[0])
+        self.test_importmulti({"scriptPubKey": nonstandardScriptPubKey,
+                               "timestamp": "now"},
+                              success=False,
+                              error_code=-8,
+                              error_message='Internal must be set to true for nonstandard scriptPubKey imports.')
+        test_address(self.nodes[1],
+                     key.p2pkh_addr,
+                     iswatchonly=False,
+                     ismine=False,
+                     timestamp=None)
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 
         # Address + Public key + !Internal
         self.log.info("Should import an address with public key")
@@ -630,6 +646,21 @@ class ImportMultiTest(BitcoinTestFramework):
                          key.p2sh_p2wpkh_addr,
                          solvable=True)
 
+        self.test_importmulti({"desc": descsum_create(desc), "timestamp": "now", "range": -1},
+                              success=False, error_code=-8, error_message='End of range is too high')
+
+        self.test_importmulti({"desc": descsum_create(desc), "timestamp": "now", "range": [-1, 10]},
+                              success=False, error_code=-8, error_message='Range should be greater or equal than 0')
+
+        self.test_importmulti({"desc": descsum_create(desc), "timestamp": "now", "range": [(2 << 31 + 1) - 1000000, (2 << 31 + 1)]},
+                              success=False, error_code=-8, error_message='End of range is too high')
+
+        self.test_importmulti({"desc": descsum_create(desc), "timestamp": "now", "range": [2, 1]},
+                              success=False, error_code=-8, error_message='Range specified as [begin,end] must not have begin after end')
+
+        self.test_importmulti({"desc": descsum_create(desc), "timestamp": "now", "range": [0, 1000001]},
+                              success=False, error_code=-8, error_message='Range is too large')
+
         # Test importing of a P2PKH address via descriptor
         key = get_key(self.nodes[0])
         self.log.info("Should import a p2pkh address from descriptor")
@@ -800,7 +831,7 @@ class ImportMultiTest(BitcoinTestFramework):
         assert_equal(addr2, newaddr2)
 
         # Import a multisig and make sure the keys don't go into the keypool
-        self.log.info('Imported scripts with pubkeys shoud not have their pubkeys go into the keypool')
+        self.log.info('Imported scripts with pubkeys should not have their pubkeys go into the keypool')
         addr1 = self.nodes[0].getnewaddress()
         addr2 = self.nodes[0].getnewaddress()
         pub1 = self.nodes[0].getaddressinfo(addr1)['pubkey']

@@ -1,5 +1,18 @@
 #include <fs.h>
 
+<<<<<<< HEAD
+=======
+#ifndef WIN32
+#include <fcntl.h>
+#else
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <codecvt>
+#include <windows.h>
+#endif
+
+>>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
 namespace fsbridge {
 
 FILE *fopen(const fs::path& p, const char *mode)
