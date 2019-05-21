@@ -12,7 +12,7 @@
 #include <random.h>
 #include <streams.h>
 #include <tinyformat.h>
-#include <util/system.h>
+#include <util.h>
 
 namespace {
 
@@ -105,18 +105,19 @@ bool DeserializeFileDB(const fs::path& path, Data& data)
 
 }
 
-CBanDB::CBanDB(fs::path ban_list_path) : m_ban_list_path(std::move(ban_list_path))
+CBanDB::CBanDB()
 {
+    pathBanlist = GetDataDir() / "banlist.dat";
 }
 
 bool CBanDB::Write(const banmap_t& banSet)
 {
-    return SerializeFileDB("banlist", m_ban_list_path, banSet);
+    return SerializeFileDB("banlist", pathBanlist, banSet);
 }
 
 bool CBanDB::Read(banmap_t& banSet)
 {
-    return DeserializeFileDB(m_ban_list_path, banSet);
+    return DeserializeFileDB(pathBanlist, banSet);
 }
 
 CAddrDB::CAddrDB()

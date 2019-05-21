@@ -14,7 +14,7 @@
 #include <qt/rpcconsole.h>
 #include <test/test_bitcoin.h>
 #include <univalue.h>
-#include <util/system.h>
+#include <util.h>
 
 #include <QDir>
 #include <QtGlobal>
@@ -41,7 +41,7 @@ void RPCNestedTests::rpcNestedTests()
 
     TestingSetup test;
 
-    if (RPCIsInWarmup(nullptr)) SetRPCWarmupFinished();
+    SetRPCWarmupFinished();
 
     std::string result;
     std::string result2;

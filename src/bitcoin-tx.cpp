@@ -1,4 +1,6 @@
+// Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2018-2019 The Whive Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,9 +20,9 @@
 #include <script/script.h>
 #include <script/sign.h>
 #include <univalue.h>
-#include <util/system.h>
-#include <util/moneystr.h>
-#include <util/strencodings.h>
+#include <util.h>
+#include <utilmoneystr.h>
+#include <utilstrencodings.h>
 
 #include <memory>
 #include <stdio.h>
@@ -30,8 +32,6 @@
 static bool fCreateBlank;
 static std::map<std::string,UniValue> registers;
 static const int CONTINUE_EXECUTION=-1;
-
-const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
 
 static void SetupBitcoinTxArgs()
 {
@@ -62,7 +62,7 @@ static void SetupBitcoinTxArgs()
         "This command requires JSON registers:"
         "prevtxs=JSON object, "
         "privatekeys=JSON object. "
-        "See signrawtransactionwithkey docs for format of sighash flags, JSON objects.", false, OptionsCategory::COMMANDS);
+        "See signrawtransaction docs for format of sighash flags, JSON objects.", false, OptionsCategory::COMMANDS);
 
     gArgs.AddArg("load=NAME:FILENAME", "Load JSON file FILENAME into register NAME", false, OptionsCategory::REGISTER_COMMANDS);
     gArgs.AddArg("set=NAME:JSON-STRING", "Set register NAME to given JSON-STRING", false, OptionsCategory::REGISTER_COMMANDS);
@@ -100,9 +100,9 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs)) {
         // First part of help message is specific to this utility
-        std::string strUsage = PACKAGE_NAME " bitcoin-tx utility version " + FormatFullVersion() + "\n\n" +
-            "Usage:  bitcoin-tx [options] <hex-tx> [commands]  Update hex-encoded bitcoin transaction\n" +
-            "or:     bitcoin-tx [options] -create [commands]   Create hex-encoded bitcoin transaction\n" +
+        std::string strUsage = PACKAGE_NAME " whive-tx utility version " + FormatFullVersion() + "\n\n" +
+            "Usage:  whive-tx [options] <hex-tx> [commands]  Update hex-encoded whive transaction\n" +
+            "or:     whive-tx [options] -create [commands]   Create hex-encoded whive transaction\n" +
             "\n";
         strUsage += gArgs.GetHelpMessage();
 
@@ -240,10 +240,10 @@ static void MutateTxAddInput(CMutableTransaction& tx, const std::string& strInpu
         throw std::runtime_error("TX input missing separator");
 
     // extract and validate TXID
-    uint256 txid;
-    if (!ParseHashStr(vStrInputParts[0], txid)) {
+    std::string strTxid = vStrInputParts[0];
+    if ((strTxid.size() != 64) || !IsHex(strTxid))
         throw std::runtime_error("invalid TX input txid");
-    }
+    uint256 txid(uint256S(strTxid));
 
     static const unsigned int minTxOutSz = 9;
     static const unsigned int maxVout = MAX_BLOCK_WEIGHT / (WITNESS_SCALE_FACTOR * minTxOutSz);
@@ -255,7 +255,7 @@ static void MutateTxAddInput(CMutableTransaction& tx, const std::string& strInpu
         throw std::runtime_error("invalid TX input vout '" + strVout + "'");
 
     // extract the optional sequence number
-    uint32_t nSequenceIn = CTxIn::SEQUENCE_FINAL;
+    uint32_t nSequenceIn=std::numeric_limits<unsigned int>::max();
     if (vStrInputParts.size() > 2)
         nSequenceIn = std::stoul(vStrInputParts[2]);
 
@@ -356,7 +356,7 @@ static void MutateTxAddOutMultiSig(CMutableTransaction& tx, const std::string& s
     if (vStrInputParts.size() < numkeys + 3)
         throw std::runtime_error("incorrect number of multisig pubkeys");
 
-    if (required < 1 || required > MAX_PUBKEYS_PER_MULTISIG || numkeys < 1 || numkeys > MAX_PUBKEYS_PER_MULTISIG || numkeys < required)
+    if (required < 1 || required > 20 || numkeys < 1 || numkeys > 20 || numkeys < required)
         throw std::runtime_error("multisig parameter mismatch. Required " \
                             + std::to_string(required) + " of " + std::to_string(numkeys) + "signatures.");
 
@@ -385,7 +385,7 @@ static void MutateTxAddOutMultiSig(CMutableTransaction& tx, const std::string& s
     CScript scriptPubKey = GetScriptForMultisig(required, pubkeys);
 
     if (bSegWit) {
-        for (const CPubKey& pubkey : pubkeys) {
+        for (CPubKey& pubkey : pubkeys) {
             if (!pubkey.IsCompressed()) {
                 throw std::runtime_error("Uncompressed pubkeys are not useable for SegWit outputs");
             }
@@ -590,10 +590,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
             if (!prevOut.checkObject(types))
                 throw std::runtime_error("prevtxs internal object typecheck fail");
 
-            uint256 txid;
-            if (!ParseHashStr(prevOut["txid"].get_str(), txid)) {
-                throw std::runtime_error("txid must be hexadecimal string (not '" + prevOut["txid"].get_str() + "')");
-            }
+            uint256 txid = ParseHashStr(prevOut["txid"].get_str(), "txid");
 
             const int nOut = prevOut["vout"].get_int();
             if (nOut < 0)
@@ -792,7 +789,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw std::runtime_error("too few parameters");
 
-            // param: hex-encoded bitcoin transaction
+            // param: hex-encoded whive transaction
             std::string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();
@@ -818,7 +815,11 @@ static int CommandLineRawTx(int argc, char* argv[])
             MutateTx(tx, key, value);
         }
 
-        OutputTx(CTransaction(tx));
+        OutputTx(tx);
+    }
+
+    catch (const boost::thread_interrupted&) {
+        throw;
     }
     catch (const std::exception& e) {
         strPrint = std::string("error: ") + e.what();

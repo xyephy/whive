@@ -1,13 +1,12 @@
-// Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2010 Satoshi Nakamoto
+// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2018-2019 The Whive Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <wallet/coinselection.h>
-
-#include <util/system.h>
-#include <util/moneystr.h>
-
-#include <boost/optional.hpp>
+#include <util.h>
+#include <utilmoneystr.h>
 
 // Descending order comparator
 struct {
@@ -223,7 +222,7 @@ bool KnapsackSolver(const CAmount& nTargetValue, std::vector<OutputGroup>& group
     std::vector<OutputGroup> applicable_groups;
     CAmount nTotalLower = 0;
 
-    Shuffle(groups.begin(), groups.end(), FastRandomContext());
+    random_shuffle(groups.begin(), groups.end(), GetRandInt);
 
     for (const OutputGroup& group : groups) {
         if (group.m_value == nTargetValue) {

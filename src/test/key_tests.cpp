@@ -7,8 +7,8 @@
 #include <key_io.h>
 #include <script/script.h>
 #include <uint256.h>
-#include <util/system.h>
-#include <util/strencodings.h>
+#include <util.h>
+#include <utilstrencodings.h>
 #include <test/test_bitcoin.h>
 
 #include <string>
@@ -16,16 +16,16 @@
 
 #include <boost/test/unit_test.hpp>
 
-static const std::string strSecret1 = "5HxWvvfubhXpYYpS3tJkw6fq9jE9j18THftkZjHHfmFiWtmAbrj";
-static const std::string strSecret2 = "5KC4ejrDjv152FGwP386VD1i2NYc5KkfSMyv1nGy1VGDxGHqVY3";
-static const std::string strSecret1C = "Kwr371tjA9u2rFSMZjTNun2PXXP3WPZu2afRHTcta6KxEUdm1vEw";
-static const std::string strSecret2C = "L3Hq7a8FEQwJkW1M2GNKDW28546Vp5miewcCzSqUD9kCAXrJdS3g";
-static const std::string addr1 = "1QFqqMUD55ZV3PJEJZtaKCsQmjLT6JkjvJ";
-static const std::string addr2 = "1F5y5E5FMc5YzdJtB9hLaUe43GDxEKXENJ";
-static const std::string addr1C = "1NoJrossxPBKfCHuJXT4HadJrXRE9Fxiqs";
-static const std::string addr2C = "1CRj2HyM1CXWzHAXLQtiGLyggNT9WQqsDs";
+static const std::string strSecret1 = "58Eo3mRkLa9gsSuuWzCmAVfxaA9ZUUv5MUYDLyqohVDn3iKtP8i";
+static const std::string strSecret2 = "59ULmac4UncwM9NQr926ic1qSoU1poYHWAdNo2qV3DEHV8cbZix";
+static const std::string strSecret1C = "KCwtFD6EHPKLyfNWoMUuvuYxHMNnLJDGDNYmVBtR7hZPppfRAfVT";
+static const std::string strSecret2C = "KJPgFmKkMeMcsuwWFtPrEdYgpt6EdzR5qjVZCB6zkkydkssrALpt";
+static const std::string addr1 = "CfijQPpGx8Y1wXCezKDVtiVSPrYs1TqKcS";
+static const std::string addr2 = "CWYreGRKEf45tmDJru2G9zG5fPSN7JN6T1";
+static const std::string addr1C = "CeGCRrDwqS9rZLCKzGmys6FLUede24ZV4o";
+static const std::string addr2C = "CTtcbLKQtFW3tR4x2ADdqrbiJVfZQD9cFm";
 
-static const std::string strAddressBad = "1HV9Lc3sNHZxwj4Zk6fB38tEmBryq2cBiF";
+static const std::string strAddressBad = "CYx2uePwFLYVqrxzRqz6ceWGPK5PmEWfWD";
 
 
 BOOST_FIXTURE_TEST_SUITE(key_tests, BasicTestingSetup)
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(key_signature_tests)
 
     for (int i = 1; i <=20; ++i) {
         sig.clear();
-        BOOST_CHECK(key.Sign(msg_hash, sig, false, i));
+        key.Sign(msg_hash, sig, false, i);
         found = sig[3] == 0x21 && sig[4] == 0x00;
         if (found) {
             break;
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE(key_signature_tests)
         sig.clear();
         std::string msg = "A message to be signed" + std::to_string(i);
         msg_hash = Hash(msg.begin(), msg.end());
-        BOOST_CHECK(key.Sign(msg_hash, sig));
+        key.Sign(msg_hash, sig);
         found = sig[3] == 0x20;
         BOOST_CHECK(sig.size() <= 70);
         found_small |= sig.size() < 70;
