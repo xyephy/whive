@@ -83,18 +83,4 @@ requests than we can review and test on short notice. Please be patient and help
 other people's pull requests, and remember this is a security-critical project where any mistake might cost people
 lots of money.
 
-Translations
-------------
-
-Changes to translations as well as new translations can be submitted to
-<<<<<<< HEAD
-[The Whive Core's crane-locale repository](https://github.com/whive/core-locale).
-=======
-[Bitcoin Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
-
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
->>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
-
-**Important**: We do not accept translation changes as GitHub pull requests in main repository.
 
