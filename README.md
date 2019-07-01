@@ -2,7 +2,7 @@
 DOWNLOAD
 ========
 
-* Whive [WHV] Source code on github https://github.com/whivecom/Whive-Testnet
+* Whive [WHV] Source code on github https://github.com/whivecom/Whive-Core
 
 
 Useful links
