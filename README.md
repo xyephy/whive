@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/whivecom/Whive-Testnet.git.svg?branch=master)](https://travis-ci.org/whivecom/Whive-Testnet.git)
-
 
 DOWNLOAD
 ========
