@@ -70,7 +70,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/whive/whive-core/tags) are created
+completely stable. [Tags](https://github.com/whivecom/Whive-Core/tags) are created
 regularly to indicate new official, stable release versions of The Whive Core.
 
 Testing
