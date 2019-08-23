@@ -22,7 +22,7 @@ What is Whive?
 
 Whive, is a peer-to-peer blockchain protocol that extends the Bitcoin Blockchain incentivizing the building of sustainable energy solutions through Trustless Rewards.
 The Whive protocol seeks to empower communities to access latent resources such as; Solar Energy & Irrigated Water through Distributed Applications. 
-We achieve this through a Merge-Mined Auxilary Chain(AuxChain) that extends Bitcoin's distributed trust model through Trustless Rewards. 
+We achieve this through a Merge-Mined Auxilary Chain(AuxChain) that extends Bitcoin's distributed trust model through Trustless Reward. 
 
 Development tips and tricks
 ----------------------------
