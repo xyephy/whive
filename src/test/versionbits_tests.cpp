@@ -272,6 +272,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // should not be set.
     CBlockIndex *lastBlock = nullptr;
 <<<<<<< HEAD
+<<<<<<< HEAD
     lastBlock = firstChain.Mine(20160, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
     BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
 
@@ -286,6 +287,14 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     for (uint32_t i = 1; i < mainnetParams.nMinerConfirmationWindow - 4; i++) {
         lastBlock = firstChain.Mine(mainnetParams.nMinerConfirmationWindow + i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    lastBlock = firstChain.Mine(2016, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+    BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
+
+    // Mine 2011 more blocks at the old time, and check that CBV isn't setting the bit yet.
+    for (int i=1; i<2012; i++) {
+        lastBlock = firstChain.Mine(2016+i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
         // This works because VERSIONBITS_LAST_OLD_BLOCK_VERSION happens
         // to be 4, and the bit we're testing happens to be bit 28.
         BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
@@ -294,21 +303,30 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // CBV should still not yet set the bit.
     nTime = nStartTime;
 <<<<<<< HEAD
+<<<<<<< HEAD
     for (int i=20150; i<20160; i++) {
         lastBlock = firstChain.Mine(20160+i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 =======
     for (uint32_t i = mainnetParams.nMinerConfirmationWindow - 4; i <= mainnetParams.nMinerConfirmationWindow; i++) {
         lastBlock = firstChain.Mine(mainnetParams.nMinerConfirmationWindow + i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    for (int i=2012; i<=2016; i++) {
+        lastBlock = firstChain.Mine(2016+i, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
         BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
     }
 
     // Advance to the next period and transition to STARTED,
 <<<<<<< HEAD
+<<<<<<< HEAD
     lastBlock = firstChain.Mine(60480, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 =======
     lastBlock = firstChain.Mine(mainnetParams.nMinerConfirmationWindow * 3, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    lastBlock = firstChain.Mine(6048, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
     // so ComputeBlockVersion should now set the bit,
     BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
     // and should also be using the VERSIONBITS_TOP_BITS.
@@ -317,12 +335,17 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // Check that ComputeBlockVersion will set the bit until nTimeout
     nTime += 600;
 <<<<<<< HEAD
+<<<<<<< HEAD
     int blocksToMine = 40320; // test blocks for up to 2 time periods
     int nHeight = 60480;
 =======
     uint32_t blocksToMine = mainnetParams.nMinerConfirmationWindow * 2; // test blocks for up to 2 time periods
     uint32_t nHeight = mainnetParams.nMinerConfirmationWindow * 3;
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    int blocksToMine = 4032; // test blocks for up to 2 time periods
+    int nHeight = 6048;
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
     // These blocks are all before nTimeout is reached.
     while (nTime < nTimeout && blocksToMine > 0) {
         lastBlock = firstChain.Mine(nHeight+1, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
@@ -337,10 +360,14 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // FAILED is only triggered at the end of a period, so CBV should be setting
     // the bit until the period transition.
 <<<<<<< HEAD
+<<<<<<< HEAD
     for (int i=0; i<20159; i++) {
 =======
     for (uint32_t i = 0; i < mainnetParams.nMinerConfirmationWindow - 1; i++) {
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    for (int i=0; i<2015; i++) {
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
         lastBlock = firstChain.Mine(nHeight+1, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
         BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
         nHeight += 1;
@@ -357,6 +384,7 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // Mine one period worth of blocks, and check that the bit will be on for the
     // next period.
 <<<<<<< HEAD
+<<<<<<< HEAD
     lastBlock = secondChain.Mine(20160, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
     BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
 
@@ -369,12 +397,20 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     // Mine another period worth of blocks, signaling the new bit.
     lastBlock = secondChain.Mine(mainnetParams.nMinerConfirmationWindow * 2, nTime, VERSIONBITS_TOP_BITS | (1<<bit)).Tip();
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    lastBlock = secondChain.Mine(2016, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
+
+    // Mine another period worth of blocks, signaling the new bit.
+    lastBlock = secondChain.Mine(4032, nTime, VERSIONBITS_TOP_BITS | (1<<bit)).Tip();
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
     // After one period of setting the bit on each block, it should have locked in.
     // We keep setting the bit for one more period though, until activation.
     BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
 
     // Now check that we keep mining the block until the end of this period, and
     // then stop at the beginning of the next period.
+<<<<<<< HEAD
 <<<<<<< HEAD
     lastBlock = secondChain.Mine(60479, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
     BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
@@ -384,6 +420,11 @@ BOOST_AUTO_TEST_CASE(versionbits_computeblockversion)
     BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1 << bit)) != 0);
     lastBlock = secondChain.Mine(mainnetParams.nMinerConfirmationWindow * 3, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
 >>>>>>> 3001cc61cf11e016c403ce83c9cbcfd3efcbcfd9
+=======
+    lastBlock = secondChain.Mine(6047, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+    BOOST_CHECK((ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit)) != 0);
+    lastBlock = secondChain.Mine(6048, nTime, VERSIONBITS_LAST_OLD_BLOCK_VERSION).Tip();
+>>>>>>> parent of 2c448d6bc... parameterize hard coded numbers referring to miner conf window
     BOOST_CHECK_EQUAL(ComputeBlockVersion(lastBlock, mainnetParams) & (1<<bit), 0);
 
     // Finally, verify that after a soft fork has activated, CBV no longer uses
