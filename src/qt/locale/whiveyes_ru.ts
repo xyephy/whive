@@ -885,7 +885,7 @@
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whiveyes network, as detailed below.</source>
-        <translation>Недавние транзакции могут быть еще не видны, поэтому баланс вашего кошелька может быть неправильным. Эта информация будет верна, как только ваш кошелек завершит синхронизацию с сетью crane pay, как описано ниже.</translation>
+        <translation>Недавние транзакции могут быть еще не видны, поэтому баланс вашего кошелька может быть неправильным. Эта информация будет верна, как только ваш кошелек завершит синхронизацию с сетью whiveyes, как описано ниже.</translation>
     </message>
     <message>
         <source>Attempting to spend whiveyess that are affected by not-yet-displayed transactions will not be accepted by the network.</source>

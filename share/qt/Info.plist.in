@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.whiveyes.CranepayPayment</string>
+      <string>org.whiveyes.WhiveyesPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>whiveyes</string>

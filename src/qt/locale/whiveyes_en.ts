@@ -307,7 +307,7 @@
     </message>
 </context>
 <context>
-    <name>CranepayGUI</name>
+    <name>WhiveyesGUI</name>
     <message>
         <location filename="../bitcoingui.cpp" line="+307"/>
         <source>Sign &amp;message...</source>

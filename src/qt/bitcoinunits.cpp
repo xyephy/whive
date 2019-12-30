@@ -64,9 +64,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case WHV: return QString("Cranepays");
-    case mWHV: return QString("Milli-Cranepays (1 / 1" THIN_SP_UTF8 "000)");
-    case uWHV: return QString("Micro-Cranepays (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case WHV: return QString("Whiveyes");
+    case mWHV: return QString("Milli-Whiveyes (1 / 1" THIN_SP_UTF8 "000)");
+    case uWHV: return QString("Micro-Whiveyes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
