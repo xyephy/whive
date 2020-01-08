@@ -1,5 +1,5 @@
 ---
-name: "bitcoin-osx-0.17"
+name: "whive-osx-0.17"
 enable_cache: true
 suites:
 - "bionic"
@@ -28,8 +28,8 @@ packages:
 - "python-setuptools"
 - "fonts-tuffy"
 remotes:
-- "url": "https://github.com/bitcoin/bitcoin.git"
-  "dir": "bitcoin"
+- "url": "https://github.com/whiveio/Whive-Core.git"
+  "dir": "Whive-Core"
 files:
 - "MacOSX10.11.sdk.tar.gz"
 script: |
