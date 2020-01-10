@@ -1,5 +1,5 @@
 ---
-name: "whive-testnet-win-0.17"
+name: "whive-win-0.17"
 enable_cache: true
 suites:
 - "bionic"
