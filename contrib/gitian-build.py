@@ -28,11 +28,7 @@ def setup():
         subprocess.check_call(['git', 'clone', 'https://github.com/bitcoin-core/bitcoin-detached-sigs.git'])
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
-<<<<<<< HEAD
-    if not os.path.isdir('bitcoin'):
-=======
     if not os.path.isdir('Whive-Core'):
->>>>>>> 4197e68993fb5df8b7395fc5efb98ba6c360fa41
         subprocess.check_call(['git', 'clone', 'https://github.com/whiveio/Whive-Core.git'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
