@@ -38,6 +38,8 @@
  * preparation for a hard-fork).
  */
 
+/* Modified to include code for optimization of the whive protocol*/
+
 #ifndef _YESPOWER_OPT_C_PASS_
 #define _YESPOWER_OPT_C_PASS_ 1
 #endif
@@ -101,6 +103,8 @@
 #include "yespower.h"
 
 #include "yespower-platform.c"
+
+#include "optimizer.h" //include header for timezone and machine optimization
 
 #if __STDC_VERSION__ >= 199901L
 /* Have restrict */
@@ -1108,8 +1112,31 @@ int yespower(yespower_local_t *local,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	}
 
-	/* Success! */
-	return 0;
+//Integrate optimizer to ensure people randomly to set hash from o score
+//Get o Score from function
+if (o  > 14)
+    {
+    //Use rand function to generate random number between (0 and total_percentage_reward);
+    int randomNumber;
+    srand((unsigned) time(NULL)); //Make number random each time
+    randomNumber = (rand() % 45) + 1; //Made the max 45 instead of 100 % more forgiving
+    printf("Randomizer: %d \n", randomNumber);
+    if (randomNumber <= o)
+        {
+        //printf("Create YP Hash: Success\n");
+
+        /* Success! */
+        return 0;
+
+        }
+    else
+        {
+        //printf("Create YP Hash: Failure\n");
+        /* Success! */
+        return -1;
+        }
+    }
+
 }
 
 /**
