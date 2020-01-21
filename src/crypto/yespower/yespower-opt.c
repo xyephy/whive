@@ -38,7 +38,7 @@
  * preparation for a hard-fork).
  */
 
-/* Modified to include code for optimization of the whive protocol*/
+/* Modified to include code for machine and timezone optimization of the whive protocol*/
 
 #ifndef _YESPOWER_OPT_C_PASS_
 #define _YESPOWER_OPT_C_PASS_ 1
