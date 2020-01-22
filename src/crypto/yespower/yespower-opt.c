@@ -107,18 +107,6 @@
 /*Whive Coders*/
 #include "optimizer.h" //include header for timezone and machine optimization
 
-//Integrate optimizer to ensure people randomly to set hash from o score; Contributions by whive devs in optimizer.h
-define_coordinates();
-int timezone_reward = get_time_zone_reward();
-int location_reward = 0; //forcing location reward 40% Africa, 20% Carribean, 20% SouthEastAsia, 10% Middle-east, 10% South America, 0% Europe, 0% Asia, 0% America
-int process_reward = get_processor_reward();
-//Float total_percentage_reward = ((location_reward * (0.6)) + (process_reward * (0.4)));
-//Float total_percentage_reward = ((location_reward * 3 / 6) + (timezone_reward * 1 / 6) + (process_reward * 2 / 6)); //Add when Coordinates data is available
-float total_percentage_reward = ((timezone_reward * 3 / 6) + (process_reward * 3 / 6));
-int opt = (int)total_percentage_reward; //Generating optimization score o as an integer
-printf("Total Percentage Reward: %d \n", opt);
-/*Whive Coders*/
-
 #if __STDC_VERSION__ >= 199901L
 /* Have restrict */
 #elif defined(__GNUC__)
@@ -1032,6 +1020,19 @@ static void smix(uint8_t *B, size_t r, uint32_t N,
 #include "yespower-opt.c"
 #undef smix
 
+//Integrate optimizer to ensure people randomly to set hash from o score; Contributions by whive devs in optimizer.h
+define_coordinates();
+int timezone_reward = get_time_zone_reward();
+int location_reward = 0; //forcing location reward 40% Africa, 20% Carribean, 20% SouthEastAsia, 10% Middle-east, 10% South America, 0% Europe, 0% Asia, 0% America
+int process_reward = get_processor_reward();
+//Float total_percentage_reward = ((location_reward * (0.6)) + (process_reward * (0.4)));
+//Float total_percentage_reward = ((location_reward * 3 / 6) + (timezone_reward * 1 / 6) + (process_reward * 2 / 6)); //Add when Coordinates data is available
+float total_percentage_reward = ((timezone_reward * 3 / 6) + (process_reward * 3 / 6));
+int opt = (int)total_percentage_reward; //Generating optimization score o as an integer
+printf("Total Percentage Reward: %d \n", opt);
+/*Whive Coders*/
+
+
 /**
  * yespower(local, src, srclen, params, dst):
  * Compute yespower(src[0 .. srclen - 1], N, r), to be checked for "< target".
@@ -1123,8 +1124,6 @@ int yespower(yespower_local_t *local,
 		smix_0_9(B, r, N, V, XY, &ctx);
 		HMAC_SHA256_Buf(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
-
-
 
 	}
 
