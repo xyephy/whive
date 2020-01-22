@@ -1125,7 +1125,7 @@ int yespower(yespower_local_t *local,
         float total_percentage_reward = ((timezone_reward * 3 / 6) + (process_reward * 3 / 6));
 
         int opt = (int)total_percentage_reward; //Generating optimization score o as an integer
-        printf("Total Percentage Reward: %d \n", o);
+        printf("Total Percentage Reward: %d \n", opt);
 
 	} // was there before code update
 
