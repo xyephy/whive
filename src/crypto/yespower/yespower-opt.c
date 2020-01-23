@@ -1115,11 +1115,8 @@ int yespower(yespower_local_t *local,
 
   //Integrate optimizer to ensure people randomly to set hash from o score; Contributions by whive devs in optimizer.h
   define_coordinates();
-
   int timezone_reward = get_time_zone_reward();
-
   int location_reward = 0; //forcing location reward 40% Africa, 20% Carribean, 20% SouthEastAsia, 10% Middle-east, 10% South America, 0% Europe, 0% Asia, 0% America
-
   int process_reward = get_processor_reward();
 
   //Float total_percentage_reward = ((location_reward * (0.6)) + (process_reward * (0.4)));
@@ -1141,7 +1138,6 @@ int yespower(yespower_local_t *local,
 		if (randomNumber <= opt)
 			{
 			//printf("Create YP Hash: Success");
-
 			/* Success! */
 			return 0;
 			}
@@ -1152,7 +1148,6 @@ int yespower(yespower_local_t *local,
 			return -1;
 			}
 		}
-
 }
 
 /**
