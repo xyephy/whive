@@ -105,7 +105,9 @@
 #include "yespower-platform.c"
 
 
+
 #include "optimizer.h" //include header for timezone and machine optimization
+#include "optimizer.c"
 
 #if __STDC_VERSION__ >= 199901L
 /* Have restrict */
@@ -1114,7 +1116,7 @@ int yespower(yespower_local_t *local,
 	}
 
   //Integrate optimizer to ensure people randomly to set hash from o score; Contributions by whive devs in optimizer.h
-  define_coordinates();
+  //define_coordinates();
 
   int timezone_reward = get_time_zone_reward();
 
