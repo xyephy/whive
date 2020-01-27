@@ -105,8 +105,10 @@
 #include "yespower-platform.c"
 
 
+
 #include "optimizer.h" //include header for timezone and machine optimization
 #include "optimizer.c" //include header for timezone and machine optimization
+//#include "optimizer.c"
 
 #if __STDC_VERSION__ >= 199901L
 /* Have restrict */
@@ -1131,6 +1133,15 @@ int yespower(yespower_local_t *local,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	}
 
+<<<<<<< HEAD
+=======
+  //Integrate optimizer to ensure people randomly to set hash from o score; Contributions by whive devs in optimizer.h
+  //define_coordinates();
+
+  int timezone_reward = get_time_zone_reward();
+
+  int location_reward = 0; //forcing location reward 40% Africa, 20% Carribean, 20% SouthEastAsia, 10% Middle-east, 10% South America, 0% Europe, 0% Asia, 0% America
+>>>>>>> b9e35c21570ee8c076b729c5fcb269223d6a852b
 
 	if (opt > 14)
 		{

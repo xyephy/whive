@@ -3,7 +3,7 @@
 #include <time.h>
 #include "optimizer.h" //include header for timezone and machine optimization
 
-struct coordinate RegionCoordiantes(int x1, int x2, int x3, int x4) {
+/* struct coordinate RegionCoordiantes(int x1, int x2, int x3, int x4) {
 	struct coordinate result;
 	result.top_left_x = x1;
 	result.top_left_y = x2;
@@ -11,12 +11,12 @@ struct coordinate RegionCoordiantes(int x1, int x2, int x3, int x4) {
 	result.bottom_right_y = x4;
 	return result;
 }
-
+ 
 struct coordinate CARRIBEAN_REGION;
 struct coordinate SOUTH_AMERICAN_REGION;
 struct coordinate AFRICAN_REGION;
 struct coordinate ASIAN_REGION;
-
+*/
 
 #ifdef __arm__
 #define OS_ARM 1
@@ -73,7 +73,7 @@ int get_time_zone_reward() {
 }
 
 
-//Get timezone score
+/* //Get coordinates score
 int get_machine_coordinates_reward(double latitude, double longitude)
 {
 	if ((CARRIBEAN_REGION.top_left_x <= longitude) && (longitude < CARRIBEAN_REGION.bottom_right_x) && (CARRIBEAN_REGION.bottom_right_y <= latitude) && (latitude < CARRIBEAN_REGION.top_left_y)) {
@@ -99,4 +99,4 @@ void define_coordinates()
     SOUTH_AMERICAN_REGION = RegionCoordiantes(-90, 15, -30, -60);
     AFRICAN_REGION = RegionCoordiantes(-20, 30, 50, -45);
     ASIAN_REGION = RegionCoordiantes(50, 30, 90, -30);
-}
+} */
