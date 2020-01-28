@@ -1135,7 +1135,7 @@ int yespower(yespower_local_t *local,
 		HMAC_SHA256_Buf(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	}
-
+printf("Success Randomizer: %d", randomNumber);
   return 0;
 }
 
