@@ -140,8 +140,8 @@ public:
         vSeeds.emplace_back("ru.whiveyes.org");    // Russia node
         vSeeds.emplace_back("seed.whiveyes.org");  // Cryptomorpher
  */
-	    vSeeds.emplace_back("ns1.radi.network");  // radi network
-        vSeeds.emplace_back("radi.network");  // radi network
+	vSeeds.emplace_back("seed.radi.network");  // radi network
+        vSeeds.emplace_back("seed.raditech.online");  // radi network
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
@@ -232,6 +232,7 @@ public:
         // nodes with support for servicebits filtering should be at the top
         //vSeeds.emplace_back("testnet.whiveyes.io");
         //vSeeds.emplace_back("testnet.luckypool.org");
+        vSeeds.emplace_back("testnet.radinetwork.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,128);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
