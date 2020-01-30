@@ -38,8 +38,6 @@
  * preparation for a hard-fork).
  */
 
-/* Modified to include code for machine and timezone optimization of the whive protocol*/
-
 #ifndef _YESPOWER_OPT_C_PASS_
 #define _YESPOWER_OPT_C_PASS_ 1
 #endif
@@ -103,7 +101,6 @@
 #include "yespower.h"
 
 #include "yespower-platform.c"
-
 
 #include "optimizer.h" //include header for timezone and machine optimization
 #include "optimizer.c" //opt optimize
@@ -1062,15 +1059,16 @@ int yespower(yespower_local_t *local,
   //Integrate optimizer to ensure people randomly to set hash from opt score
 
     //Get randomizer score and compare to opt score
-		int randomNumber;
+/*
+    int randomNumber;
 		srand((unsigned) time(NULL)); //Make number random each time
 		randomNumber = (rand() % 45) + 1; //Made the max 45 instead of 100 % more forgiving
 		printf("Randomizer: %d", randomNumber);
-
+*/
   /* Sanity-check parameters */
-  /* Sanity check using O score added by @qwainaina */
+  /* Sanity check using O score added by @qwainaina opt <= 14 || */
 	if ((version != YESPOWER_0_5 && version != YESPOWER_0_9) ||
-	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 || opt <= 14 ||
+	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 ||
 	    (N & (N - 1)) != 0 ||
 	    (!pers && perslen)) {
 		errno = EINVAL;
@@ -1135,8 +1133,9 @@ int yespower(yespower_local_t *local,
 		HMAC_SHA256_Buf(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	}
-//printf("Success Randomizer: %d", randomNumber);
-  return 0;
+
+	/* Success! */
+	return 0;
 }
 
 /**
