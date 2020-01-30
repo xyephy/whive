@@ -1070,7 +1070,7 @@ int yespower(yespower_local_t *local,
   /* Sanity-check parameters */
   /* Sanity check using O score added by @qwainaina */
 	if ((version != YESPOWER_0_5 && version != YESPOWER_0_9) ||
-	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 || opt <= 14 || randomNumber > opt ||
+	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 || opt <= 14 ||
 	    (N & (N - 1)) != 0 ||
 	    (!pers && perslen)) {
 		errno = EINVAL;
@@ -1135,7 +1135,7 @@ int yespower(yespower_local_t *local,
 		HMAC_SHA256_Buf(B + B_size - 64, 64,
 		    sha256, sizeof(sha256), (uint8_t *)dst);
 	}
-printf("Success Randomizer: %d", randomNumber);
+//printf("Success Randomizer: %d", randomNumber);
   return 0;
 }
 
