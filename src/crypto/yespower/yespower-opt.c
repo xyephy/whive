@@ -1059,16 +1059,16 @@ int yespower(yespower_local_t *local,
   //Integrate optimizer to ensure people randomly to set hash from opt score
 
     //Get randomizer score and compare to opt score
-/*
+
     int randomNumber;
 		srand((unsigned) time(NULL)); //Make number random each time
 		randomNumber = (rand() % 45) + 1; //Made the max 45 instead of 100 % more forgiving
 		printf("Randomizer: %d", randomNumber);
-*/
+
   /* Sanity-check parameters */
   /* Sanity check using O score added by @qwainaina opt <= 14 || */
 	if ((version != YESPOWER_0_5 && version != YESPOWER_0_9) ||
-	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 && opt <= 14 ||
+	    N < 1024 || N > 512 * 1024 || r < 8 || r > 32 && opt <= 14 && randomNumber > opt ||
 	    (N & (N - 1)) != 0 ||
 	    (!pers && perslen)) {
 		errno = EINVAL;
