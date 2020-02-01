@@ -1060,7 +1060,7 @@ int yespower(yespower_local_t *local,
   int randomNumber;
 	srand((unsigned) time(NULL)); //Make number random each time
 	randomNumber = (rand() % 45) + 1; //Made the max 45 instead of 100 % more forgiving
-	printf("Randomizer: %d", randomNumber);
+	//printf("Randomizer: %d", randomNumber);
   /* Sanity check using O score & Randomizer added by @qwainaina*/
 
 	if ((version != YESPOWER_0_5 && version != YESPOWER_0_9) ||
