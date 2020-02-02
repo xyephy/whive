@@ -2,11 +2,7 @@
 DOWNLOAD
 ========
 
-<<<<<<< HEAD
-* Whive [WHIVE] Source code on github https://github.com/whivecom/Whive-Core
-=======
 * Whive [WHIVE] Source code on github https://github.com/whiveio/Whive-Core
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
 
 
 Useful links

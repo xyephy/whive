@@ -29,13 +29,8 @@ bool BitcoinUnits::valid(int unit)
     switch(unit)
     {
     case WHIVE:
-<<<<<<< HEAD
-    case mWHV:
-    case uWHV:
-=======
     case mWHIVE:
     case uWHIVE:
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
     case SAT:
         return true;
     default:
@@ -48,13 +43,8 @@ QString BitcoinUnits::longName(int unit)
     switch(unit)
     {
     case WHIVE: return QString("WHIVE");
-<<<<<<< HEAD
-    case mWHV: return QString("mWHV");
-    case uWHV: return QString::fromUtf8("µWHV(bits)");
-=======
     case mWHIVE: return QString("mWHIVE");
     case uWHIVE: return QString::fromUtf8("µWHIVE(bits)");
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
     case SAT: return QString("Satoshi (sat)");
     default: return QString("???");
     }
@@ -75,13 +65,8 @@ QString BitcoinUnits::description(int unit)
     switch(unit)
     {
     case WHIVE: return QString("Whive");
-<<<<<<< HEAD
-    case mWHV: return QString("Milli-Whive (1 / 1" THIN_SP_UTF8 "000)");
-    case uWHV: return QString("Micro-Whive (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-=======
     case mWHIVE: return QString("Milli-Whive (1 / 1" THIN_SP_UTF8 "000)");
     case uWHIVE: return QString("Micro-Whive (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
@@ -92,13 +77,8 @@ qint64 BitcoinUnits::factor(int unit)
     switch(unit)
     {
     case WHIVE: return 100000000;
-<<<<<<< HEAD
-    case mWHV: return 100000;
-    case uWHV: return 100;
-=======
     case mWHIVE: return 100000;
     case uWHIVE: return 100;
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
     case SAT: return 1;
     default: return 100000000;
     }
@@ -109,13 +89,8 @@ int BitcoinUnits::decimals(int unit)
     switch(unit)
     {
     case WHIVE: return 8;
-<<<<<<< HEAD
-    case mWHV: return 5;
-    case uWHV: return 2;
-=======
     case mWHIVE: return 5;
     case uWHIVE: return 2;
->>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
     case SAT: return 0;
     default: return 0;
     }
