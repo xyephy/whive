@@ -22,7 +22,7 @@ What is Whive?
 
 Whive, is a blockchain protocol that extends the Bitcoin Blockchain through enabling Trustless Rewards for Engineering Sustainable Solutions. Building on the success of Bitcoin the World's most secure blockchain, the Whive community has set out to build a cryptographically secure blockchain protocol and Auxiliary Chain(AuxChain) that will allow for building applications that trustlessly reward sustainable solutions.
 
-To Build
+To Build & Run
 ---------------------
 
 ```bash
@@ -39,12 +39,12 @@ Building
 The following are developer notes on how to build Whive Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [Dependencies](doc/dependencies.md)
-- [macOS Build Notes](build-osx.md)
-- [Unix Build Notes](build-unix.md)
-- [Windows Build Notes](build-windows.md)
-- [OpenBSD Build Notes](build-openbsd.md)
-- [NetBSD Build Notes](build-netbsd.md)
-- [Gitian Building Guide](gitian-building.md)
+- [macOS Build Notes](doc/build-osx.md)
+- [Unix Build Notes](doc/build-unix.md)
+- [Windows Build Notes](doc/build-windows.md)
+- [OpenBSD Build Notes](doc/build-openbsd.md)
+- [NetBSD Build Notes](doc/build-netbsd.md)
+- [Gitian Building Guide](doc/gitian-building.md)
 
 
 License
