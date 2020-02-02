@@ -3,7 +3,7 @@ exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
-Name: Whiveyes Core consensus library
+Name: Whive Core consensus library
 Description: Library for the Bitcoin consensus protocol.
 Version: 2.0.0
 Libs: -L${libdir} -lbitcoinconsensus

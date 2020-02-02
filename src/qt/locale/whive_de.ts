@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Wählen Sie die Adresse aus, mit der Sie WHV empfangen wollen</translation>
+        <translation>Wählen Sie die Adresse aus, mit der Sie WHIVE empfangen wollen</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -68,12 +68,12 @@
         <translation>Empfangsadressen</translation>
     </message>
     <message>
-        <source>These are your whiveyes addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dies sind Ihre whiveyes-Adressen zum Tätigen von Überweisungen. Bitte prüfen Sie den Betrag und die Adresse des Empfängers, bevor Sie WHV überweisen.</translation>
+        <source>These are your whive addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dies sind Ihre whive-Adressen zum Tätigen von Überweisungen. Bitte prüfen Sie den Betrag und die Adresse des Empfängers, bevor Sie WHIVE überweisen.</translation>
     </message>
     <message>
-        <source>These are your Whiveyes addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dies sind Ihre whiveyes-Adressen zum Empfangen von Zahlungen. Es wird empfohlen, für jede Transaktion eine neue Empfangsadresse zu verwenden.</translation>
+        <source>These are your Whive addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Dies sind Ihre whive-Adressen zum Empfangen von Zahlungen. Es wird empfohlen, für jede Transaktion eine neue Empfangsadresse zu verwenden.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -190,7 +190,7 @@
         <translation>Wallet verschlüsselt</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your whiveyess from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your whives from being stolen by malware infecting your computer.</source>
         <translation type="unfinished">%1 wird jetzt beendet, um den Verschlüsselungsprozess abzuschließen. Bitte beachten Sie, dass die Wallet-Verschlüsselung nicht vollständig vor Diebstahl Ihrer CRPs durch Schadprogramme schützt, die Ihren Computer befallen.</translation>
     </message>
     <message>
@@ -360,8 +360,8 @@
         <translation>Proxy ist &lt;b&gt;aktiviert&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a Whiveyes address</source>
-        <translation>Coins an eine whiveyes-Adresse überweisen</translation>
+        <source>Send coins to a Whive address</source>
+        <translation>Coins an eine whive-Adresse überweisen</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -384,8 +384,8 @@
         <translation>Nachricht &amp;verifizieren...</translation>
     </message>
     <message>
-        <source>Whiveyes</source>
-        <translation>Whiveyes</translation>
+        <source>Whive</source>
+        <translation>Whive</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -412,12 +412,12 @@
         <translation>Verschlüsselt die zu Ihrer Wallet gehörenden privaten Schlüssel</translation>
     </message>
     <message>
-        <source>Sign messages with your Whiveyes addresses to prove you own them</source>
-        <translation>Nachrichten signieren, um den Besitz Ihrer whiveyes-Adressen zu beweisen</translation>
+        <source>Sign messages with your Whive addresses to prove you own them</source>
+        <translation>Nachrichten signieren, um den Besitz Ihrer whive-Adressen zu beweisen</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Whiveyes addresses</source>
-        <translation>Nachrichten verifizieren, um sicherzustellen, dass diese mit den angegebenen whiveyes-Adressen signiert wurden</translation>
+        <source>Verify messages to ensure they were signed with specified Whive addresses</source>
+        <translation>Nachrichten verifizieren, um sicherzustellen, dass diese mit den angegebenen whive-Adressen signiert wurden</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -436,8 +436,8 @@
         <translation>Registerkartenleiste</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and whiveyes: URIs)</source>
-        <translation>Zahlungen anfordern (erzeugt QR-Codes und whiveyes-URIs)</translation>
+        <source>Request payments (generates QR codes and whive: URIs)</source>
+        <translation>Zahlungen anfordern (erzeugt QR-Codes und whive-URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -448,18 +448,18 @@
         <translation>Liste verwendeter Empfangsadressen und Bezeichnungen anzeigen</translation>
     </message>
     <message>
-        <source>Open a whiveyes: URI or payment request</source>
-        <translation>Eine &quot;whiveyes:&quot;-URI oder Zahlungsanforderung öffnen</translation>
+        <source>Open a whive: URI or payment request</source>
+        <translation>Eine &quot;whive:&quot;-URI oder Zahlungsanforderung öffnen</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Kommandozeilenoptionen</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Whiveyes network</source>
+        <source>%n active connection(s) to Whive network</source>
         <translation type="unfinished">
-            <numerusform>%n aktive Verbindung zum whiveyes-Netzwerk</numerusform>
-            <numerusform>%n aktive Verbindungen zum whiveyes-Netzwerk</numerusform>
+            <numerusform>%n aktive Verbindung zum whive-Netzwerk</numerusform>
+            <numerusform>%n aktive Verbindungen zum whive-Netzwerk</numerusform>
         </translation>
     </message>
     <message>
@@ -506,7 +506,7 @@
         <translation>Auf aktuellem Stand</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible whiveyes command-line options</source>
+        <source>Show the %1 help message to get a list with possible whive command-line options</source>
         <translation>Zeige den &quot;%1&quot;-Hilfetext, um eine Liste mit möglichen Kommandozeilenoptionen zu erhalten</translation>
     </message>
     <message>
@@ -582,8 +582,8 @@
         <translation>Wallet ist &lt;b&gt;verschlüsselt&lt;/b&gt; und aktuell &lt;b&gt;gesperrt&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>A fatal error occurred. Whiveyes can no longer continue safely and will quit.</source>
-        <translation>Ein schwerer Fehler ist aufgetreten. Whiveyes kann nicht risikofrei weiter ausgeführt werden und wird beendet.</translation>
+        <source>A fatal error occurred. Whive can no longer continue safely and will quit.</source>
+        <translation>Ein schwerer Fehler ist aufgetreten. Whive kann nicht risikofrei weiter ausgeführt werden und wird beendet.</translation>
     </message>
 </context>
 <context>
@@ -772,8 +772,8 @@
         <translation>Zahlungsadresse bearbeiten</translation>
     </message>
     <message>
-        <source>The entered address &quot;%1&quot; is not a valid Whiveyes address.</source>
-        <translation type="unfinished">Die eingegebene Adresse &quot;%1&quot; ist keine gültige whiveyes-Adresse.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Whive address.</source>
+        <translation type="unfinished">Die eingegebene Adresse &quot;%1&quot; ist keine gültige whive-Adresse.</translation>
     </message>
     <message>
         <source>Address &quot;%1&quot; already exists as a receiving address with label &quot;%2&quot; and so cannot be added as a sending address.</source>
@@ -869,8 +869,8 @@
         <translation>Ein benutzerdefiniertes Datenverzeichnis verwenden:</translation>
     </message>
     <message>
-        <source>Whiveyes</source>
-        <translation type="unfinished">Whiveyes</translation>
+        <source>Whive</source>
+        <translation type="unfinished">Whive</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -881,8 +881,8 @@
         <translation>Etwa %1 GB Daten werden in diesem Verzeichnis gespeichert.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Whiveyes block chain.</source>
-        <translation type="unfinished">%1 wird heruntergeladen und als eine Kopie von dem whiveyes Blockchain gespeichert.</translation>
+        <source>%1 will download and store a copy of the Whive block chain.</source>
+        <translation type="unfinished">%1 wird heruntergeladen und als eine Kopie von dem whive Blockchain gespeichert.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -918,11 +918,11 @@
         <translation>Formular</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whiveyes network, as detailed below.</source>
-        <translation type="unfinished">Neueste Transaktionen werden eventuell noch nicht angezeigt, daher könnte Ihr Kontostand veraltet sein. Er wird korrigiert, sobald Ihr Wallet die Synchronisation mit dem whiveyes-Netzwerk erfolgreich abgeschlossen hat. Details dazu finden sich weiter unten.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whive network, as detailed below.</source>
+        <translation type="unfinished">Neueste Transaktionen werden eventuell noch nicht angezeigt, daher könnte Ihr Kontostand veraltet sein. Er wird korrigiert, sobald Ihr Wallet die Synchronisation mit dem whive-Netzwerk erfolgreich abgeschlossen hat. Details dazu finden sich weiter unten.</translation>
     </message>
     <message>
-        <source>Attempting to spend whiveyess that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend whives that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation type="unfinished">Versuche, CRPs aus noch nicht angezeigten Transaktionen auszugeben, werden vom Netzwerk nicht akzeptiert.</translation>
     </message>
     <message>
@@ -1104,8 +1104,8 @@
         <translation>&amp;Unbestätigtes Wechselgeld darf ausgegeben werden</translation>
     </message>
     <message>
-        <source>Automatically open the Whiveyes client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished">Automatisch den whiveyes-Clientport auf dem Router öffnen. Dies funktioniert nur, wenn Ihr Router UPnP unterstützt und dies aktiviert ist.</translation>
+        <source>Automatically open the Whive client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation type="unfinished">Automatisch den whive-Clientport auf dem Router öffnen. Dies funktioniert nur, wenn Ihr Router UPnP unterstützt und dies aktiviert ist.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1120,8 +1120,8 @@
         <translation>Erlaube eingehende Verbindungen</translation>
     </message>
     <message>
-        <source>Connect to the Whiveyes network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Über einen SOCKS5-Proxy mit dem whiveyes-Netzwerk verbinden.</translation>
+        <source>Connect to the Whive network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Über einen SOCKS5-Proxy mit dem whive-Netzwerk verbinden.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1156,8 +1156,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Whiveyes network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation type="unfinished">Über einen separaten SOCKS5 Proxy für Tor Services mit dem whiveyes Netzwerk verbinden.</translation>
+        <source>Connect to the Whive network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation type="unfinished">Über einen separaten SOCKS5 Proxy für Tor Services mit dem whive Netzwerk verbinden.</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1263,8 +1263,8 @@
         <translation>Formular</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whiveyes network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Die angezeigten Informationen sind möglicherweise nicht mehr aktuell. Ihre Wallet wird automatisch synchronisiert, nachdem eine Verbindung zum whiveyes-Netzwerk hergestellt wurde. Dieser Prozess ist jedoch derzeit noch nicht abgeschlossen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whive network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Die angezeigten Informationen sind möglicherweise nicht mehr aktuell. Ihre Wallet wird automatisch synchronisiert, nachdem eine Verbindung zum whive-Netzwerk hergestellt wurde. Dieser Prozess ist jedoch derzeit noch nicht abgeschlossen.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1338,16 +1338,16 @@
         <translation>fehlerhafte Zahlungsanforderung</translation>
     </message>
     <message>
-        <source>Cannot start whiveyes: click-to-pay handler</source>
-        <translation type="unfinished">Kann whiveyes nicht starten: click-to-pay handler</translation>
+        <source>Cannot start whive: click-to-pay handler</source>
+        <translation type="unfinished">Kann whive nicht starten: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation>URI-Verarbeitung</translation>
     </message>
     <message>
-        <source>&apos;whiveyes://&apos; is not a valid URI. Use &apos;whiveyes:&apos; instead.</source>
-        <translation type="unfinished">&apos;whiveyes://&apos; ist kein gültiger URL. Bitte &apos;whiveyes:&apos; nutzen.</translation>
+        <source>&apos;whive://&apos; is not a valid URI. Use &apos;whive:&apos; instead.</source>
+        <translation type="unfinished">&apos;whive://&apos; ist kein gültiger URL. Bitte &apos;whive:&apos; nutzen.</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1358,8 +1358,8 @@
         <translation>Ungültige Zahlungsadresse %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Whiveyes address or malformed URI parameters.</source>
-        <translation type="unfinished">URI kann nicht analysiert werden! Dies kann durch eine ungültige whiveyes-Adresse oder fehlerhafte URI-Parameter verursacht werden.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Whive address or malformed URI parameters.</source>
+        <translation type="unfinished">URI kann nicht analysiert werden! Dies kann durch eine ungültige whive-Adresse oder fehlerhafte URI-Parameter verursacht werden.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1460,8 +1460,8 @@
         <translation>Betrag</translation>
     </message>
     <message>
-        <source>Enter a whiveyes address (e.g. %1)</source>
-        <translation type="unfinished">whiveyes-Adresse eingeben (z.B. %1)</translation>
+        <source>Enter a whive address (e.g. %1)</source>
+        <translation type="unfinished">whive-Adresse eingeben (z.B. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1926,8 +1926,8 @@
         <translation>&amp;Nachricht:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the whiveyes network.</source>
-        <translation type="unfinished">Eine optionale Nachricht, die an die Zahlungsanforderung angehängt wird. Sie wird angezeigt, wenn die Anforderung geöffnet wird. Hinweis: Diese Nachricht wird nicht mit der Zahlung über das whiveyes-Netzwerk gesendet.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the whive network.</source>
+        <translation type="unfinished">Eine optionale Nachricht, die an die Zahlungsanforderung angehängt wird. Sie wird angezeigt, wenn die Anforderung geöffnet wird. Hinweis: Diese Nachricht wird nicht mit der Zahlung über das whive-Netzwerk gesendet.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2179,8 +2179,8 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whiveyes transactions than the network can process.</source>
-        <translation type="unfinished">Nur die minimale Gebühr zu bezahlen ist so lange in Ordnung, wie weniger Transaktionsvolumen als Platz in den Blöcken vorhanden ist. Aber Vorsicht, diese Option kann dazu führen, dass Transaktionen nicht bestätigt werden, wenn mehr Bedarf an whiveyes-Transaktionen besteht als das Netzwerk verarbeiten kann.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whive transactions than the network can process.</source>
+        <translation type="unfinished">Nur die minimale Gebühr zu bezahlen ist so lange in Ordnung, wie weniger Transaktionsvolumen als Platz in den Blöcken vorhanden ist. Aber Vorsicht, diese Option kann dazu führen, dass Transaktionen nicht bestätigt werden, wenn mehr Bedarf an whive-Transaktionen besteht als das Netzwerk verarbeiten kann.</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
@@ -2362,8 +2362,8 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid whiveyes address</source>
-        <translation>Warnung: Ungültige whiveyes-Adresse</translation>
+        <source>Warning: Invalid whive address</source>
+        <translation>Warnung: Ungültige whive-Adresse</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2405,7 +2405,7 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Dies ist eine normale Überweisung.</translation>
     </message>
     <message>
-        <source>The whiveyes address to send the payment to</source>
+        <source>The whive address to send the payment to</source>
         <translation>Die Zahlungsadresse der Überweisung</translation>
     </message>
     <message>
@@ -2425,7 +2425,7 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Diesen Eintrag entfernen</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less whiveyess than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less whives than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation type="unfinished">Die Gebühr wird vom zu überweisenden Betrag abgezogen. Der Empfänger wird also weniger CRPs erhalten, als Sie im Betrags-Feld eingegeben haben. Falls mehrere Empfänger ausgewählt wurden, wird die Gebühr gleichmäßig verteilt.</translation>
     </message>
     <message>
@@ -2453,8 +2453,8 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Adressbezeichnung eingeben, die dann zusammen mit der Adresse der Liste bereits verwendeter Adressen hinzugefügt wird.</translation>
     </message>
     <message>
-        <source>A message that was attached to the whiveyes: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the whiveyes network.</source>
-        <translation type="unfinished">Eine an die &quot;whiveyes:&quot;-URI angefügte Nachricht, die zusammen mit der Transaktion gespeichert wird. Hinweis: Diese Nachricht wird nicht über das whiveyes-Netzwerk gesendet.</translation>
+        <source>A message that was attached to the whive: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the whive network.</source>
+        <translation type="unfinished">Eine an die &quot;whive:&quot;-URI angefügte Nachricht, die zusammen mit der Transaktion gespeichert wird. Hinweis: Diese Nachricht wird nicht über das whive-Netzwerk gesendet.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2498,12 +2498,12 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Nachricht &amp;signieren</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive whiveyess sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive whives sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation type="unfinished">Sie können Nachrichten/Vereinbarungen mit Hilfe Ihrer Adressen signieren, um zu beweisen, dass Sie CRPs empfangen können, die an diese Adressen überwiesen werden. Seien Sie vorsichtig und signieren Sie nichts Vages oder Willkürliches, um Ihre Indentität vor Phishingangriffen zu schützen. Signieren Sie nur vollständig-detaillierte Aussagen, mit denen Sie auch einverstanden sind.</translation>
     </message>
     <message>
-        <source>The whiveyes address to sign the message with</source>
-        <translation type="unfinished">Die whiveyes-Adresse mit der die Nachricht signiert wird</translation>
+        <source>The whive address to sign the message with</source>
+        <translation type="unfinished">Die whive-Adresse mit der die Nachricht signiert wird</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2534,8 +2534,8 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Aktuelle Signatur in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this whiveyes address</source>
-        <translation type="unfinished">Die Nachricht signieren, um den Besitz dieser whiveyes-Adresse zu beweisen</translation>
+        <source>Sign the message to prove you own this whive address</source>
+        <translation type="unfinished">Die Nachricht signieren, um den Besitz dieser whive-Adresse zu beweisen</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2558,12 +2558,12 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Geben Sie die Zahlungsadresse des Empfängers, Nachricht (achten Sie darauf Zeilenumbrüche, Leerzeichen, Tabulatoren usw. exakt zu kopieren) und Signatur unten ein, um die Nachricht zu verifizieren. Vorsicht, interpretieren Sie nicht mehr in die Signatur hinein, als in der signierten Nachricht selber enthalten ist, um nicht von einem Man-in-the-middle-Angriff hinters Licht geführt zu werden. Beachten Sie dass dies nur beweißt, dass die signierende Partei über diese Adresse Überweisungen empfangen kann.</translation>
     </message>
     <message>
-        <source>The whiveyes address the message was signed with</source>
-        <translation type="unfinished">Die whiveyes-Adresse mit der die Nachricht signiert wurde</translation>
+        <source>The whive address the message was signed with</source>
+        <translation type="unfinished">Die whive-Adresse mit der die Nachricht signiert wurde</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified whiveyes address</source>
-        <translation type="unfinished">Die Nachricht verifizieren, um sicherzustellen, dass diese mit der angegebenen whiveyes-Adresse signiert wurde</translation>
+        <source>Verify the message to ensure it was signed with the specified whive address</source>
+        <translation type="unfinished">Die Nachricht verifizieren, um sicherzustellen, dass diese mit der angegebenen whive-Adresse signiert wurde</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3220,8 +3220,8 @@ Hinweis: Eine Gebühr von &quot;100 crany pro kB&quot; bei einer Größe der Tra
         <translation>Kann HTTP Server nicht starten. Siehe debug log für Details.</translation>
     </message>
     <message>
-        <source>Whiveyes Core</source>
-        <translation type="unfinished">Whiveyes Core</translation>
+        <source>Whive Core</source>
+        <translation type="unfinished">Whive Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

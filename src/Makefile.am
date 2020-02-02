@@ -1,5 +1,5 @@
 # Copyright (c) 2009-2018 The Bitcoin Core developers
-# Copyright (c) 2018-2019 WhiveYes Core developers
+# Copyright (c) 2018-2020 Whive Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -38,7 +38,7 @@ if ENABLE_ZMQ
 LIBBITCOIN_ZMQ=libbitcoin_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
-LIBBITCOINCONSENSUS=libwhiveyesconsensus.la
+LIBBITCOINCONSENSUS=libwhiveconsensus.la
 endif
 if ENABLE_WALLET
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
@@ -81,11 +81,11 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += whiveyesd
+  bin_PROGRAMS += whived
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += whiveyes-cli whiveyes-tx
+  bin_PROGRAMS += whive-cli whive-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
@@ -213,7 +213,7 @@ obj/build.h: FORCE
 	  "$(abs_top_srcdir)"
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between whiveyesd and whiveyes-qt
+# server: shared between whived and whive-qt
 libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_server_a_SOURCES = \
@@ -271,7 +271,7 @@ libbitcoin_zmq_a_SOURCES = \
 endif
 
 
-# wallet: shared between whiveyesd and whiveyes-qt, but only linked
+# wallet: shared between whived and whive-qt, but only linked
 # when wallet enabled
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -382,7 +382,7 @@ libbitcoin_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between whiveyesd, and whiveyes-qt and non-server tools
+# common: shared between whived, and whive-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
@@ -440,7 +440,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 AM_LDFLAGS += $(COMPAT_LDFLAGS)
 endif
 
-# cli: shared between whiveyes-cli and whiveyes-qt
+# cli: shared between whive-cli and whive-qt
 libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_cli_a_SOURCES = \
@@ -450,17 +450,17 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# whiveyesd binary #
-whiveyesd_SOURCES = bitcoind.cpp
-whiveyesd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-whiveyesd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-whiveyesd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# whived binary #
+whived_SOURCES = bitcoind.cpp
+whived_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+whived_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+whived_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-whiveyesd_SOURCES += bitcoind-res.rc
+whived_SOURCES += bitcoind-res.rc
 endif
 
-whiveyesd_LDADD = \
+whived_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_COMMON) \
@@ -474,38 +474,38 @@ whiveyesd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-whiveyesd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+whived_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
-# whiveyes-cli binary #
-whiveyes_cli_SOURCES = bitcoin-cli.cpp
-whiveyes_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-whiveyes_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-whiveyes_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# whive-cli binary #
+whive_cli_SOURCES = bitcoin-cli.cpp
+whive_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+whive_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+whive_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-whiveyes_cli_SOURCES += bitcoin-cli-res.rc
+whive_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-whiveyes_cli_LDADD = \
+whive_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-whiveyes_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+whive_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# whiveyes-tx binary #
-whiveyes_tx_SOURCES = bitcoin-tx.cpp
-whiveyes_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-whiveyes_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-whiveyes_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# whive-tx binary #
+whive_tx_SOURCES = bitcoin-tx.cpp
+whive_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+whive_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+whive_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-whiveyes_tx_SOURCES += bitcoin-tx-res.rc
+whive_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-whiveyes_tx_LDADD = \
+whive_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -516,22 +516,22 @@ whiveyes_tx_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-whiveyes_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+whive_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoinconsensus library #
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h
-libwhiveyesconsensus_la_SOURCES = $(crypto_libbitcoin_crypto_base_a_SOURCES) $(libbitcoin_consensus_a_SOURCES)
+libwhiveconsensus_la_SOURCES = $(crypto_libbitcoin_crypto_base_a_SOURCES) $(libbitcoin_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libwhiveyesconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libwhiveconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libwhiveyesconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libwhiveyesconsensus_la_LIBADD = $(LIBSECP256K1)
-libwhiveyesconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL $(LEVELDB_CPPFLAGS)
-libwhiveyesconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libwhiveconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libwhiveconsensus_la_LIBADD = $(LIBSECP256K1)
+libwhiveconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL $(LEVELDB_CPPFLAGS)
+libwhiveconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #

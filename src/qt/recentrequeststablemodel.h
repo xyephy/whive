@@ -50,7 +50,7 @@ private:
     Qt::SortOrder order;
 };
 
-/** Model for list of recently generated payment requests / whiveyes: URIs.
+/** Model for list of recently generated payment requests / whive: URIs.
  * Part of wallet model.
  */
 class RecentRequestsTableModel: public QAbstractTableModel

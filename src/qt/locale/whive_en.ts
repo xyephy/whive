@@ -85,12 +85,12 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>These are your Whiveyes addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Whive addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>These are your Whiveyes addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Whive addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -307,7 +307,7 @@
     </message>
 </context>
 <context>
-    <name>WhiveyesGUI</name>
+    <name>WhiveGUI</name>
     <message>
         <location filename="../bitcoingui.cpp" line="+307"/>
         <source>Sign &amp;message...</source>
@@ -455,8 +455,8 @@
     </message>
     <message>
         <location line="-880"/>
-        <source>Send coins to a Whiveyes address</source>
-        <translation>Send coins to a Whiveyes address</translation>
+        <source>Send coins to a Whive address</source>
+        <translation>Send coins to a Whive address</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -485,8 +485,8 @@
     </message>
     <message>
         <location line="+570"/>
-        <source>Whiveyes</source>
-        <translation>Whiveyes</translation>
+        <source>Whive</source>
+        <translation>Whive</translation>
     </message>
     <message>
         <location line="-792"/>
@@ -520,13 +520,13 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Whiveyes addresses to prove you own them</source>
-        <translation>Sign messages with your Whiveyes addresses to prove you own them</translation>
+        <source>Sign messages with your Whive addresses to prove you own them</source>
+        <translation>Sign messages with your Whive addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Whiveyes addresses</source>
-	<translation>Verify messages to ensure they were signed with specified Whiveyes addresses</translation>
+        <source>Verify messages to ensure they were signed with specified Whive addresses</source>
+	<translation>Verify messages to ensure they were signed with specified Whive addresses</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -550,7 +550,7 @@
     </message>
     <message>
         <location line="-158"/>
-        <source>Request payments (generates QR codes and whiveyes: URIs)</source>
+        <source>Request payments (generates QR codes and whive: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -565,7 +565,7 @@
     </message>
     <message>
         <location line="+3"/>
-        <source>Open a whiveyes: URI or payment request</source>
+        <source>Open a whive: URI or payment request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -575,10 +575,10 @@
     </message>
     <message numerus="yes">
         <location line="+410"/>
-        <source>%n active connection(s) to Whiveyes network</source>
+        <source>%n active connection(s) to Whive network</source>
         <translation>
-            <numerusform>%n active connection to Whiveyes network</numerusform>
-            <numerusform>%n active connections to Whiveyes network</numerusform>
+            <numerusform>%n active connection to Whive network</numerusform>
+            <numerusform>%n active connections to Whive network</numerusform>
         </translation>
     </message>
     <message>
@@ -636,7 +636,7 @@
     </message>
     <message>
         <location line="-494"/>
-        <source>Show the %1 help message to get a list with possible Whiveyes command-line options</source>
+        <source>Show the %1 help message to get a list with possible Whive command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -722,7 +722,7 @@
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+529"/>
-        <source>A fatal error occurred. Whiveyes can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Whive can no longer continue safely and will quit.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -960,7 +960,7 @@
     </message>
     <message>
         <location line="+75"/>
-        <source>The entered address &quot;%1&quot; is not a valid Whiveyes address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid Whive address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1080,8 +1080,8 @@
     </message>
     <message>
         <location filename="../intro.cpp" line="+20"/>
-        <source>Whiveyes</source>
-        <translation type="unfinished">Whiveyes</translation>
+        <source>Whive</source>
+        <translation type="unfinished">Whive</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1095,7 +1095,7 @@
     </message>
     <message>
         <location line="+8"/>
-        <source>%1 will download and store a copy of the Whiveyes block chain.</source>
+        <source>%1 will download and store a copy of the Whive block chain.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1139,12 +1139,12 @@
     </message>
     <message>
         <location line="+119"/>
-        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whiveyes network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whive network, as detailed below.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+19"/>
-        <source>Attempting to spend whiveyess that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend whives that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1382,8 +1382,8 @@
     </message>
     <message>
         <location line="+30"/>
-        <source>Automatically open the Whiveyes client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Whiveyes client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Whive client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Whive client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1402,7 +1402,7 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Whiveyes network through a SOCKS5 proxy.</source>
+        <source>Connect to the Whive network through a SOCKS5 proxy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1450,7 +1450,7 @@
     </message>
     <message>
         <location line="+25"/>
-        <source>Connect to the Whiveyes network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <source>Connect to the Whive network through a separate SOCKS5 proxy for Tor hidden services.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1585,8 +1585,8 @@
     <message>
         <location line="+62"/>
         <location line="+386"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whiveyes network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Whiveyes network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whive network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Whive network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-139"/>
@@ -1683,7 +1683,7 @@
     </message>
     <message>
         <location line="-398"/>
-        <source>Cannot start whiveyes: click-to-pay handler</source>
+        <source>Cannot start whive: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1696,7 +1696,7 @@
     </message>
     <message>
         <location line="-41"/>
-        <source>&apos;whiveyes://&apos; is not a valid URI. Use &apos;whiveyes:&apos; instead.</source>
+        <source>&apos;whive://&apos; is not a valid URI. Use &apos;whive:&apos; instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1711,7 +1711,7 @@
     </message>
     <message>
         <location line="+8"/>
-        <source>URI cannot be parsed! This can be caused by an invalid Whiveyes address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Whive address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1843,7 +1843,7 @@
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+115"/>
-        <source>Enter a Whiveyes address (e.g. %1)</source>
+        <source>Enter a Whive address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2459,7 +2459,7 @@
     <message>
         <location line="-3"/>
         <location line="+46"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Whiveyes network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Whive network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2774,7 +2774,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     <message>
         <location line="+80"/>
         <location line="+13"/>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whiveyes transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whive transactions than the network can process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3005,7 +3005,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+101"/>
-        <source>Warning: Invalid Whiveyes address</source>
+        <source>Warning: Invalid Whive address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3060,7 +3060,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+39"/>
-        <source>The Whiveyes address to send the payment to</source>
+        <source>The Whive address to send the payment to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3087,7 +3087,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="-1028"/>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less whiveyess than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less whives than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3122,7 +3122,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+54"/>
-        <source>A message that was attached to the whiveyes: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Whiveyes network.</source>
+        <source>A message that was attached to the whive: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Whive network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3179,12 +3179,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+6"/>
-        <source>You can sign messages/agreements with your addresses to prove you can receive whiveyess sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive whives sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The Whiveyes address to sign the message with</source>
+        <source>The Whive address to sign the message with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3226,8 +3226,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Whiveyes address</source>
-        <translation>Sign the message to prove you own this Whiveyes address</translation>
+        <source>Sign the message to prove you own this Whive address</source>
+        <translation>Sign the message to prove you own this Whive address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3257,13 +3257,13 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="+21"/>
-        <source>The Whiveyes address the message was signed with</source>
+        <source>The Whive address the message was signed with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+37"/>
-        <source>Verify the message to ensure it was signed with the specified Whiveyes address</source>
-        <translation>Verify the message to ensure it was signed with the specified Whiveyes address</translation>
+        <source>Verify the message to ensure it was signed with the specified Whive address</source>
+        <translation>Verify the message to ensure it was signed with the specified Whive address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4097,8 +4097,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
     </message>
     <message>
         <location line="-184"/>
-        <source>Whiveyes Core</source>
-        <translation type="unfinished">Whiveyes Core</translation>
+        <source>Whive Core</source>
+        <translation type="unfinished">Whive Core</translation>
     </message>
     <message>
         <location line="+1"/>

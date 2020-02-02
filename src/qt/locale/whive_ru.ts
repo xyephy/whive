@@ -66,11 +66,11 @@
         <translation>Адрес получения</translation>
     </message>
     <message>
-        <source>These are your Whiveyes addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Whive addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Это ваши адреса для отправки платежей. Всегда проверяйте сумму и адрес получателя перед отправкой монет.</translation>
     </message>
     <message>
-        <source>These are your Whiveyes addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Whive addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>Это ваши адреса для получения платежей. Для каждой транзакции рекомендуется использовать новый адрес получателя.</translation>
     </message>
     <message>
@@ -176,7 +176,7 @@
         <translation>Подтвердите шифрование кошелька</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR WHIVEYESS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR WHIVES&lt;/b&gt;!</source>
         <translation>Внимание: если вы зашифруете кошелек и потеряете пароль, вы &lt;b&gt;ПОТЕРЯЕТЕ ВСЕ СВОИ МОНЕТЫ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -188,7 +188,7 @@
         <translation>Кошелек зашифрован</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your whiveyess from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your whives from being stolen by malware infecting your computer.</source>
         <translation>%1 закройте сейчас, чтобы завершить процесс шифрования. Помните, что шифрование кошелька не может полностью защитить ваши монеты от кражи вредоносными программами, в случае если ваш компьютер будет заражен.</translation>
     </message>
     <message>
@@ -358,7 +358,7 @@
         <translation>Прокси &lt;b&gt;включено&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a Whiveyes address</source>
+        <source>Send coins to a Whive address</source>
         <translation>Отправить монеты на указанный адрес</translation>
     </message>
     <message>
@@ -382,8 +382,8 @@
         <translation>&amp;Проверить сообщение...</translation>
     </message>
     <message>
-        <source>Whiveyes</source>
-        <translation>Whiveyes</translation>
+        <source>Whive</source>
+        <translation>Whive</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -410,12 +410,12 @@
         <translation>Зашифруйте приватные ключи, принадлежащие вашему кошельку</translation>
     </message>
     <message>
-        <source>Sign messages with your Whiveyes addresses to prove you own them</source>
-        <translation>Подтвердите, что Вы являетесь владельцем сообщения подписав его Вашим Whiveyes-адресом </translation>
+        <source>Sign messages with your Whive addresses to prove you own them</source>
+        <translation>Подтвердите, что Вы являетесь владельцем сообщения подписав его Вашим Whive-адресом </translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Whiveyes addresses</source>
-        <translation>Проверьте сообщение для уверенности, что оно подписано указанным Whiveyes-адресом</translation>
+        <source>Verify messages to ensure they were signed with specified Whive addresses</source>
+        <translation>Проверьте сообщение для уверенности, что оно подписано указанным Whive-адресом</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -434,8 +434,8 @@
         <translation>Панель вкладок</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and whiveyes: URIs)</source>
-        <translation>Создать запрос платежа (генерирует QR-код и whiveyes: URI)</translation>
+        <source>Request payments (generates QR codes and whive: URIs)</source>
+        <translation>Создать запрос платежа (генерирует QR-код и whive: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -446,16 +446,16 @@
         <translation>Показать список адресов и меток которые были использованы для получения</translation>
     </message>
     <message>
-        <source>Open a whiveyes: URI or payment request</source>
-        <translation>Открыть whiveyes: URI или запрос платежа</translation>
+        <source>Open a whive: URI or payment request</source>
+        <translation>Открыть whive: URI или запрос платежа</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Параметры командной строки</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Whiveyes network</source>
-        <translation><numerusform>%n активное соединение с сетью Whiveyes</numerusform><numerusform>%n активные соединения с сетью Whiveyes</numerusform><numerusform>%n активные соединения с сетью Whiveyes</numerusform><numerusform>%n активные соединения с сетью Whiveyes</numerusform></translation>
+        <source>%n active connection(s) to Whive network</source>
+        <translation><numerusform>%n активное соединение с сетью Whive</numerusform><numerusform>%n активные соединения с сетью Whive</numerusform><numerusform>%n активные соединения с сетью Whive</numerusform><numerusform>%n активные соединения с сетью Whive</numerusform></translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
@@ -498,7 +498,7 @@
         <translation>Синхронизировано</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Whiveyes command-line options</source>
+        <source>Show the %1 help message to get a list with possible Whive command-line options</source>
         <translation>Показать справку %1 для получения перечня возможных параметров командной строки.</translation>
     </message>
     <message>
@@ -562,7 +562,7 @@
         <translation>&lt;b&gt;Зашифрованный&lt;/b&gt; кошелек &lt;b&gt;заблокирован&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>A fatal error occurred. Whiveyes can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Whive can no longer continue safely and will quit.</source>
         <translation>Произошла фатальная ошибка. Кошелек будет закрыт.</translation>
     </message>
 </context>
@@ -748,7 +748,7 @@
         <translation>Изменить адрес отправки</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Whiveyes address.</source>
+        <source>The entered address "%1" is not a valid Whive address.</source>
         <translation>Введенный адрес "%1" не является действительным.</translation>
     </message>
     <message>
@@ -841,8 +841,8 @@
         <translation>Использовать свой каталог данных:</translation>
     </message>
     <message>
-        <source>Whiveyes</source>
-        <translation>Whiveyes</translation>
+        <source>Whive</source>
+        <translation>Whive</translation>
     </message>
     <message>
         <source>At least %1 GB of data will be stored in this directory, and it will grow over time.</source>
@@ -853,7 +853,7 @@
         <translation>Около %1 Гб данных будет сохранено в этом каталоге.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Whiveyes block chain.</source>
+        <source>%1 will download and store a copy of the Whive block chain.</source>
         <translation>%1 будет загружать и сохранять копию цепочки блоков.</translation>
     </message>
     <message>
@@ -884,11 +884,11 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whiveyes network, as detailed below.</source>
-        <translation>Недавние транзакции могут быть еще не видны, поэтому баланс вашего кошелька может быть неправильным. Эта информация будет верна, как только ваш кошелек завершит синхронизацию с сетью whiveyes, как описано ниже.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the whive network, as detailed below.</source>
+        <translation>Недавние транзакции могут быть еще не видны, поэтому баланс вашего кошелька может быть неправильным. Эта информация будет верна, как только ваш кошелек завершит синхронизацию с сетью whive, как описано ниже.</translation>
     </message>
     <message>
-        <source>Attempting to spend whiveyess that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend whives that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Попытка отправить монеты, которые еще не отображаются, не будет принята сетью.</translation>
     </message>
     <message>
@@ -1066,8 +1066,8 @@
         <translation>&amp;Потратить неподтвержденные изменения</translation>
     </message>
     <message>
-        <source>Automatically open the Whiveyes client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открывать порт для клиента Whiveyes на роутере. Работает только если ваш роутер поддерживает UPnP и эта функция включена..</translation>
+        <source>Automatically open the Whive client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматически открывать порт для клиента Whive на роутере. Работает только если ваш роутер поддерживает UPnP и эта функция включена..</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1082,8 +1082,8 @@
         <translation>Разрешить входящие соединения</translation>
     </message>
     <message>
-        <source>Connect to the Whiveyes network through a SOCKS5 proxy.</source>
-        <translation>Подключение к сети Whiveyes через SOCKS5 прокси.</translation>
+        <source>Connect to the Whive network through a SOCKS5 proxy.</source>
+        <translation>Подключение к сети Whive через SOCKS5 прокси.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1118,8 +1118,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Whiveyes network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Подключаться к сети Whiveyes через отдельный SOCKS5 прокси для скрытых сервисов Tor.</translation>
+        <source>Connect to the Whive network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Подключаться к сети Whive через отдельный SOCKS5 прокси для скрытых сервисов Tor.</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1225,8 +1225,8 @@
         <translation>Форма</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whiveyes network after a connection is established, but this process has not completed yet.</source>
-        <translation>Показаная информация уже может быть устаревшей. Ваш кошелек будет автоматически синхронизирован с сетью Whiveyes после установления подключения, но этот процесс еще не завершен.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Whive network after a connection is established, but this process has not completed yet.</source>
+        <translation>Показаная информация уже может быть устаревшей. Ваш кошелек будет автоматически синхронизирован с сетью Whive после установления подключения, но этот процесс еще не завершен.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1300,16 +1300,16 @@
         <translation>Ошибка запроса платежа</translation>
     </message>
     <message>
-        <source>Cannot start whiveyes: click-to-pay handler</source>
-        <translation>Не удается запустить whiveyes: обработчик click-to-pay</translation>
+        <source>Cannot start whive: click-to-pay handler</source>
+        <translation>Не удается запустить whive: обработчик click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation>Обработка URI</translation>
     </message>
     <message>
-        <source>'whiveyes://' is not a valid URI. Use 'whiveyes:' instead.</source>
-        <translation>'whiveyes://' не верный URI. Используйте 'whiveyes:'.</translation>
+        <source>'whive://' is not a valid URI. Use 'whive:' instead.</source>
+        <translation>'whive://' не верный URI. Используйте 'whive:'.</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1320,7 +1320,7 @@
         <translation>Ошибка в адресе платежа %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Whiveyes address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Whive address or malformed URI parameters.</source>
         <translation>Невозможно обработать URI! Причиной этого может быть некорректный адрес или неправильные параметры URI.</translation>
     </message>
     <message>
@@ -1422,8 +1422,8 @@
         <translation>Количество</translation>
     </message>
     <message>
-        <source>Enter a Whiveyes address (e.g. %1)</source>
-        <translation>Введите адрес Whiveyes (например %1)</translation>
+        <source>Enter a Whive address (e.g. %1)</source>
+        <translation>Введите адрес Whive (например %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1870,8 +1870,8 @@
         <translation>&amp;Сообщение:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Whiveyes network.</source>
-        <translation>Необязательное уведомление в дополнение к запросу платежа, которое будет показано при открытии запроса. Примечание: Это сообщение не будет отправлено с платежом через сеть Whiveyes.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Whive network.</source>
+        <translation>Необязательное уведомление в дополнение к запросу платежа, которое будет показано при открытии запроса. Примечание: Это сообщение не будет отправлено с платежом через сеть Whive.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2123,7 +2123,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Припрятать</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whiveyes transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for whive transactions than the network can process.</source>
         <translation>Оплата только минимальной комиссии является приемлемой, пока объем транзакций меньше чем место в блоках. Но имейте в виду, что это может аннулировать транзакцию, если спрос на транзакции станет большим, чем сеть сможет обработать.</translation>
     </message>
     <message>
@@ -2303,7 +2303,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation><numerusform>Ожидаемое начало подтверждения через %n блок(ів).</numerusform><numerusform>Ожидаемое начало подтверждения в течение %n блоков(ов).</numerusform><numerusform>Ожидаемое начало подтверждения в течение %n блоков.</numerusform><numerusform>Ожидаемое начало подтверждения в течение %n блоков.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Whiveyes address</source>
+        <source>Warning: Invalid Whive address</source>
         <translation>Внимание: Недопустима адрес.</translation>
     </message>
     <message>
@@ -2346,8 +2346,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Это обычный платеж.</translation>
     </message>
     <message>
-        <source>The Whiveyes address to send the payment to</source>
-        <translation>Адрес Whiveyes для отправки платежа</translation>
+        <source>The Whive address to send the payment to</source>
+        <translation>Адрес Whive для отправки платежа</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2366,7 +2366,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Удалить эту запись</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less whiveyess than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less whives than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Комиссия будет снята с указанной суммы. К получателю поступит меньше монет, чем было указано в поле количества. Если же получателей несколько-комиссия будет распределена между ними.</translation>
     </message>
     <message>
@@ -2394,8 +2394,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Введите метку для данного адреса для добавления ее в список использованных адресов</translation>
     </message>
     <message>
-        <source>A message that was attached to the whiveyes: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Whiveyes network.</source>
-        <translation>Сообщение, добавленное в whiveyes: URI и сохраненное вместе с транзакцией для справки. Примечание: Это сообщение не будет отправлено в сеть Whiveyes.</translation>
+        <source>A message that was attached to the whive: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Whive network.</source>
+        <translation>Сообщение, добавленное в whive: URI и сохраненное вместе с транзакцией для справки. Примечание: Это сообщение не будет отправлено в сеть Whive.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2439,12 +2439,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>&amp;Подписать сообщение</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive whiveyess sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive whives sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Вы можете подписывать сообщения/соглашения своими адресами, чтобы доказать возможность получения монет, будут направлены на них. Остерегайтесь подписывать что нечеткое или неожиданное, потому с помощью фишинг-атаки вас могут попытаться ввести в заблуждение для получения вашей подписи под чужими словами. Подписывайте только четкие утверждения, с которыми вы полностью согласны.</translation>
     </message>
     <message>
-        <source>The Whiveyes address to sign the message with</source>
-        <translation>Адрес Whiveyes для подписи этого сообщения</translation>
+        <source>The Whive address to sign the message with</source>
+        <translation>Адрес Whive для подписи этого сообщения</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2475,7 +2475,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Копировать текущую сигнатуру к системному буферу обмена</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Whiveyes address</source>
+        <source>Sign the message to prove you own this Whive address</source>
         <translation>Подпишите сообщение чтобы доказать, что вы являетесь владельцем этого адреса</translation>
     </message>
     <message>
@@ -2499,12 +2499,12 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Введите ниже адрес получателя, сообщение (убедитесь, что вы точно скопировали символы завершения строки, символы табуляции, пробелы и т. п) и подпись для проверки сообщения. Убедитесь, что в подпись не было добавлено лишних символов: это поможет избежать атак типа «человек посередине». Заметьте, что это лишь подтверждает возможность получения транзакций подписчиком, но не в состоянии подтвердить источник ни одной транзакции!</translation>
     </message>
     <message>
-        <source>The Whiveyes address the message was signed with</source>
-        <translation>Адрес Whiveyes, которым было подписано это сообщение</translation>
+        <source>The Whive address the message was signed with</source>
+        <translation>Адрес Whive, которым было подписано это сообщение</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Whiveyes address</source>
-        <translation>Проверьте сообщение для уверенности, что оно подписано указанному Whiveyes-адресу</translation>
+        <source>Verify the message to ensure it was signed with the specified Whive address</source>
+        <translation>Проверьте сообщение для уверенности, что оно подписано указанному Whive-адресу</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3152,8 +3152,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>Невозможно запустить HTTP-сервер. Более подробное описание приведено в журнале отладки.</translation>
     </message>
     <message>
-        <source>Whiveyes Core</source>
-        <translation>Whiveyes Core</translation>
+        <source>Whive Core</source>
+        <translation>Whive Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

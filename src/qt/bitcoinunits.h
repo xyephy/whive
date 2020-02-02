@@ -41,7 +41,7 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** Whiveyes unit definitions. Encapsulates parsing and formatting
+/** Whive unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
 class BitcoinUnits: public QAbstractListModel
@@ -51,11 +51,11 @@ class BitcoinUnits: public QAbstractListModel
 public:
     explicit BitcoinUnits(QObject *parent);
 
-    /** Whiveyes units.
+    /** Whive units.
      */
     enum Unit
     {
-        WHV,
+        WHIVE,
         mWHV,
         uWHV,
         SAT

@@ -9,10 +9,10 @@ src/bitcoin-wallet
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
-src/qt/whiveyes-qt
-src/whiveyes-cli
-src/whiveyes-tx
-src/whiveyesd
+src/qt/whive-qt
+src/whive-cli
+src/whive-tx
+src/whived
 
 
 # autoreconf

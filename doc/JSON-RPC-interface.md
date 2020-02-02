@@ -1,7 +1,7 @@
 # JSON-RPC Interface
 
-The headless daemon `whiveyesd` has the JSON-RPC API enabled by default, the GUI
-`whiveyes-qt` has it disabled by default. This can be changed with the `-server`
+The headless daemon `whived` has the JSON-RPC API enabled by default, the GUI
+`whive-qt` has it disabled by default. This can be changed with the `-server`
 option. In the GUI it is possible to execute RPC methods in the Debug Console
 Dialog.
 

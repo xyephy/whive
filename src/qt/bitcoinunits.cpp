@@ -17,7 +17,7 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(WHV);
+    unitlist.append(WHIVE);
     unitlist.append(mWHV);
     unitlist.append(uWHV);
     unitlist.append(SAT);
@@ -28,7 +28,7 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case WHV:
+    case WHIVE:
     case mWHV:
     case uWHV:
     case SAT:
@@ -42,7 +42,7 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case WHV: return QString("WHV");
+    case WHIVE: return QString("WHIVE");
     case mWHV: return QString("mWHV");
     case uWHV: return QString::fromUtf8("µWHV(bits)");
     case SAT: return QString("Satoshi (sat)");
@@ -64,9 +64,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case WHV: return QString("Whiveyes");
-    case mWHV: return QString("Milli-Whiveyes (1 / 1" THIN_SP_UTF8 "000)");
-    case uWHV: return QString("Micro-Whiveyes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case WHIVE: return QString("Whive");
+    case mWHV: return QString("Milli-Whive (1 / 1" THIN_SP_UTF8 "000)");
+    case uWHV: return QString("Micro-Whive (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
@@ -76,7 +76,7 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case WHV: return 100000000;
+    case WHIVE: return 100000000;
     case mWHV: return 100000;
     case uWHV: return 100;
     case SAT: return 1;
@@ -88,7 +88,7 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case WHV: return 8;
+    case WHIVE: return 8;
     case mWHV: return 5;
     case uWHV: return 2;
     case SAT: return 0;

@@ -38,17 +38,17 @@ from the root of the repository.
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see [*Disable-wallet mode*](/doc/build-osx.md#disable-wallet-mode)).
 
-Build Whiveyes Core
+Build Whive Core
 ------------------------
 
-1. Clone the Whiveyes Core source code:
+1. Clone the Whive Core source code:
 
-        git clone https://github.com/whiveyes/whiveyes
-        cd whiveyes
+        git clone https://github.com/whive/whive
+        cd whive
 
-2.  Build Whiveyes Core:
+2.  Build Whive Core:
 
-    Configure and build the headless Whiveyes Core binaries as well as the GUI (if Qt is found).
+    Configure and build the headless Whive Core binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -66,7 +66,7 @@ Build Whiveyes Core
 
 Disable-wallet mode
 --------------------
-When the intention is to run only a P2P node without a wallet, Whiveyes Core may be compiled in
+When the intention is to run only a P2P node without a wallet, Whive Core may be compiled in
 disable-wallet mode with:
 
     ./configure --disable-wallet
@@ -78,26 +78,26 @@ Mining is also possible in disable-wallet mode using the `getblocktemplate` RPC 
 Running
 -------
 
-Whiveyes Core is now available at `./src/whiveyesd`
+Whive Core is now available at `./src/whived`
 
 Before running, you may create an empty configuration file:
 
-    touch "/Users/${USER}/Library/Application Support/Whiveyes/Whiveyes.conf"
+    touch "/Users/${USER}/Library/Application Support/Whive/Whive.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/Whiveyes/Whiveyes.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Whive/Whive.conf"
 
-The first time you run whiveyesd, it will start downloading the blockchain. This process could take many hours, or even days on slower than average systems.
+The first time you run whived, it will start downloading the blockchain. This process could take many hours, or even days on slower than average systems.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/Whiveyes/debug.log
+    tail -f $HOME/Library/Application\ Support/Whive/debug.log
 
 Other commands:
 -------
 
-    ./src/whiveyesd -daemon # Starts the Whiveyes daemon.
-    ./src/whiveyes-cli --help # Outputs a list of command-line options.
-    ./src/whiveyes-cli help # Outputs a list of RPC commands when the daemon is running.
+    ./src/whived -daemon # Starts the Whive daemon.
+    ./src/whive-cli --help # Outputs a list of command-line options.
+    ./src/whive-cli help # Outputs a list of RPC commands when the daemon is running.
 
 Notes
 -----
