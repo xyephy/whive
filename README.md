@@ -2,7 +2,11 @@
 DOWNLOAD
 ========
 
+<<<<<<< HEAD
 * Whive [WHIVE] Source code on github https://github.com/whivecom/Whive-Core
+=======
+* Whive [WHIVE] Source code on github https://github.com/whiveio/Whive-Core
+>>>>>>> 4c05d883a573144e2d446e8f0c9225dde9ea7077
 
 
 Useful links
@@ -10,8 +14,8 @@ Useful links
 
 * Website:        http://whive.io/
 
-* Twitter:        https://twitter.com/whive
-* Telegram   :    http://t.me/whive
+* Twitter:        https://twitter.com/whiveio
+* Telegram   :    http://t.me/whiveio
 
 
 Whive Core integration/staging tree
@@ -20,9 +24,7 @@ Whive Core integration/staging tree
 What is Whive?
 ----------------
 
-Whive, is a peer-to-peer blockchain protocol that extends the Bitcoin Blockchain incentivizing the building of sustainable energy solutions through Trustless Rewards.
-The Whive protocol seeks to empower communities to access latent resources such as; Solar Energy & Irrigated Water through Distributed Applications. 
-We achieve this through a Merge-Mined Auxilary Chain(AuxChain) that extends Bitcoin's distributed trust model through Trustless Reward. 
+Whive, is a blockchain protocol that extends the Bitcoin Blockchain through enabling Trustless Rewards for Engineering Sustainable Solutions. Building on the success of Bitcoin the World's most secure blockchain, the Whive community has set out to build a cryptographically secure blockchain protocol and Auxiliary Chain(AuxChain) that will allow for building applications that trustlessly reward sustainable solutions.
 
 Development tips and tricks
 ----------------------------

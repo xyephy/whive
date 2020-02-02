@@ -56,8 +56,8 @@ public:
     enum Unit
     {
         WHIVE,
-        mWHV,
-        uWHV,
+        mWHIVE,
+        uWHIVE,
         SAT
     };
 
