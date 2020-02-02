@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
-// Copyright (c) 2018-2019 WhiveYes Core developers
+// Copyright (c) 2018-2019 Whive Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -132,13 +132,13 @@ public:
         // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        /* vSeeds.emplace_back("pool.whiveyes.io");   // Official pool node
+        /* vSeeds.emplace_back("pool.whive.io");   // Official pool node
         vSeeds.emplace_back("pool.luckypool.org"); // Luckypool node
-        vSeeds.emplace_back("eu.whiveyes.org");    // EU node
-        vSeeds.emplace_back("us.whiveyes.org");    // USA node
-        vSeeds.emplace_back("asia.whiveyes.org");  // Asia node
-        vSeeds.emplace_back("ru.whiveyes.org");    // Russia node
-        vSeeds.emplace_back("seed.whiveyes.org");  // Cryptomorpher
+        vSeeds.emplace_back("eu.whive.org");    // EU node
+        vSeeds.emplace_back("us.whive.org");    // USA node
+        vSeeds.emplace_back("asia.whive.org");  // Asia node
+        vSeeds.emplace_back("ru.whive.org");    // Russia node
+        vSeeds.emplace_back("seed.whive.org");  // Cryptomorpher
  */
 	    vSeeds.emplace_back("ns1.radi.network");  // radi network
         vSeeds.emplace_back("radi.network");  // radi network
@@ -230,7 +230,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        //vSeeds.emplace_back("testnet.whiveyes.io");
+        //vSeeds.emplace_back("testnet.whive.io");
         //vSeeds.emplace_back("testnet.luckypool.org");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,128);

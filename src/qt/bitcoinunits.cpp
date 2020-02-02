@@ -17,9 +17,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(WHV);
-    unitlist.append(mWHV);
-    unitlist.append(uWHV);
+    unitlist.append(WHIVE);
+    unitlist.append(mWHIVE);
+    unitlist.append(uWHIVE);
     unitlist.append(SAT);
     return unitlist;
 }
@@ -28,9 +28,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case WHV:
-    case mWHV:
-    case uWHV:
+    case WHIVE:
+    case mWHIVE:
+    case uWHIVE:
     case SAT:
         return true;
     default:
@@ -42,9 +42,9 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case WHV: return QString("WHV");
-    case mWHV: return QString("mWHV");
-    case uWHV: return QString::fromUtf8("µWHV(bits)");
+    case WHIVE: return QString("WHIVE");
+    case mWHIVE: return QString("mWHIVE");
+    case uWHIVE: return QString::fromUtf8("µWHIVE(bits)");
     case SAT: return QString("Satoshi (sat)");
     default: return QString("???");
     }
@@ -54,7 +54,7 @@ QString BitcoinUnits::shortName(int unit)
 {
     switch(unit)
     {
-    case uWHV: return QString::fromUtf8("bits");
+    case uWHIVE: return QString::fromUtf8("bits");
     case SAT: return QString("sat");
     default: return longName(unit);
     }
@@ -64,9 +64,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case WHV: return QString("Whiveyes");
-    case mWHV: return QString("Milli-Whiveyes (1 / 1" THIN_SP_UTF8 "000)");
-    case uWHV: return QString("Micro-Whiveyes (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case WHIVE: return QString("Whive");
+    case mWHIVE: return QString("Milli-Whive (1 / 1" THIN_SP_UTF8 "000)");
+    case uWHIVE: return QString("Micro-Whive (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
@@ -76,9 +76,9 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case WHV: return 100000000;
-    case mWHV: return 100000;
-    case uWHV: return 100;
+    case WHIVE: return 100000000;
+    case mWHIVE: return 100000;
+    case uWHIVE: return 100;
     case SAT: return 1;
     default: return 100000000;
     }
@@ -88,9 +88,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case WHV: return 8;
-    case mWHV: return 5;
-    case uWHV: return 2;
+    case WHIVE: return 8;
+    case mWHIVE: return 5;
+    case uWHIVE: return 2;
     case SAT: return 0;
     default: return 0;
     }

@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
-// Copyright (c) 2018-2019 WhiveYes Core developers
+// Copyright (c) 2018-2019 Whive Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -82,8 +82,8 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "whiveyes.conf";
-const char * const BITCOIN_PID_FILENAME = "whiveyesd.pid";
+const char * const BITCOIN_CONF_FILENAME = "whive.conf";
+const char * const BITCOIN_PID_FILENAME = "whived.pid";
 
 ArgsManager gArgs;
 
@@ -711,7 +711,7 @@ fs::path GetDefaultDataDir()
     // Unix: ~/.bitcoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Whiveyes";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Whive";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -721,10 +721,10 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Whiveyes";
+    return pathRet / "Library/Application Support/Whive";
 #else
     // Unix
-    return pathRet / ".whiveyes";
+    return pathRet / ".whive";
 #endif
 #endif
 }

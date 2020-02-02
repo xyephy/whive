@@ -46,9 +46,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Whiveyes"
+#define QAPP_ORG_NAME "Whive"
 #define QAPP_ORG_DOMAIN "whive.io"
-#define QAPP_APP_NAME_DEFAULT "Whiveyes-Qt"
-#define QAPP_APP_NAME_TESTNET "Whiveyes-Qt-testnet"
+#define QAPP_APP_NAME_DEFAULT "Whive-Qt"
+#define QAPP_APP_NAME_TESTNET "Whive-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

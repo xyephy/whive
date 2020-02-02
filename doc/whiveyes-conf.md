@@ -1,6 +1,6 @@
-# `whiveyes.conf` Configuration File
+# `whive.conf` Configuration File
 
-The configuration file is used by `whiveyesd`, `whiveyes-qt` and `whiveyes-cli`.
+The configuration file is used by `whived`, `whive-qt` and `whive-cli`.
 
 All command-line options (except for `-?`, `-help`, `-version` and `-conf`) may be specified in a configuration file, and all configuration file options (except for `includeconf`) may also be specified on the command line. Command-line options override values set in the configuration file and configuration file options override values set in the GUI.
 
@@ -32,6 +32,6 @@ Network specific options can be:
 
 ## Configuration File Path
 
-The configuration file is not automatically created; you can create it using your favorite text editor. By default, the configuration file name is `whiveyes.conf` and it is located in the Whiveyes data directory, but both the Whiveyes data directory and the configuration file path may be changed using the `-datadir` and `-conf` command-line options.
+The configuration file is not automatically created; you can create it using your favorite text editor. By default, the configuration file name is `whive.conf` and it is located in the Whive data directory, but both the Whive data directory and the configuration file path may be changed using the `-datadir` and `-conf` command-line options.
 
-The `includeconf=<file>` option in the `whiveyes.conf` file can be used to include additional configuration files.
+The `includeconf=<file>` option in the `whive.conf` file can be used to include additional configuration files.

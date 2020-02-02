@@ -11,7 +11,7 @@
   </array>
 
   <key>CFBundleIconFile</key>
-  <string>whiveyes.icns</string>
+  <string>whive.icns</string>
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Whiveyes-Qt</string>
+  <string>Whive-Qt</string>
   
   <key>CFBundleName</key>
-  <string>Whiveyes-Qt</string>
+  <string>Whive-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.whiveyes.Whiveyes-Qt</string>
+  <string>org.whive.Whive-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.whiveyes.WhiveyesPayment</string>
+      <string>org.whive.WhivePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>whiveyes</string>
+        <string>whive</string>
       </array>
     </dict>
   </array>
@@ -58,9 +58,9 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.whiveyes.paymentrequest</string>
+      <string>org.whive.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Whiveyes payment request</string>
+      <string>Whive payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -68,7 +68,7 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-whiveyes-payment-request</string>
+        <string>application/x-whive-payment-request</string>
         <key>public.filename-extension</key>
         <array>
           <string>bitcoinpaymentrequest</string>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.whiveyes.paymentrequest</string>
+        <string>org.whive.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

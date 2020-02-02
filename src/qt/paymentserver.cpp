@@ -44,7 +44,7 @@
 #include <QUrlQuery>
 
 const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString BITCOIN_IPC_PREFIX("whiveyes:");
+const QString BITCOIN_IPC_PREFIX("whive:");
 // BIP70 payment protocol messages
 const char* BIP70_MESSAGE_PAYMENTACK = "PaymentACK";
 const char* BIP70_MESSAGE_PAYMENTREQUEST = "PaymentRequest";
@@ -75,7 +75,7 @@ namespace // Anon namespace
 //
 static QString ipcServerName()
 {
-    QString name("WhiveyesQt");
+    QString name("WhiveQt");
 
     // Append a simple hash of the datadir
     // Note that GetDataDir(true) returns a different path
@@ -198,11 +198,11 @@ void PaymentServer::ipcParseCommandLine(interfaces::Node& node, int argc, char* 
         if (arg.startsWith("-"))
             continue;
 
-        // If the whiveyes: URI contains a payment request, we are not able to detect the
+        // If the whive: URI contains a payment request, we are not able to detect the
         // network as that would require fetching and parsing the payment request.
         // That means clicking such an URI which contains a testnet payment request
         // will start a mainnet instance and throw a "wrong network" error.
-        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // whiveyes: URI
+        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // whive: URI
         {
             savedPaymentRequests.append(arg);
 
@@ -298,7 +298,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) :
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     // Install global event filter to catch QFileOpenEvents
-    // on Mac: sent when you click whiveyes: links
+    // on Mac: sent when you click whive: links
     // other OSes: helpful when dealing with payment request files
     if (parent)
         parent->installEventFilter(this);
@@ -315,7 +315,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) :
         if (!uriServer->listen(name)) {
             // constructor is called early in init, so don't use "Q_EMIT message()" here
             QMessageBox::critical(0, tr("Payment request error"),
-                tr("Cannot start whiveyes: click-to-pay handler"));
+                tr("Cannot start whive: click-to-pay handler"));
         }
         else {
             connect(uriServer, SIGNAL(newConnection()), this, SLOT(handleURIConnection()));
@@ -330,7 +330,7 @@ PaymentServer::~PaymentServer()
 }
 
 //
-// OSX-specific way of handling whiveyes: URIs and PaymentRequest mime types.
+// OSX-specific way of handling whive: URIs and PaymentRequest mime types.
 // Also used by paymentservertests.cpp and when opening a payment request file
 // via "Open URI..." menu entry.
 //
@@ -355,7 +355,7 @@ void PaymentServer::initNetManager()
         return;
     delete netManager;
 
-    // netManager is used to fetch paymentrequests given in whiveyes: URIs
+    // netManager is used to fetch paymentrequests given in whive: URIs
     netManager = new QNetworkAccessManager(this);
 
     QNetworkProxy proxy;
@@ -395,12 +395,12 @@ void PaymentServer::handleURIOrFile(const QString& s)
         return;
     }
 
-    if (s.startsWith("whiveyes://", Qt::CaseInsensitive))
+    if (s.startsWith("whive://", Qt::CaseInsensitive))
     {
-        Q_EMIT message(tr("URI handling"), tr("'whiveyes://' is not a valid URI. Use 'whiveyes:' instead."),
+        Q_EMIT message(tr("URI handling"), tr("'whive://' is not a valid URI. Use 'whive:' instead."),
             CClientUIInterface::MSG_ERROR);
     }
-    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // whiveyes: URI
+    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // whive: URI
     {
         QUrlQuery uri((QUrl(s)));
         if (uri.hasQueryItem("r")) // payment request URI
@@ -439,7 +439,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
             }
             else
                 Q_EMIT message(tr("URI handling"),
-                    tr("URI cannot be parsed! This can be caused by an invalid Whiveyes address or malformed URI parameters."),
+                    tr("URI cannot be parsed! This can be caused by an invalid Whive address or malformed URI parameters."),
                     CClientUIInterface::ICON_WARNING);
 
             return;
@@ -551,7 +551,7 @@ bool PaymentServer::processPaymentRequest(const PaymentRequestPlus& request, Sen
             addresses.append(QString::fromStdString(EncodeDestination(dest)));
         }
         else if (!recipient.authenticatedMerchant.isEmpty()) {
-            // Unauthenticated payment requests to custom whiveyes addresses are not supported
+            // Unauthenticated payment requests to custom whive addresses are not supported
             // (there is no good way to tell the user where they are paying in a way they'd
             // have a chance of understanding).
             Q_EMIT message(tr("Payment request rejected"),
@@ -560,7 +560,7 @@ bool PaymentServer::processPaymentRequest(const PaymentRequestPlus& request, Sen
             return false;
         }
 
-        // Whiveyes amounts are stored as (optional) uint64 in the protobuf messages (see paymentrequest.proto),
+        // Whive amounts are stored as (optional) uint64 in the protobuf messages (see paymentrequest.proto),
         // but CAmount is defined as int64_t. Because of that we need to verify that amounts are in a valid range
         // and no overflow has happened.
         if (!verifyAmount(sendingTo.second)) {
