@@ -2,7 +2,7 @@
 DOWNLOAD
 ========
 
-* Whive [WHIVE] Source code on github https://github.com/whivecom/Whive-Core
+* Whive [WHIVE] Source code on github https://github.com/whiveio/Whive-Core
 
 
 Useful links
@@ -10,8 +10,8 @@ Useful links
 
 * Website:        http://whive.io/
 
-* Twitter:        https://twitter.com/whive
-* Telegram   :    http://t.me/whive
+* Twitter:        https://twitter.com/whiveio
+* Telegram   :    http://t.me/whiveio
 
 
 Whive Core integration/staging tree
