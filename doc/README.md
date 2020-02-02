@@ -15,7 +15,7 @@ The following are some helpful notes on how to run Whive Core on your native pla
 
 Unpack the files into a directory and run:
 
-- `bin/cranapay-qt` (GUI) or
+- `bin/whive-qt` (GUI) or
 - `bin/whived` (headless)
 
 ### Windows
