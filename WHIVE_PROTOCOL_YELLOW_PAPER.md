@@ -46,11 +46,11 @@ The Whive Protocol is being built, tested and deployed by a community of individ
 The Whive protocol contains the following specifications:
 
 - It is a Bitcoin Fork and Auxiliary Chain, shall utilize the Bitcoin code base to remain compatible with Bitcoin.
-- The protocol shall have its crypto-token generated through a hybrid Proof-of-Work and Proof-Of-Stake algorithm.
-- The token symbol which is also the name of the wallet is WHIVE.
-- The smallest unit of the token will be 0.00000001 WHIVE.
-- There shall be a maximum supply of ~84,096,000 crypto-tokens over a period of ~136 years. With an additional maximum estimate of ~18,300,000 crypto-tokens being claimed by Bitcoiners from a snapshot of Bitcoins UTXO&#39;s.
-- Distribution of Crypto-tokens shall be through a Split Rewards algorithm is as follows: a maximum of 18,300,000 to Bitcoin Holders and Miners through the snapshot. Another, 58,867,200 to CPU/GPU mining nodes and another 25,228,800 to staking wallets.
+- The protocol shall have its Rewards generated through a hybrid Proof-of-Work and Proof-Of-Stake algorithm.
+- The Reward symbol which is also the name of the wallet is WHIVE.
+- The smallest unit of the Reward will be 0.00000001 WHIVE.
+- There shall be a maximum supply of 100,000,000 Rewards over a period of ~136 years. With ~17,100,000 of the total rewards being claimed by Bitcoiners from a snapshot of Bitcoins UTXO&#39;s.
+- Distribution of the remaining Rewards shall be through a Split Rewards algorithm, where 70% go to CPU/GPU mining nodes and another 30% to staking nodes.
 - The algorithm checks the type of processor and timezone of all nodes attributing a higher weight to nodes with higher daylight threshold and desired CPU optimizations.
 - The algorithm sets aside a 30% percent stake for validators on the network supporting staking nodes.
 - The protocol shall support between 7 - 20 transactions per second on a 1 - 2 MB blocksize or a Segregated Witness (SegWit) enabled block-weight of 4 MB similar to Bitcoin.
@@ -63,15 +63,15 @@ Research and Development of the The Whive protocol began in 2017 with the follow
 
 - **Q2-2017,  Research &amp; Analysis:** We identified a key problem area within the developing countries of lack of way to incentivize engineering of sustainable solutions. Such as  lack of access to energy is a key problem facing most communities in this region.
 
-- **Q3-2018,  Testing GPU &amp; CPU Algorithms(Lyra, Argon and Yespower):** We tested multiple algorithms to determine which are most suitable for the tokenization of Solar Energy capture. We found YesPower to be the most adaptable an easy to secure.
-- **Q1-2019,  Forking Bitcoin Code:** We forked Bitcoin Code as it has most  of the functionality we need for implementing the protocol. We are tweaking the Proof-Of-Work and adding a Proof-of-Stake mechanism to reward engineers across our target markets.
+- **Q3-2018, Testing GPU &amp; CPU Algorithms(Lyra, Argon and Yespower):** We tested multiple algorithms to determine which are most suitable for the tokenization of Solar Energy capture. We found YesPower to be the most adaptable an easy to secure.
+- **Q1-2019, Forking Bitcoin Code:** We forked Bitcoin Code as it has most  of the functionality we need for implementing the protocol. We are tweaking the Proof-Of-Work and adding a Proof-of-Stake mechanism to reward engineers across our target markets.
 - **Q2-2019, Yespower Implementation:**  We adopted YesPower 1.0 to allow only CPU and GPU machines to be rewarded by the Protocol. We want to restrict ASIC based machines from getting these rewards.
 - **Q2-2019, Private Testnet:**  We launched the Private Testnet for internal testing of the protocol.
 - **Q3-2019, DNSSeeder setup /Nodes Setups:  ** We have setup the seeder to allow the Whive Network to be visible on the network.
 - **Q4-2019, Yespower Time &amp; Machine optimization:** We are adding Machine, Time-Zone and Processor optimization to the Yespower Implementation.
 - **Q4-2019, PoS Implementation:**  We are adding staking reward mechanism to reward Hodlers and Noders on the network.
 - **Q1-2020, Public Testnet:**  We will allow the public to test our network before launch.
-- **Q1-2020,  Community Launch Mainnet :**  The Whive Network should go live on 02/02/2020 together with the Yellow Paper for community audit and peer review.
+- **Q1-2020, Community Launch Mainnet :**  The Whive Network should go live on 02/02/2020 together with the Yellow Paper for community audit and peer review.
 - **Q2-2020, Mining pool &amp; Mining software:** We will publish documentation for third-party pools for mining and staking operations.
 - **Q3-2020, Protocol Upgrades:** Protocol features will be updated by Community Contributors with a  major software release, hard fork, and Green Paper publication with peer-reviewed mathematical proofs.
 - **Q4-2020,**** Exchange Listing:** Community exchange listing requests can begin.
@@ -84,7 +84,7 @@ The Whive protocol development and test-net deployment and has been funded  by B
 
 Subsequently, should the network accrue enough value; the Whive protocol will be governed by a community funded Foundation known as the **Whive Foundation** which will be registered in a Blockchain friendly jurisdiction no later than 18 months after accruing the required economic value to setup the Foundation.
 
-The main goal for the Foundation is to manage the claiming of WHIVE tokens allocated to the Bitcoin Network. Additionally, the Foundation will facilitate meetups and engagements with third parties including analysts, developers and other contributors.
+The main goal for the Foundation is to manage the claiming of WHIVE Rewards allocated to the Bitcoin Network. Additionally, the Foundation will facilitate meetups and engagements with third parties including analysts, developers and other contributors.
 
 The Foundation will not have any control of the protocol beyond organizing the aforementioned functions.
 
@@ -92,7 +92,7 @@ The Whive project has a 7 year plan to achieve ubiquity for solving its key chal
 
 As such the Whive Foundation shall have a bounty program that will be used to ensure that yearly milestones are met within the planned time-frame of the project.
 
-The Foundation will be funded by unclaimed WHIVE crypto-tokens after the end of the snapshot period described in the Roadmap.
+The Foundation will be funded by unclaimed WHIVE Rewards after the end of the snapshot period described in the Roadmap.
 
 **Over a 7 year period from main-net launch the funds will be allocated as follows:**
 
@@ -101,7 +101,7 @@ The Foundation will be funded by unclaimed WHIVE crypto-tokens after the end of 
 3. 30% for Founding Contributors which includes the project  Advisors
 4. 10% towards the Community Faucet
 
-The Whive Community (of users) is entitled to responsibly mine, stake, and trade their own crypto-tokens.
+The Whive Community (of users) is entitled to responsibly mine, stake, and trade their own Rewards.
 
 The Whive Community is governed by the Whive Code of Conduct.
 
@@ -111,8 +111,8 @@ The Whive Community is governed by the Whive Code of Conduct.
 2. **Will Whive be open source?** Whive shall be an open-source platform available for improvement through Whive Improvement Proposals(WIPs).
 3. **How much time will research consume?** The experimental phase should be between 6 to 9 months with a private and public test-net rolled out at that time.
 4. **Which problems will the Whive blockchain solve?** The protocol incentivizes Solar Access initially and then also looking at the smart distributed economy(IoT and AI).
-5. **How many WHIVE tokens will be rewarded per block?** Exactly 200.
-6. **How many WHIVE tokens will be there in total?** Approximately ~102,296,000
+5. **How many WHIVE Rewards will be rewarded per block?** Exactly 200.
+6. **How many WHIVE Rewards will be there in total?** 100,000,000
 7. **In which way will they be distributed (Timeframe)?** Approximately 136 years.
 8. **What is the average transaction speed we are aiming for?** 20 transactions per second.
 9. **Will there be a mining pool available?** Yes.
@@ -133,7 +133,7 @@ The Whive Community is governed by the Whive Code of Conduct.
 24. **Will Whive be able to update at any time when needed?** Through soft-forks, hard-forks have to planned under WIPs.
 25. **Will Whive transactions be public or private to the peers?** Public for Transparency!
 26. **When will Whive start trading?** Unknown, hopefully by Q3 2020!
-27. **Why or When do I purchase WHIVE Tokens?** It&#39;s up to you.
+27. **Why or When do I purchase WHIVE Rewards?** It&#39;s up to you.
 28. **Is Whive competing with Bitcoin?** No, It&#39;s an Auxiliary Chain of Bitcoin, hence complimentary!
 29. **Will the price of Whive go up?** We have no idea or control, its up to discovery on the open and free market. We expect the price to be volatile like all other crypto-currencies. Thus, trade at your own risk!
 30. **Is Whive a Security?** No! There has been no raising or pooling of funds to develop the protocol. The project is open-source code launched, operated and maintained by a community of diverse individuals with no central entity in control of code contribution or the distributed network.
@@ -144,23 +144,23 @@ The Whive Community is governed by the Whive Code of Conduct.
 
 Please note this disclaimer may be periodically altered and/or updated. This notice was last updated in January, 2020.
 
-**6.1 Whive Crypto-Token**
+**6.1 Whive Reward**
 
-The Crypto-Token &quot;WHIVE&quot; is mined on the &quot;Whive blockchain&quot; and voluntarily used by members of the Whive platform and community.
+The Reward &quot;WHIVE&quot; is mined on the &quot;Whive blockchain&quot; and voluntarily used by members of the Whive platform and community.
 
 Any miner of the WHIVE acknowledges the technological and economic uncertainty of the project presented in the &quot;Whive Project&quot; Yellow Paper.
 
-Whive contributors and their affiliates shall not be held legally liable in case of failure, nonperformance or non-implementation of the project, as well the Whive token&#39;s loss of a part and/or the totality of its value. Whive contributors&#39;  only obligation is to develop the Whive software for launch by the community.
+Whive contributors and their affiliates shall not be held legally liable in case of failure, nonperformance or non-implementation of the project, as well the Whive Reward&#39;s loss of a part and/or the totality of its value. Whive contributors&#39;  only obligation is to develop the Whive software for launch by the community.
 
 Whive contributors and their affiliates shall also not be held liable for any of the following:
 
 - All direct or indirect financial damages, including but not limited to financial losses that may occur during the course of the operation of the Whive protocol;
-- The loss of control, due to any reason including but not limited to, hacking, unwanted disclosure or technical failure of the users&#39; access credentials, which results in a fraudulent use of the tokens;
+- The loss of control, due to any reason including but not limited to, hacking, unwanted disclosure or technical failure of the users&#39; access credentials, which results in a fraudulent use of the Rewards;
 - The temporary or permanent suspension of the Whive website/platform, whatever the cause, and particularly due to a request from the public authorities, judicial authority or any other third party;
 - Use of the Whive Platform in a manner that is not compliant with the applicable terms and conditions;
 - An error, malfunction, malicious action or violation of the Yellow Paper&#39;s terms by the user, a third party or a service controlled by a third party;
 
-The Crypto-Token &quot;WHIVE&quot; is not a security or a financial instrument within the meaning of the Markets in Financial Instruments Directive (MiFID II) of the European Parliament (2014/65/ EU) or any under any other written law. The token does not grant any financial (income, capital or dividend) or voting rights in _any of the_ contributors entities and/or their affiliates.
+The Reward &quot;WHIVE&quot; is not a security or a financial instrument within the meaning of the Markets in Financial Instruments Directive (MiFID II) of the European Parliament (2014/65/ EU) or any under any other written law. The Reward does not grant any financial (income, capital or dividend) or voting rights in _any of the_ contributors entities and/or their affiliates.
 
 **6.2 Website**
 
