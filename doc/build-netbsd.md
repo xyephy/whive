@@ -22,7 +22,7 @@ libtool
 pkg-config
 python37
 
-git clone https://github.com/whive/whive
+git clone https://github.com/whiveio/whive
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.

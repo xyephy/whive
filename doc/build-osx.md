@@ -43,7 +43,7 @@ Build Whive Core
 
 1. Clone the Whive Core source code:
 
-        git clone https://github.com/whive/whive
+        git clone https://github.com/whiveio/whive
         cd whive
 
 2.  Build Whive Core:

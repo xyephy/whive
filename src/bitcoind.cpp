@@ -36,7 +36,7 @@
  *
  * The software is a community-driven open source project, released under the MIT license.
  *
- * See https://github.com/whive/whive and https://whive.org/ for further information about the project.
+ * See https://github.com/whiveio/whive and https://whive.io/ for further information about the project.
  *
  * \section Navigation
  * Use the buttons <code>Namespaces</code>, <code>Classes</code> or <code>Files</code> at the top of the page to start navigating the code.

@@ -30,7 +30,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 
 Download the source code:
 ```
-git clone https://github.com/whive/whive
+git clone https://github.com/whiveio/whive
 ```
 
 ## Building Whive Core

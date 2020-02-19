@@ -529,7 +529,7 @@ void SetupServerArgs()
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/whive/whive>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/whiveio/whive>";
     const std::string URL_WEBSITE = "<https://whive.io>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2017, COPYRIGHT_YEAR) + " ") + "\n" +

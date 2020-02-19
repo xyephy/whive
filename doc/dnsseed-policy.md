@@ -46,4 +46,4 @@ situations but should be discussed in public in advance.
 
 See also
 ----------
-- [whive-seeder](https://github.com/whive/whive-seeder) is a reference implementation of a DNS seed.
+- [whive-seeder](https://github.com/whiveio/whive-seeder) is a reference implementation of a DNS seed.
