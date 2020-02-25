@@ -56,9 +56,9 @@ The whive.conf file configurations:
 server=1
 daemon=1
 listen=1
+txindex=1
 rpcuser=whive
 rpcpassword=pass
-addnode=68.183.35.192
 ```
 
 ## Configuration File Path
