@@ -170,4 +170,4 @@ However, the information is provided &quot;as is&quot; without warranty, promise
 
 **7. APPENDIX**
 
-Code of Conduct:  [https://github.com/whiveio/whive/blob/master/CODE_OF_CONDUCT.md](https://github.com/whiveio/Whive-Core/blob/optimize/CODE_OF_CONDUCT.md)
+Code of Conduct:  [https://github.com/whiveio/whive/blob/master/CODE_OF_CONDUCT.md](https://github.com/whiveio/whive/blob/optimize/CODE_OF_CONDUCT.md)

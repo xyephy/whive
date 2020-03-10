@@ -23,8 +23,8 @@ packages:
 - "python"
 - "rename"
 remotes:
-- "url": "https://github.com/whiveio/Whive-Core.git"
-  "dir": "Whive-Core"
+- "url": "https://github.com/whiveio/whive.git"
+  "dir": "whive"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
