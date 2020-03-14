@@ -51,9 +51,6 @@ The Whive protocol contains the following specifications:
 - The smallest unit of the Reward will be 0.00000001 WHIVE.
 <<<<<<< HEAD
 - There shall be a maximum supply of 100,000,000 Rewards over a period of ~20 years(by 2040). With ~17,100,000 of the total rewards being claimed by Bitcoiners from a snapshot of Bitcoins UTXO&#39;s.
-=======
-- There shall be a maximum supply of 100,000,000 Rewards over a period of ~136 years. With ~17,100,000 of the total rewards being claimed by Bitcoiners from a snapshot of Bitcoins UTXO&#39;s.
->>>>>>> e3d2cdeae31f23201c4bb7b7ea7f16d4423a74db
 - Distribution of the remaining Rewards shall be through a Split Rewards algorithm, where 70% go to CPU/GPU mining nodes and another 30% to staking nodes.
 - The algorithm checks the type of processor and timezone of all nodes attributing a higher weight to nodes with higher daylight threshold and desired CPU optimizations.
 - The algorithm sets aside a 30% percent stake for validators on the network supporting staking nodes.
@@ -119,9 +116,6 @@ The Whive Community is governed by the Whive Code of Conduct.
 6. **How many WHIVE Rewards will be there in total?** 100,000,000
 <<<<<<< HEAD
 7. **In which way will they be distributed (Timeframe)?** Approximately 20 years.
-=======
-7. **In which way will they be distributed (Timeframe)?** Approximately 136 years.
->>>>>>> e3d2cdeae31f23201c4bb7b7ea7f16d4423a74db
 8. **What is the average transaction speed we are aiming for?** 20 transactions per second.
 9. **Will there be a mining pool available?** Yes.
 10. **Is there any installations needed? (Browser, Phones, CPU)** pool mining software, mobile and desktop wallets available for Linux, Mac OS, Windows.
