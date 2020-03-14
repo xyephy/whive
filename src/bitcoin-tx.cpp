@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
-// Copyright (c) 2018-2019 WhiveYes Core developers
+// Copyright (c) 2018-2019 Whive Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -100,9 +100,9 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs)) {
         // First part of help message is specific to this utility
-        std::string strUsage = PACKAGE_NAME " whiveyes-tx utility version " + FormatFullVersion() + "\n\n" +
-            "Usage:  whiveyes-tx [options] <hex-tx> [commands]  Update hex-encoded whiveyes transaction\n" +
-            "or:     whiveyes-tx [options] -create [commands]   Create hex-encoded whiveyes transaction\n" +
+        std::string strUsage = PACKAGE_NAME " whive-tx utility version " + FormatFullVersion() + "\n\n" +
+            "Usage:  whive-tx [options] <hex-tx> [commands]  Update hex-encoded whive transaction\n" +
+            "or:     whive-tx [options] -create [commands]   Create hex-encoded whive transaction\n" +
             "\n";
         strUsage += gArgs.GetHelpMessage();
 
@@ -789,7 +789,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw std::runtime_error("too few parameters");
 
-            // param: hex-encoded whiveyes transaction
+            // param: hex-encoded whive transaction
             std::string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();

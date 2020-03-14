@@ -811,7 +811,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!IsValidDestination(dest)) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Whiveyes address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Whive address"));
         }
         else // Valid address
         {

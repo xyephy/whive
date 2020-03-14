@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.whiveyes.Whiveyes-Qt";
+        return @"org.whive.Whive-Qt";
     } else {
         return [self __bundleIdentifier];
     }

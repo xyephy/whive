@@ -7,17 +7,17 @@ define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Whiveyes Core]])
-AC_INIT([Whiveyes Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/whiveyes/whiveyes/issues],[whiveyes],[https://whiveyes.org/])
+define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Whive Core]])
+AC_INIT([Whive Core],[_CLIENT_VERSION_MAJOR._CLIENT_VERSION_MINOR._CLIENT_VERSION_REVISION],[https://github.com/whiveio/whive/issues],[whive],[https://whive.io/])
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
-BITCOIN_DAEMON_NAME=whiveyesd
-BITCOIN_GUI_NAME=whiveyes-qt
-BITCOIN_CLI_NAME=whiveyes-cli
-BITCOIN_TX_NAME=whiveyes-tx
+BITCOIN_DAEMON_NAME=whived
+BITCOIN_GUI_NAME=whive-qt
+BITCOIN_CLI_NAME=whive-cli
+BITCOIN_TX_NAME=whive-tx
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])
@@ -889,7 +889,7 @@ define(MINIMUM_REQUIRED_BOOST, 1.47.0)
 dnl Check for boost libs
 AX_BOOST_BASE([MINIMUM_REQUIRED_BOOST])
 if test x$want_boost = xno; then
-    AC_MSG_ERROR([[only libwhiveyesconsensus can be built without boost]])
+    AC_MSG_ERROR([[only libwhiveconsensus can be built without boost]])
 fi
 AX_BOOST_SYSTEM
 AX_BOOST_FILESYSTEM
@@ -1195,7 +1195,7 @@ AC_MSG_CHECKING([whether to build libraries])
 AM_CONDITIONAL([BUILD_BITCOIN_LIBS], [test x$build_bitcoin_libs = xyes])
 if test x$build_bitcoin_libs = xyes; then
   AC_DEFINE(HAVE_CONSENSUS_LIB, 1, [Define this symbol if the consensus lib has been built])
-  AC_CONFIG_FILES([libwhiveyesconsensus.pc:libwhiveyesconsensus.pc.in])
+  AC_CONFIG_FILES([libwhiveconsensus.pc:libwhiveconsensus.pc.in])
 fi
 AC_MSG_RESULT($build_bitcoin_libs)
 

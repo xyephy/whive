@@ -2,7 +2,7 @@
 DOWNLOAD
 ========
 
-* Whive [WHV] Source code on github https://github.com/whivecom/Whive-Core
+* Whive [WHIVE] Source code on github https://github.com/whiveio/whive
 
 
 Useful links
@@ -10,8 +10,8 @@ Useful links
 
 * Website:        http://whive.io/
 
-* Twitter:        https://twitter.com/whive
-* Telegram   :    http://t.me/whive
+* Twitter:        https://twitter.com/whiveio
+* Telegram   :    http://t.me/whiveio
 
 
 Whive Core integration/staging tree
@@ -20,45 +20,62 @@ Whive Core integration/staging tree
 What is Whive?
 ----------------
 
-Whive, is a peer-to-peer blockchain protocol that extends the Bitcoin Blockchain incentivizing the building of sustainable energy solutions through Trustless Rewards.
-The Whive protocol seeks to empower communities to access latent resources such as; Solar Energy & Irrigated Water through Distributed Applications. 
-We achieve this through a Merge-Mined Auxilary Chain(AuxChain) that extends Bitcoin's distributed trust model through Trustless Reward. 
+Whive, is a blockchain protocol that extends the Bitcoin Blockchain through enabling Trustless Rewards for Engineering Sustainable Solutions. Building on the success of Bitcoin the World's most secure blockchain, the Whive community has set out to build a cryptographically secure blockchain protocol and Auxiliary Chain(AuxChain) that will allow for building applications that trustlessly reward sustainable solutions.
 
-Development tips and tricks
-----------------------------
+To Build & Run
+---------------------
 
-**compiling for debugging**
+```bash
+./autogen.sh
+./configure
+make
+make install # optional
+```
 
-Run configure with the --enable-debug option, then make. Or run configure with
-CXXFLAGS="-g -ggdb -O0" or whatever debug flags you need.
+This will build whive-qt as well, if the dependencies are met.
 
-**debug.log**
+Building
+---------------------
+The following are developer notes on how to build Whive Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
-If the code is behaving strangely, take a look in the debug.log file in the data directory;
-error and debugging message are written there.
+- [Dependencies](doc/dependencies.md)
+- [macOS Build Notes](doc/build-osx.md)
+- [Unix Build Notes](doc/build-unix.md)
+- [Windows Build Notes](doc/build-windows.md)
+- [OpenBSD Build Notes](doc/build-openbsd.md)
+- [NetBSD Build Notes](doc/build-netbsd.md)
+- [Gitian Building Guide](doc/gitian-building.md)
 
-The -debug=... command-line option controls debugging; running with just -debug will turn
-on all categories (and give you a very large debug.log file).
+# `whive.conf` Configuration File
 
-The Qt code routes qDebug() output to debug.log under category "qt": run with -debug=qt
-to see it.
+The configuration file is used by `whived`, `whive-qt` and `whive-cli`.
 
-**testnet and regtest modes**
+All command-line options (except for `-?`, `-help`, `-version` and `-conf`) may be specified in a configuration file, and all configuration file options (except for `includeconf`) may also be specified on the command line. Command-line options override values set in the configuration file and configuration file options override values set in the GUI.
+The whive.conf file configurations:
+```bash
+server=1
+daemon=1
+listen=1
+txindex=1
+rpcuser=whive
+rpcpassword=pass
+```
 
-Run with the -testnet option to run with "play whives" on the test network, if you
-are testing multi-machine code that needs to operate across the internet.
+## Configuration File Path
 
-If you are testing something that can run on one machine, run with the -regtest option.
-In regression test mode blocks can be created on-demand; see qa/rpc-tests/ for tests
-that run in -regest mode.
+The configuration file is not automatically created; you can create it using your favorite text editor. By default, the configuration file name is `whive.conf` and it is located in the Whive data directory, but both the Whive data directory and the configuration file path may be changed using the `-datadir` and `-conf` command-line options.
 
-**DEBUG_LOCKORDER**
+The `includeconf=<file>` option in the `whive.conf` file can be used to include additional configuration files.
 
-The Whive Core is a multithreaded application, and deadlocks or other multithreading bugs
-can be very difficult to track down. Compiling with -DDEBUG_LOCKORDER (configure
-CXXFLAGS="-DDEBUG_LOCKORDER -g") inserts run-time checks to keep track of what locks
-are held, and adds warning to the debug.log file if inconsistencies are detected.
+### Default configuration file locations
 
+Operating System | Data Directory | Example Path
+-- | -- | --
+Windows | `%APPDATA%\Whive\` | `C:\Users\username\AppData\Roaming\Whive\whive.conf`
+Linux | `$HOME/.whive/` | `/home/username/.whive/whive.conf`
+macOS | `$HOME/Library/Application Support/Whive/` | `/Users/username/Library/Application Support/Whive/whive.conf`
+
+You can find an example whive.conf file in [share/examples/whive.conf](../share/examples/whive.conf).
 
 License
 -------
@@ -70,7 +87,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/whivecom/Whive-Core/tags) are created
+completely stable. [Tags](https://github.com/whiveio/whive/tags) are created
 regularly to indicate new official, stable release versions of The Whive Core.
 
 Testing
