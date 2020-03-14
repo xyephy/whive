@@ -15,8 +15,6 @@
 
 **This Yellow Paper is a Draft, Subject to Peer Review,  Revisions and Final Publication as a Green Paper**
 
-
-
 **1.About**
 
 Whive, is a blockchain protocol that extends the Bitcoin Blockchain through enabling _Trustless Rewards for Engineering Sustainable Solutions._
@@ -171,9 +169,4 @@ Whive.io and its affiliates have made every attempt to ensure the accuracy and r
 However, the information is provided &quot;as is&quot; without warranty, promised and/or representations of any kind, express or implied. Whive.io and its affiliates does not accept any responsibility or liability for the accuracy, content, completeness, legality, or reliability of the information contained on this website. We cannot and will not guarantee that this website is free from computer viruses or any other destructive malware. In addition, we cannot and will not accept responsibility for the accuracy of third party advertisements on this website.
 
 **7. APPENDIX**
-
-<<<<<<< HEAD
-Code of Conduct:  [https://github.com/whiveio/Whive-Core/blob/optimize/CODE\_OF\_CONDUCT.md](https://github.com/whiveio/Whive-Core/blob/optimize/CODE_OF_CONDUCT.md)
-=======
 Code of Conduct:  [https://github.com/whiveio/whive/blob/master/CODE_OF_CONDUCT.md](https://github.com/whiveio/whive/blob/optimize/CODE_OF_CONDUCT.md)
->>>>>>> e3d2cdeae31f23201c4bb7b7ea7f16d4423a74db
