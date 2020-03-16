@@ -46,7 +46,7 @@ def setup():
 def build():
     global args, workdir
 
-    os.makedirs('bitcoin-binaries/' + args.version, exist_ok=True)
+    os.makedirs('whive-binaries/' + args.version, exist_ok=True)
     print('\nBuilding Dependencies\n')
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
@@ -57,23 +57,23 @@ def build():
 
     if args.linux:
         print('\nCompiling ' + args.version + ' Linux')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'bitcoin='+args.commit, '--url', 'bitcoin='+args.url, '../whive/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'whive='+args.commit, '--url', 'whive='+args.url, '../whive/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../whive/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call('mv build/out/bitcoin-*.tar.gz build/out/src/bitcoin-*.tar.gz ../bitcoin-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/whive-*.tar.gz build/out/src/whive-*.tar.gz ../whive-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'bitcoin='+args.commit, '--url', 'bitcoin='+args.url, '../whive/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'whive='+args.commit, '--url', 'whive='+args.url, '../whive/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../whive/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call('mv build/out/bitcoin-*-win-unsigned.tar.gz inputs/bitcoin-win-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/bitcoin-*.zip build/out/bitcoin-*.exe ../bitcoin-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/whive-*-win-unsigned.tar.gz inputs/whive-win-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/whive-*.zip build/out/whive-*.exe ../whive-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nCompiling ' + args.version + ' MacOS')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'bitcoin='+args.commit, '--url', 'bitcoin='+args.url, '../whive/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'whive='+args.commit, '--url', 'whive='+args.url, '../whive/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../whive/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call('mv build/out/bitcoin-*-osx-unsigned.tar.gz inputs/bitcoin-osx-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/bitcoin-*.tar.gz build/out/bitcoin-*.dmg ../bitcoin-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/whive-*-osx-unsigned.tar.gz inputs/whive-osx-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/whive-*.tar.gz build/out/whive-*.dmg ../whive-binaries/'+args.version, shell=True)
 
     os.chdir(workdir)
 
@@ -94,14 +94,14 @@ def sign():
         print('\nSigning ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../whive/contrib/gitian-descriptors/gitian-win-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../whive/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call('mv build/out/bitcoin-*win64-setup.exe ../bitcoin-binaries/'+args.version, shell=True)
-        subprocess.check_call('mv build/out/bitcoin-*win32-setup.exe ../bitcoin-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/whive-*win64-setup.exe ../whive-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/whive-*win32-setup.exe ../whive-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nSigning ' + args.version + ' MacOS')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../whive/contrib/gitian-descriptors/gitian-osx-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../whive/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call('mv build/out/bitcoin-osx-signed.dmg ../bitcoin-binaries/'+args.version+'/bitcoin-'+args.version+'-osx.dmg', shell=True)
+        subprocess.check_call('mv build/out/whive-osx-signed.dmg ../whive-binaries/'+args.version+'/whive-'+args.version+'-osx.dmg', shell=True)
 
     os.chdir(workdir)
 
