@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/whiveio/whive.git"
+- "url": "https://github.com/xyephy/whive.git"
   "dir": "whive"
 files: []
 script: |
